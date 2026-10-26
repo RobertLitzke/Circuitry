@@ -410,3 +410,45 @@ describe('lesson 8', () => {
     await expect(fig.done).resolves.toBeUndefined();
   });
 });
+
+describe('lesson 9', () => {
+  const click = (el: Element) => el.dispatchEvent(new Event('click', { bubbles: true }));
+  const chip = (node: HTMLElement, text: string) => [...node.querySelectorAll('.chip')].find((c) => c.textContent === text)!;
+  const set = (input: HTMLInputElement, v: number) => {
+    input.value = String(v);
+    input.dispatchEvent(new Event('input'));
+  };
+
+  it('biases the collector halfway with R2 at 10 kΩ', async () => {
+    const fig = FIGURES.bias(ctx(), 'centre');
+    expect(fig.node.textContent).toContain('Set the collector halfway');
+    set(fig.node.querySelector('input')!, 8);
+    expect(fig.node.textContent).toContain('R2 = 10 kΩ');
+    await expect(fig.done).resolves.toBeUndefined();
+  });
+
+  it('gains about Rc over Re, then clips', async () => {
+    const fig = FIGURES.gain(ctx(), 'clip');
+    click(chip(fig.node, 'About 0.47 V each way, upside down'));
+    click([...fig.node.querySelectorAll('button')].find((b) => b.textContent === 'Lock it in')!);
+    expect(fig.node.textContent).toMatch(/a gain of 4\.\d/);
+    set(fig.node.querySelector('input')!, 1);
+    await expect(fig.done).resolves.toBeUndefined();
+    expect(fig.node.textContent).toContain('it clips');
+  });
+
+  it('keeps the wiggle through a follower', async () => {
+    const fig = FIGURES.follower(ctx(), 'both');
+    expect(fig.node.textContent).toMatch(/only 9\d\.\d mV/);
+    click(chip(fig.node, 'Through a follower'));
+    await expect(fig.done).resolves.toBeUndefined();
+  });
+
+  it('sets a gain of eleven with feedback', async () => {
+    const fig = FIGURES['opamp-gain'](ctx(), 'ten');
+    click(chip(fig.node, 'Rf 10 kΩ'));
+    await expect(fig.done).resolves.toBeUndefined();
+    click(chip(fig.node, 'Rf 100 kΩ'));
+    expect(fig.node.textContent).toContain('clips flat');
+  });
+});

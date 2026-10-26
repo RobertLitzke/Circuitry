@@ -709,6 +709,48 @@
       ]
     },
     {
+      "id": "amplifiers",
+      "title": "Amplifier stages",
+      "summary": "Bias, gain and impedance for the stages pedals are built from",
+      "lesson": "amplifiers",
+      "blocks": [
+        {
+          "kind": "table",
+          "columns": [
+            "Stage",
+            "Voltage gain",
+            "In / out impedance"
+          ],
+          "rows": [
+            [
+              "Common emitter",
+              "≈ Rc ÷ Re, inverted",
+              "Medium in, Rc out"
+            ],
+            [
+              "Emitter follower",
+              "≈ 1",
+              "High in, low out"
+            ],
+            [
+              "Op-amp, non-inverting",
+              "1 + Rf ÷ Rg",
+              "Very high in, low out"
+            ],
+            [
+              "Op-amp, inverting",
+              "−Rf ÷ Rin",
+              "Rin in, low out"
+            ]
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "Biasing a common-emitter stage on a single supply: choose the current, put about a tenth of the supply across Re, size Rc to drop about half the supply, and set R1 and R2 so the base sits a diode’s drop above the emitter, with R2’s current several times the base current."
+        }
+      ]
+    },
+    {
       "id": "multimeter",
       "title": "Using a multimeter",
       "summary": "Volts across, amps through, and what each reading tells you",

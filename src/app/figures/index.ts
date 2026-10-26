@@ -1,6 +1,7 @@
 // Every figure a lesson can use, by the id core/lessons.ts names it with.
 
 import type { FigureId } from '../../core/lessons';
+import { biasFigure, bridgedEmitterFigure, followerFigure, gainFigure, opampGainFigure } from './amplifiers';
 import { couplingFigure, decouplingFigure, kickbackFigure, lowpassFigure, rcChargeFigure, shortedCapFigure } from './capacitors';
 import { checkFigure } from './check';
 import { backwardsLedFigure, clipperFigure, diodeIvFigure, ledResistorFigure, rectifierFigure, reverseFigure } from './diodes';
@@ -56,4 +57,9 @@ export const FIGURES: Record<FigureId, FigureFactory> = {
   'mosfet-switch': mosfetSwitchFigure,
   relay: relayFigure,
   'shorted-transistor': shortedTransistorFigure,
+  bias: biasFigure,
+  gain: gainFigure,
+  follower: followerFigure,
+  'opamp-gain': opampGainFigure,
+  'bridged-emitter': bridgedEmitterFigure,
 };

@@ -575,6 +575,78 @@
       ],
       "answer": 0,
       "why": "With 0 V on its base it should be off. A shorted transistor conducts anyway."
+    },
+    {
+      "id": "ce-gain",
+      "lesson": "amplifiers",
+      "question": "Rc = 6.8 kΩ, Re = 680 Ω. The gain is about…",
+      "options": [
+        "10",
+        "4.6",
+        "100"
+      ],
+      "answer": 0,
+      "why": "Rc ÷ Re = 6800 ÷ 680 = 10."
+    },
+    {
+      "id": "invert",
+      "lesson": "amplifiers",
+      "question": "A common-emitter stage’s output, compared with its input, is…",
+      "options": [
+        "upside down",
+        "in step",
+        "a quarter-cycle late"
+      ],
+      "answer": 0,
+      "why": "More base current means more current through Rc, which pulls the collector down."
+    },
+    {
+      "id": "bias-mid",
+      "lesson": "amplifiers",
+      "question": "An amplifier on 12 V clips its bottoms early. Its collector probably sits…",
+      "options": [
+        "too low",
+        "too high",
+        "exactly at 6 V"
+      ],
+      "answer": 0,
+      "why": "Too near 0 V, it runs out of room on the downswing first."
+    },
+    {
+      "id": "follower-use",
+      "lesson": "amplifiers",
+      "question": "Why put an emitter follower after a guitar pickup?",
+      "options": [
+        "So a heavy load doesn’t pull the pickup’s signal down",
+        "To double the signal",
+        "To clip it"
+      ],
+      "answer": 0,
+      "why": "It has a high input impedance, so the pickup sees an easy load, and a low output impedance to drive what follows."
+    },
+    {
+      "id": "noninv",
+      "lesson": "amplifiers",
+      "question": "For a gain of 21 in a non-inverting op-amp stage with Rg = 1 kΩ, Rf should be…",
+      "options": [
+        "20 kΩ",
+        "21 kΩ",
+        "1 kΩ"
+      ],
+      "answer": 0,
+      "why": "1 + Rf ÷ Rg = 21, so Rf = 20 kΩ."
+    },
+    {
+      "id": "ts-diodes",
+      "lesson": "amplifiers",
+      "question": "In a Tube Screamer the clipping diodes sit…",
+      "options": [
+        "in the op-amp’s feedback, across Rf",
+        "from the input to ground",
+        "in series with the battery"
+      ],
+      "answer": 0,
+      "why": "As they start to conduct they lower the gain, so the clipping is soft."
     }
   ]
 }

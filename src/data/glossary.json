@@ -181,9 +181,7 @@
     "term": "Headroom",
     "text": "How far a signal can swing before it clips. Biasing a stage at half its supply gives the most headroom both ways.",
     "lesson": "signals",
-    "also": [
-      "bias"
-    ]
+    "also": []
   },
   "capacitor": {
     "term": "Capacitor",
@@ -347,5 +345,36 @@
       "freewheeling diode",
       "snubber diode"
     ]
+  },
+  "gain": {
+    "term": "Gain",
+    "text": "How many times bigger a stage makes a signal: out ÷ in. A common-emitter stage gives about Rc ÷ Re, inverted.",
+    "lesson": "amplifiers"
+  },
+  "common-emitter": {
+    "term": "Common-emitter stage",
+    "text": "A transistor amplifier with the signal in at the base and out at the collector: gain about Rc ÷ Re, upside down.",
+    "lesson": "amplifiers"
+  },
+  "emitter-follower": {
+    "term": "Emitter follower",
+    "text": "A transistor stage taking its output from the emitter: a gain of about 1, but a high impedance in and a low one out.",
+    "lesson": "amplifiers",
+    "also": [
+      "buffer"
+    ]
+  },
+  "op-amp": {
+    "term": "Op-amp",
+    "text": "An amplifier on a chip with + and − inputs and a huge gain. With negative feedback, two resistors set its gain.",
+    "lesson": "amplifiers",
+    "also": [
+      "operational amplifier"
+    ]
+  },
+  "negative-feedback": {
+    "term": "Negative feedback",
+    "text": "Feeding part of an amplifier’s output back to cancel some of its input, trading a large, sloppy gain for a small, exact one.",
+    "lesson": "amplifiers"
   }
 }

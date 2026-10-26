@@ -4,8 +4,197 @@
   "track": "core",
   "title": "Turning it up",
   "teaches": "Bias, gain set by two resistors, the emitter follower, clipping, negative feedback and the op-amp",
-  "parts": [],
-  "learned": [],
-  "next": "",
-  "journal": []
+  "parts": [
+    {
+      "title": "Halfway on",
+      "blocks": [
+        {
+          "kind": "text",
+          "text": "Lesson 8 drove transistors hard on or off and called the bit in between wasteful. An amplifier lives in the bit in between, on purpose. A transistor half on, with a wiggle on its base, lets through a current that wiggles with it, and a resistor turns that current back into a voltage, bigger than the one that went in."
+        },
+        {
+          "kind": "text",
+          "text": "First it has to be set halfway, with no signal at all. That is **biasing** it, and it is lesson 5's steady voltage again. A divider, R1 and R2, holds the base at a voltage; the emitter sits a diode's drop below; that voltage across Re sets the current; and the same current through Rc sets the collector. Halfway between 0 and 9 V gives the signal the most room either way.[^bias]"
+        },
+        {
+          "kind": "figure",
+          "figure": "bias",
+          "caption": "A common-emitter stage on 9 V, with R1 47 kΩ, Rc 4.7 kΩ and Re 1 kΩ",
+          "task": "Set the collector halfway",
+          "goal": "centre"
+        }
+      ]
+    },
+    {
+      "title": "Gain",
+      "blocks": [
+        {
+          "kind": "text",
+          "text": "Now let a small wiggle into the base through a coupling capacitor, and take the collector's wiggle out through another."
+        },
+        {
+          "kind": "figure",
+          "figure": "gain",
+          "caption": "The stage you biased, with a 1 kHz wiggle in and a scope on the output",
+          "task": "Guess, then turn the input up until it clips",
+          "goal": "clip"
+        }
+      ]
+    },
+    {
+      "title": "Two resistors set it",
+      "blocks": [
+        {
+          "kind": "text",
+          "text": "The emitter follows the base, so the wiggle on the base appears across Re and makes the current wiggle. The same current wiggle runs through Rc, which is bigger, so the voltage wiggle there is bigger: the **gain** is about **Rc ÷ Re**. It comes out upside down, because more current through Rc drops more voltage, pulling the collector down."
+        },
+        {
+          "kind": "text",
+          "text": "Notice what the gain doesn't depend on: β. The transistor's own gain varies from part to part and with temperature, but as long as it is large, two resistors decide what the stage does. Push it too far and the output runs into the supply at the top, or into the transistor saturating at the bottom, and clips. Which side clips first depends on the bias: a Fuzz Face is a two-transistor amplifier biased so that it clips hard and lopsided, on purpose."
+        },
+        {
+          "kind": "key",
+          "title": "Hold on to",
+          "points": [
+            "Bias a stage halfway so the signal can swing both ways.",
+            "A common-emitter stage's gain is about Rc ÷ Re, inverted.",
+            "Too big a signal clips against the supply or the transistor's saturation."
+          ]
+        }
+      ]
+    },
+    {
+      "title": "No gain, but strength",
+      "blocks": [
+        {
+          "kind": "text",
+          "text": "Take the output from the emitter instead and you get an **emitter follower**: the output follows the input, a diode's drop lower, with no voltage gain at all. What it gains is current. The base takes β times less current than the emitter gives, so a weak source can drive a heavy load through one. Lesson 3 called this impedance: a follower has a high input impedance and a low output impedance."
+        },
+        {
+          "kind": "figure",
+          "figure": "follower",
+          "caption": "A pickup-like source behind 10 kΩ, and a 1 kΩ load",
+          "task": "Try it straight in and through a follower",
+          "goal": "both"
+        },
+        {
+          "kind": "text",
+          "text": "Many pedals open with a follower or something like it, a **buffer**, so the guitar's pickup sees an easy load and keeps its treble. Lesson 5's buffer was this idea, made with an op-amp."
+        }
+      ]
+    },
+    {
+      "title": "Feedback",
+      "blocks": [
+        {
+          "kind": "text",
+          "text": "An **op-amp** is an amplifier on a chip, with two inputs, + and −, and an enormous gain from the difference between them: a hundred thousand or more. On its own that is useless; the slightest difference sends it to a rail. Feed part of the output back to the − input, though, and it settles wherever the − input matches the + input. Now a divider of two resistors decides the gain: **1 + Rf ÷ Rg**. This is **negative feedback**, and it trades the op-amp's huge, sloppy gain for a small, exact one."
+        },
+        {
+          "kind": "figure",
+          "figure": "opamp-gain",
+          "caption": "A non-inverting op-amp stage on 9 V, centred on 4.5 V",
+          "task": "Set a gain of about ten",
+          "goal": "ten"
+        },
+        {
+          "kind": "text",
+          "text": "Set Rf high and the output clips flat against what the op-amp can reach. The Tube Screamer does something subtler: it puts two diodes in parallel with Rf. While the signal is small they do nothing and the gain is high; as it grows they start to conduct, and the gain falls. The clipping is soft and rounded, and lesson 7's knee is why."
+        },
+        {
+          "kind": "key",
+          "title": "Hold on to",
+          "points": [
+            "An emitter follower has no voltage gain, but buys current: high impedance in, low out.",
+            "Negative feedback sets an op-amp's gain with two resistors: 1 + Rf ÷ Rg for the non-inverting stage.",
+            "On one battery, op-amps and transistors are biased at half the supply, like everything else."
+          ]
+        }
+      ]
+    },
+    {
+      "title": "A bridged resistor",
+      "blocks": [
+        {
+          "kind": "text",
+          "text": "Every fault so far has had a part that was open, or wrong. Solder can make a fault of its own: a blob across two pads that should be apart. Measure the steady voltages first, as lesson 5 said."
+        },
+        {
+          "kind": "figure",
+          "figure": "bridged-emitter",
+          "caption": "The common-emitter stage, with no signal",
+          "task": "Find the fault and mark it",
+          "goal": "find"
+        }
+      ]
+    },
+    {
+      "title": "Check",
+      "blocks": [
+        {
+          "kind": "figure",
+          "figure": "check",
+          "caption": "Six questions",
+          "task": "Answer them",
+          "options": {
+            "items": [
+              {
+                "question": "A stage has Rc = 10 kΩ and Re = 1 kΩ. Its gain is about…",
+                "options": ["10, inverted", "11", "1"],
+                "answer": 0,
+                "why": "Rc ÷ Re, and upside down."
+              },
+              {
+                "question": "On 9 V, where should an amplifier's collector sit with no signal?",
+                "options": ["About halfway", "Near 9 V", "Near 0 V"],
+                "answer": 0,
+                "why": "Halfway gives the signal the most room to swing both ways before it clips."
+              },
+              {
+                "question": "Why doesn't a common-emitter stage's gain depend much on β?",
+                "options": ["Re in the emitter sets the current swing, whatever β is", "β is always 100", "The coupling capacitors cancel it"],
+                "answer": 0,
+                "why": "The emitter follows the base, so the current through Re is set by the voltage, not by β."
+              },
+              {
+                "question": "An emitter follower's voltage gain is about…",
+                "options": ["1", "β", "Rc ÷ Re"],
+                "answer": 0,
+                "why": "The output follows the input, a diode's drop lower. What it adds is current."
+              },
+              {
+                "question": "A non-inverting op-amp stage has Rf = 47 kΩ and Rg = 1 kΩ. Its gain is…",
+                "options": ["48", "47", "0.02"],
+                "answer": 0,
+                "why": "1 + Rf ÷ Rg = 1 + 47 = 48."
+              },
+              {
+                "question": "An amplifier's collector reads 0.1 V and there is 0 V across Re. Most likely…",
+                "options": ["Re is shorted", "R1 is open", "Rc is open"],
+                "answer": 0,
+                "why": "With nothing in the emitter to hold the current back, the transistor turns hard on. Rc open would leave the collector near 0 V too, but Re would still have its volt or so across it."
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "learned": [
+    "An amplifier is a transistor biased halfway, so a signal can swing both ways.",
+    "A common-emitter stage's gain is about Rc ÷ Re, upside down, and β hardly matters.",
+    "Too big a signal clips; where it clips depends on the bias.",
+    "An emitter follower buys current, not voltage: high impedance in, low out.",
+    "Negative feedback sets an op-amp's gain with two resistors: 1 + Rf ÷ Rg."
+  ],
+  "next": "Next: one circuit as a schematic, a breadboard and a board, and nothing but a meter to find what's wrong with it.",
+  "journal": [],
+  "footnotes": {
+    "bias": {
+      "kind": "technical",
+      "title": "Working the bias out",
+      "text": "With R1 = 47 kΩ and R2 = 10 kΩ, the divider gives 9 × 10 ÷ 57 ≈ 1.6 V at the base. The emitter is about 0.65 V lower, 0.9 V, so Re's 1 kΩ carries 0.9 mA. Rc's 4.7 kΩ drops 4.7 × 0.9 ≈ 4.3 V of that current, leaving the collector at about 4.7 V. Keep R2's current several times the base current, so the transistor's β doesn't move the base.",
+      "glossary": "Bias"
+    }
+  }
 }

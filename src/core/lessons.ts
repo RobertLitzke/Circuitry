@@ -82,6 +82,12 @@ export const FIGURE_IDS = [
   'mosfet-switch',
   'relay',
   'shorted-transistor',
+  // 9 Turning it up
+  'bias',
+  'gain',
+  'follower',
+  'opamp-gain',
+  'bridged-emitter',
 ] as const;
 export type FigureId = (typeof FIGURE_IDS)[number];
 
