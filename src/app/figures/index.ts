@@ -5,6 +5,7 @@ import { checkFigure } from './check';
 import type { FigureFactory } from './kit';
 import { loopFigure } from './loop';
 import { badJointFigure, batteryTimeFigure, fuseFigure, heatFigure, longWireFigure, matchingFigure } from './power';
+import { offsetFigure, sineFigure, stuckBiasFigure } from './signals';
 import { dividerFigure, mysteryBoxFigure, potFigure, sagFigure, wrongValueFigure } from './sources';
 import { brokenWireFigure, cellsFigure, junctionFigure, parallelBulbsFigure, rankingFigure } from './series-parallel';
 import { ivCurveFigure, meterFigure, ohmTargetFigure, seriesBulbsFigure, trueSpeedFigure } from './what-flows';
@@ -33,4 +34,7 @@ export const FIGURES: Record<FigureId, FigureFactory> = {
   fuse: fuseFigure,
   matching: matchingFigure,
   'bad-joint': badJointFigure,
+  sine: sineFigure,
+  offset: offsetFigure,
+  'stuck-bias': stuckBiasFigure,
 };

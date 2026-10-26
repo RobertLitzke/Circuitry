@@ -139,5 +139,50 @@
     "term": "Voltage drop",
     "text": "The volts lost along a wire or across a part: current × resistance.",
     "lesson": "power"
+  },
+  "signal": {
+    "term": "Signal",
+    "text": "A changing voltage that carries something: sound from a pickup, a reading from a sensor. Usually a wiggle riding on a steady voltage.",
+    "lesson": "signals"
+  },
+  "frequency": {
+    "term": "Frequency",
+    "text": "How many times a wave repeats each second, in hertz (Hz). One over the period: a wave that repeats every 5 ms is 200 Hz.",
+    "lesson": "signals",
+    "also": [
+      "hertz",
+      "period"
+    ]
+  },
+  "amplitude": {
+    "term": "Amplitude",
+    "text": "How far a wave swings from its middle to its peak. The peak to peak, bottom to top, is twice the amplitude.",
+    "lesson": "signals",
+    "also": [
+      "peak",
+      "peak to peak"
+    ]
+  },
+  "alternating-current": {
+    "term": "Alternating current",
+    "text": "Current that keeps turning round, as mains and audio signals do: AC. Current that only goes one way is direct current, DC.",
+    "lesson": "signals",
+    "also": [
+      "AC",
+      "DC"
+    ]
+  },
+  "clipping": {
+    "term": "Clipping",
+    "text": "A wave cut flat where it runs past what a stage can reach. By accident it is distortion; on purpose it is a fuzz or overdrive.",
+    "lesson": "signals"
+  },
+  "headroom": {
+    "term": "Headroom",
+    "text": "How far a signal can swing before it clips. Biasing a stage at half its supply gives the most headroom both ways.",
+    "lesson": "signals",
+    "also": [
+      "bias"
+    ]
   }
 }

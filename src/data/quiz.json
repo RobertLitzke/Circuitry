@@ -287,6 +287,78 @@
       ],
       "answer": 0,
       "why": "Under load a bad joint drops volts. With no current it drops nothing, and a meter's tiny test current may not show it."
+    },
+    {
+      "id": "period",
+      "lesson": "signals",
+      "question": "A wave repeats every 10 ms. Its frequency is…",
+      "options": [
+        "100 Hz",
+        "10 Hz",
+        "1000 Hz"
+      ],
+      "answer": 0,
+      "why": "Frequency is one over the period: 1 ÷ 0.01 s = 100 Hz."
+    },
+    {
+      "id": "peak-to-peak",
+      "lesson": "signals",
+      "question": "A signal swings 0.4 V each way around its middle. Its peak to peak is…",
+      "options": [
+        "0.8 V",
+        "0.4 V",
+        "0.2 V"
+      ],
+      "answer": 0,
+      "why": "Bottom to top is twice the amplitude."
+    },
+    {
+      "id": "half-supply",
+      "lesson": "signals",
+      "question": "A stage on 12 V can swing from 1 V to 11 V. Where should its steady voltage sit?",
+      "options": [
+        "6 V",
+        "1 V",
+        "11 V"
+      ],
+      "answer": 0,
+      "why": "Halfway between the limits gives the same headroom up and down."
+    },
+    {
+      "id": "clip",
+      "lesson": "signals",
+      "question": "The bottoms of a wave come out flat, the tops don’t. The steady voltage is…",
+      "options": [
+        "too low",
+        "too high",
+        "just right"
+      ],
+      "answer": 0,
+      "why": "The wave runs into the bottom limit first, so it sits too close to it. Raise the steady voltage."
+    },
+    {
+      "id": "harmonics",
+      "lesson": "signals",
+      "question": "A guitar note at 110 Hz also has quieter sines at…",
+      "options": [
+        "220, 330, 440 Hz and up",
+        "55 Hz",
+        "100 Hz"
+      ],
+      "answer": 0,
+      "why": "Harmonics are at whole multiples of the note; their mix is the instrument’s tone."
+    },
+    {
+      "id": "bias-first",
+      "lesson": "signals",
+      "question": "A pedal passes no sound. Its buffer’s input should sit at 4.5 V and reads 9 V. Most likely…",
+      "options": [
+        "the resistor pulling it down is open",
+        "the guitar is broken",
+        "the battery is flat"
+      ],
+      "answer": 0,
+      "why": "The input has gone to the top: whatever should pull it down to the middle isn’t. A flat battery would make it lower, not 9 V."
     }
   ]
 }

@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { e12, nearestE12, type Part } from '../src/parts';
+import { e12, nearestE12, sourceVolts, type Part } from '../src/parts';
 import { simulate } from '../src/sim';
 import { solve } from '../src/solve';
 
@@ -121,6 +121,13 @@ describe('time', () => {
     const sim = simulate(parts);
     sim.step(0.0025, 10);
     expect(sim.now.v.top).toBeCloseTo(5.5);
+  });
+
+  it('plays a guitar note that peaks at its amplitude and repeats', () => {
+    const g = { id: 'g', kind: 'source' as const, a: 'top', b: 'gnd', volts: 0, wave: { shape: 'guitar' as const, amp: 0.2, hz: 110 } };
+    const vs = Array.from({ length: 400 }, (_, k) => sourceVolts(g, k / 400 / 110));
+    expect(Math.max(...vs.map(Math.abs))).toBeCloseTo(0.2, 2);
+    expect(sourceVolts(g, 0.3 / 110)).toBeCloseTo(sourceVolts(g, 2.3 / 110));
   });
 });
 

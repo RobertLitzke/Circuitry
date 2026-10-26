@@ -12,9 +12,13 @@
 
 export const GROUND = 'gnd';
 
-/** A source's voltage over time, added to its steady `volts`: a sine `amp` volts high at `hz`, or a square wave. */
+/**
+ * A source's voltage over time, added to its steady `volts`: a sine `amp`
+ * volts high at `hz`, a square wave, or a guitar note, which is a sine with
+ * its harmonics on top as a plucked string has, scaled to peak at `amp`.
+ */
 export interface Wave {
-  shape: 'sine' | 'square';
+  shape: 'sine' | 'square' | 'guitar';
   amp: number;
   hz: number;
   /** Where in the cycle it starts, in turns (0 to 1). */
@@ -106,12 +110,21 @@ export function nodesOf(parts: readonly Part[]): string[] {
   return [...seen];
 }
 
+/** A plucked string's harmonics: how strong each multiple of the note is, and where in its cycle it starts. */
+const STRING: [number, number][] = [[1, 0], [0.55, 0.3], [0.35, 0.1], [0.12, 0.6], [0.18, 0.2], [0.08, 0.5]];
+const pluck = (turns: number) => STRING.reduce((sum, [a, ph], k) => sum + a * Math.sin(2 * Math.PI * ((k + 1) * turns + ph)), 0);
+/** The guitar wave's highest point over a cycle, so it can be scaled to peak at its `amp`. */
+const PLUCK_PEAK = Math.max(...Array.from({ length: 720 }, (_, k) => Math.abs(pluck(k / 720))));
+
 /** A source's voltage at time `t` seconds. */
 export function sourceVolts(p: Extract<Part, { kind: 'source' }>, t: number): number {
   const w = p.wave;
   if (!w || !w.amp) return p.volts;
   const turns = w.hz * t + (w.phase ?? 0);
-  const x = w.shape === 'square' ? (turns % 1 < 0.5 ? 1 : -1) : Math.sin(2 * Math.PI * turns);
+  const x =
+    w.shape === 'square' ? (((turns % 1) + 1) % 1 < 0.5 ? 1 : -1)
+    : w.shape === 'guitar' ? pluck(turns) / PLUCK_PEAK
+    : Math.sin(2 * Math.PI * turns);
   return p.volts + w.amp * x;
 }
 

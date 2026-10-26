@@ -59,6 +59,10 @@ export const FIGURE_IDS = [
   'fuse',
   'matching',
   'bad-joint',
+  // 5 Signals
+  'sine',
+  'offset',
+  'stuck-bias',
 ] as const;
 export type FigureId = (typeof FIGURE_IDS)[number];
 

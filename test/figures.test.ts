@@ -231,3 +231,40 @@ describe('lesson 4', () => {
     expect(fig.node.textContent).toContain('50% of the energy');
   });
 });
+
+describe('lesson 5', () => {
+  const click = (el: Element) => el.dispatchEvent(new Event('click', { bubbles: true }));
+  const chip = (node: HTMLElement, text: string) => [...node.querySelectorAll('.chip')].find((c) => c.textContent === text)!;
+  const lock = (node: HTMLElement, text: string) => {
+    click(chip(node, text));
+    click([...node.querySelectorAll('button')].find((b) => b.textContent === 'Lock it in')!);
+  };
+  const set = (input: HTMLInputElement, v: number) => {
+    input.value = String(v);
+    input.dispatchEvent(new Event('input'));
+  };
+
+  it('matches the target sine, then plays a guitar note', async () => {
+    const fig = FIGURES.sine(ctx(), 'match');
+    const [amp, hz] = fig.node.querySelectorAll('input');
+    set(amp, 3);
+    set(hz, 150);
+    await expect(fig.done).resolves.toBeUndefined();
+    click(chip(fig.node, 'A guitar note'));
+    expect(fig.node.textContent).toContain('harmonics');
+  });
+
+  it('clips the bottom off, then fits the biggest swing at half the supply', async () => {
+    const fig = FIGURES.offset(ctx(), 'centre');
+    expect(fig.node.textContent).toContain('Guess first');
+    lock(fig.node, 'The bottom of the wave is cut flat');
+    expect(fig.node.textContent).toContain('bottom of the wave is cut flat');
+    const [steady, swing] = fig.node.querySelectorAll('input');
+    set(steady, 4.5);
+    set(swing, 3);
+    await expect(fig.done).resolves.toBeUndefined();
+    expect(fig.node.querySelectorAll('.star.got').length).toBe(3);
+    set(swing, 3.5);
+    expect(fig.node.textContent).toContain('top and bottom');
+  });
+});

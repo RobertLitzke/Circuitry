@@ -380,6 +380,91 @@
       ]
     },
     {
+      "id": "signals",
+      "title": "Signals and the scope",
+      "summary": "Frequency and period, peak and RMS, and setting a scope",
+      "lesson": "signals",
+      "blocks": [
+        {
+          "kind": "table",
+          "columns": [
+            "Quantity",
+            "Means",
+            "Formula"
+          ],
+          "rows": [
+            [
+              "Period",
+              "Time for one cycle",
+              "T = 1 ÷ f"
+            ],
+            [
+              "Frequency",
+              "Cycles a second, in hertz",
+              "f = 1 ÷ T"
+            ],
+            [
+              "Amplitude",
+              "Middle to peak",
+              "A"
+            ],
+            [
+              "Peak to peak",
+              "Bottom to top",
+              "2 × A"
+            ],
+            [
+              "RMS of a sine",
+              "The steady volts that heat as much",
+              "A × 0.707"
+            ]
+          ]
+        },
+        {
+          "kind": "table",
+          "columns": [
+            "Signal",
+            "Frequency",
+            "Size"
+          ],
+          "rows": [
+            [
+              "Hearing",
+              "20 Hz to 20 kHz",
+              "–"
+            ],
+            [
+              "Guitar, low E string",
+              "82 Hz",
+              "a few hundred mV from a pickup"
+            ],
+            [
+              "Mains",
+              "50 or 60 Hz",
+              "230 V or 120 V RMS"
+            ]
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "On a scope, set the volts a square so the wave fills most of the screen’s height, and the time a square so two or three cycles fit across. Check the steady voltages with a meter before looking at the signal."
+        },
+        {
+          "kind": "terms",
+          "items": [
+            {
+              "term": "Bias",
+              "means": "The steady voltage a signal rides on; half the supply gives the most headroom."
+            },
+            {
+              "term": "Clipping",
+              "means": "A wave cut flat where a stage runs out of room."
+            }
+          ]
+        }
+      ]
+    },
+    {
       "id": "capacitors",
       "title": "Capacitors and time",
       "summary": "RC time constants, common types and where each is used",
