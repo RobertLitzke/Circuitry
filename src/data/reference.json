@@ -106,7 +106,123 @@
       "title": "Schematic symbols",
       "summary": "The symbol for every part the lessons use",
       "lesson": "what-flows",
-      "blocks": []
+      "blocks": [
+        {
+          "kind": "text",
+          "text": "How the lessons draw each part, and what to look for when you meet it in someone else's schematic. In the figures each wire takes the colour of its voltage; here everything is in ink."
+        },
+        {
+          "kind": "text",
+          "text": "A line is a wire, and all of one line is at one voltage. Lines that meet at a T are joined. Many schematics also put a dot on every join, and draw lines that cross without a dot as not touching: when in doubt, look for the dot."
+        },
+        {
+          "kind": "symbols",
+          "items": [
+            {
+              "symbol": "battery",
+              "name": "Battery or supply",
+              "means": "Two plates: the long one is +, the short one −. A battery of several cells is often drawn as several pairs; a bench supply is drawn the same way, with its voltage written beside it.",
+              "lesson": "what-flows"
+            },
+            {
+              "symbol": "resistor",
+              "name": "Resistor",
+              "means": "A zigzag. European schematics draw a plain rectangle instead. The value is written beside it, often with the multiplier as the decimal point: 4k7 is 4.7 kΩ.",
+              "lesson": "what-flows"
+            },
+            {
+              "symbol": "lamp",
+              "name": "Lamp",
+              "means": "A circle with a cross in it: a filament bulb. Its resistance rises as the filament heats, so it is not a fixed resistor.",
+              "lesson": "what-flows"
+            },
+            {
+              "symbol": "switch",
+              "name": "Switch",
+              "means": "A lever hinged at one contact, drawn open. Closed, it is a wire. Tap one in a figure to flip it.",
+              "lesson": "what-flows"
+            },
+            {
+              "symbol": "ground",
+              "name": "Ground",
+              "means": "The 0 V every other voltage is measured from. Every ground symbol in a drawing is joined to every other, so the return wires can be left out.",
+              "lesson": "what-flows"
+            },
+            {
+              "symbol": "pot",
+              "name": "Potentiometer",
+              "means": "A resistor with an arrow touching it partway along: a divider whose tap, the wiper, slides. Three legs, the two ends of the track and the wiper.",
+              "lesson": "sources"
+            },
+            {
+              "symbol": "current",
+              "name": "Current source",
+              "means": "A circle with an arrow: it pushes a set current the way the arrow points, whatever voltage that takes. More a way of thinking about a part than a part you buy.",
+              "lesson": "sources"
+            },
+            {
+              "symbol": "fuse",
+              "name": "Fuse",
+              "means": "A box with the wire running through it. It is a wire until too much current for too long melts it open.",
+              "lesson": "power"
+            },
+            {
+              "symbol": "load",
+              "name": "Steady-power load",
+              "means": "This workbook's box for a load that takes the same watts whatever its voltage, such as a pump, a converter or an inverter. Real schematics draw the part itself or a labelled box.",
+              "lesson": "power"
+            },
+            {
+              "symbol": "signal",
+              "name": "Signal source",
+              "means": "A circle with a wave in it: a voltage that keeps changing, such as a signal generator or a guitar pickup. A square in the circle means a square wave.",
+              "lesson": "signals"
+            },
+            {
+              "symbol": "opamp",
+              "name": "Op-amp",
+              "means": "A triangle pointing the way the signal goes, with a − and a + input and one output. Its power pins are often left off the drawing, but it still needs them.",
+              "lesson": "signals"
+            },
+            {
+              "symbol": "capacitor",
+              "name": "Capacitor",
+              "means": "Two plates with a gap between. An electrolytic, which has a + and a − leg, is drawn with one plate curved or a + by it; fit it the right way round.",
+              "lesson": "capacitors"
+            },
+            {
+              "symbol": "inductor",
+              "name": "Inductor or coil",
+              "means": "A row of humps: a coil of wire. A relay's coil is one, which is why it kicks back when it is switched off.",
+              "lesson": "capacitors"
+            },
+            {
+              "symbol": "diode",
+              "name": "Diode",
+              "means": "An arrow into a bar. Current flows the way the arrow points, from anode to cathode; the bar is the cathode, the end with the stripe on the part.",
+              "lesson": "diodes"
+            },
+            {
+              "symbol": "led",
+              "name": "LED",
+              "means": "A diode with two arrows coming off it, the light. It drops about 2 V (red) to 3 V (blue) and needs a resistor to set its current.",
+              "lesson": "diodes"
+            },
+            {
+              "symbol": "npn",
+              "name": "NPN transistor",
+              "means": "Base on the left, collector at the top, emitter at the bottom with its arrow pointing out. A small current into the base lets a bigger one flow from collector to emitter. A PNP's arrow points in.",
+              "lesson": "switches"
+            },
+            {
+              "symbol": "nmos",
+              "name": "N-channel MOSFET",
+              "means": "Gate on the left, not touching the channel: that gap is the insulation that means the gate draws no steady current. A voltage on the gate turns it on from drain (top) to source (bottom).",
+              "lesson": "switches"
+            }
+          ]
+        }
+      ]
     },
     {
       "id": "series-parallel",

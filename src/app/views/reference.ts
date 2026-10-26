@@ -7,6 +7,7 @@ import type { View } from 'lesson-kit/router';
 import { lesson, LESSONS } from '../../core/lessons';
 import glossary from '../../data/glossary.json';
 import { REFERENCE, type RefBlock, type RefSection } from '../../core/reference';
+import { symbolDrawing } from '../circuit/symbols';
 import { FIGURES } from '../figures';
 import { prose } from '../figures/kit';
 import { getSave } from '../store';
@@ -31,6 +32,18 @@ function block(b: RefBlock, closed: AbortSignal): HTMLElement {
       if (box) box.prepend(caption);
       return el('figure.fig', {}, handle.node, box ? null : el('div.fig-text', {}, caption));
     }
+    case 'symbols':
+      return el('div.symbols', {}, b.items.map((s) => {
+        const from = lesson(s.lesson);
+        return el('div.symbol', {},
+          symbolDrawing(s.symbol, s.name),
+          el('div', {},
+            el('h3', {}, s.name),
+            prose(s.means),
+            from ? el('a.symbol-lesson', { href: `#/lesson/${from.id}` }, `Lesson ${from.n}`) : null,
+          ),
+        );
+      }));
     case 'glossary':
       return glossaryView({
         entries: mergeGlossary(glossaryFromFile(glossary as GlossaryFile), glossaryFromLessons(LESSONS)),

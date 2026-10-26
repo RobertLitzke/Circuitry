@@ -4,6 +4,7 @@
 // lesson is not written yet has no blocks and shows as coming soon.
 
 import type { FigureId } from './lessons';
+import type { SymbolId } from '../app/circuit/symbols';
 import data from '../data/reference.json';
 
 export type RefBlock =
@@ -17,6 +18,8 @@ export type RefBlock =
   | { kind: 'steps'; items: string[] }
   /** A lesson figure, live, with no task. */
   | { kind: 'figure'; figure: FigureId; caption: string }
+  /** Schematic symbols, each drawn as the figures draw it, with what it is and the lesson that brings it in. */
+  | { kind: 'symbols'; items: { symbol: SymbolId; name: string; means: string; lesson: string }[] }
   /** The glossary: data/glossary.json and the lessons' technical notes, A to Z, with a search box. */
   | { kind: 'glossary' };
 

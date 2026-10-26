@@ -21,8 +21,8 @@ import { terminals, type Part } from 'circuit-kit/parts';
 import type { Solution } from 'circuit-kit/solve';
 import { animate, COL, type FigureContext } from '../figures/kit';
 
-type TwoTerminal = Exclude<Part, { kind: 'bjt' | 'mosfet' | 'opamp' }>;
-type ThreeTerminal = Extract<Part, { kind: 'bjt' | 'mosfet' | 'opamp' }>;
+export type TwoTerminal = Exclude<Part, { kind: 'bjt' | 'mosfet' | 'opamp' }>;
+export type ThreeTerminal = Extract<Part, { kind: 'bjt' | 'mosfet' | 'opamp' }>;
 
 /** A two-terminal part and where it is drawn: from its a terminal along `path` to its b terminal. Symbols sit on the first segment. */
 export interface Placed {
@@ -81,7 +81,7 @@ export interface Schematic {
 const SPACING = 16;
 const PACE = 40;
 /** How long a symbol is along its segment. */
-const BODY = 36;
+export const BODY = 36;
 const COVERED = '#9aa3ad';
 
 let gradients = 0;
@@ -124,7 +124,7 @@ export function pointAt(path: P[], d: number): P {
 const ln = (x1: number, y1: number, x2: number, y2: number, stroke: string, w = 2.2) => svg('line', { x1, y1, x2, y2, stroke, 'stroke-width': w });
 
 /** The symbol for a two-terminal part, drawn along +x from 0 to BODY, centred on y = 0. */
-function symbol(part: TwoTerminal, stroke: string): SVGElement {
+export function symbol(part: TwoTerminal, stroke: string): SVGElement {
   const w = 2.2;
   const m = BODY / 2;
   switch (part.kind) {
@@ -233,7 +233,7 @@ export function pinOf(m: Pick<Mounted, 'part' | 'at' | 'flip'>, term: string): P
 }
 
 /** The body of a transistor or op-amp, centred on 0, 0, unmirrored. Each pin's stub is marked with its terminal, to be coloured by its node. */
-function body(part: ThreeTerminal): SVGElement {
+export function body(part: ThreeTerminal): SVGElement {
   const w = 2.2;
   const stroke = (_term: string) => COL.ink;
   const pin = <E extends SVGElement>(e: E, term: string): E => (e.setAttribute('data-pin', term), e);
@@ -282,7 +282,7 @@ function body(part: ThreeTerminal): SVGElement {
   }
 }
 
-function groundSymbol([x, y]: P): SVGElement {
+export function groundSymbol([x, y]: P): SVGElement {
   return svg('g', { stroke: COL.ink, 'stroke-width': 1.8, 'stroke-linecap': 'round' },
     svg('line', { x1: x, y1: y, x2: x, y2: y + 8 }),
     svg('line', { x1: x - 10, y1: y + 8, x2: x + 10, y2: y + 8 }),

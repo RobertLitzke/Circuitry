@@ -166,6 +166,12 @@ h2 { font-weight: 600; letter-spacing: 0.02em; text-transform: none; font-size: 
 .ref-table th { text-align: left; font-weight: 800; border-bottom: 2px solid var(--panel-2); padding: 6px 6px 6px 0; }
 .ref-table td { border-bottom: 1px solid var(--panel-2); padding: 6px 6px 6px 0; vertical-align: top; }
 .ref-table td:first-child { font-weight: 700; }
+.symbols { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 10px 16px; margin: 12px 0; }
+.symbol { display: flex; gap: 10px; align-items: flex-start; padding: 8px 0; border-top: 1px solid var(--panel-2); }
+.symbol svg { flex: none; }
+.symbol h3 { margin: 2px 0 2px; font-size: 0.98rem; }
+.symbol p { margin: 0 0 4px; font-size: 0.88rem; }
+.symbol-lesson { font-size: 0.8rem; font-weight: 700; }
 .table-wrap { overflow-x: auto; }
 .steps { padding-left: 1.3em; }
 .steps li { margin-bottom: 6px; }

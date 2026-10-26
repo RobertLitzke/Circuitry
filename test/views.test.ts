@@ -40,6 +40,7 @@ describe('views', () => {
     const stop = referenceView(root, nav());
     expect(root.querySelectorAll('.ref-section').length).toBeGreaterThan(5);
     expect(root.querySelector('#ref-ohms-law svg')).not.toBeNull();
+    expect(root.querySelectorAll('#ref-symbols .symbol svg').length).toBeGreaterThan(10);
     // The glossary has the hand-written terms and the lessons' technical notes.
     const terms = [...root.querySelectorAll('.gl-term')].map((t) => t.textContent);
     expect(terms).toContain('Voltage');
