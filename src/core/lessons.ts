@@ -34,6 +34,12 @@ import offGrid from '../data/lessons/off-grid.json';
 export const FIGURE_IDS = [
   'loop',
   'check',
+  // 1 What is actually flowing
+  'series-bulbs',
+  'true-speed',
+  'meter',
+  'ohm-target',
+  'iv-curve',
 ] as const;
 export type FigureId = (typeof FIGURE_IDS)[number];
 

@@ -61,6 +61,30 @@
               "P = V² ÷ R"
             ]
           ]
+        },
+        {
+          "kind": "text",
+          "text": "Run it backwards to choose a part, then fit the nearest standard value. 9 V and 20 mA want 450 Ω; the E12 series gives 470 Ω."
+        },
+        {
+          "kind": "table",
+          "columns": [
+            "Series",
+            "Values a decade",
+            "Values"
+          ],
+          "rows": [
+            [
+              "E12",
+              "12",
+              "10 12 15 18 22 27 33 39 47 56 68 82"
+            ],
+            [
+              "E24",
+              "24",
+              "E12 plus 11 13 16 20 24 30 36 43 51 62 75 91"
+            ]
+          ]
         }
       ]
     },
@@ -109,9 +133,29 @@
     {
       "id": "multimeter",
       "title": "Using a multimeter",
-      "summary": "Volts, continuity, resistance and the diode test, and what each reading tells you",
+      "summary": "Volts across, amps through, and what each reading tells you",
       "lesson": "what-flows",
-      "blocks": []
+      "blocks": [
+        {
+          "kind": "text",
+          "text": "Volts are measured **across**: one probe on each side of the part, circuit left alone. Amps are measured **through**: break the loop and put the meter in the gap."
+        },
+        {
+          "kind": "steps",
+          "items": [
+            "Volts: dial to V (DC is the straight-line symbol), black lead in COM, red in V.",
+            "Touch black to ground or one side of the part, red to the other. A minus sign means red is lower than black.",
+            "Amps: dial to A or mA, black in COM, red moved to the A or mA socket.",
+            "Break the loop (lift a wire, open a link) and put the probes in the gap, so the current goes through the meter.",
+            "Move the red lead back to V when you're done. A meter left in amps and put across a battery shorts it and blows its fuse."
+          ]
+        },
+        {
+          "kind": "figure",
+          "figure": "meter",
+          "caption": "Volts across, amps through. Tap a wire to place a probe or cut the loop."
+        }
+      ]
     },
     {
       "id": "solder-faults",

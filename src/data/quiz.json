@@ -1,3 +1,76 @@
 {
-  "cards": []
+  "cards": [
+    {
+      "id": "loop-current",
+      "lesson": "what-flows",
+      "question": "A loop has a battery and three bulbs in series. Where is the current smallest?",
+      "options": [
+        "Nowhere: it's the same all the way round",
+        "After the last bulb",
+        "Before the first bulb"
+      ],
+      "answer": 0,
+      "why": "In a single loop the current is the same at every point. The bulbs take energy from it, not current."
+    },
+    {
+      "id": "drift",
+      "lesson": "what-flows",
+      "question": "Why does a lamp light the instant you close the switch, though electrons drift less than a millimetre a second?",
+      "options": [
+        "The wire is already full of charge, and the push travels almost at the speed of light",
+        "The battery fires electrons down the wire very fast",
+        "The lamp stores charge from last time"
+      ],
+      "answer": 0,
+      "why": "Every electron in the loop starts drifting at once, because the push travels round the whole loop almost instantly."
+    },
+    {
+      "id": "volts-across",
+      "lesson": "what-flows",
+      "question": "What does \"5 V at this point\" mean on a schematic?",
+      "options": [
+        "5 V above ground",
+        "5 V of charge stored there",
+        "5 V flowing past"
+      ],
+      "answer": 0,
+      "why": "Voltage is always between two points. A voltage given at one point is measured from ground."
+    },
+    {
+      "id": "amps-through",
+      "lesson": "what-flows",
+      "question": "Your meter is in amps mode and you touch the probes across a lamp. What happens?",
+      "options": [
+        "It shorts the lamp out and probably blows the meter's fuse",
+        "It reads the lamp's current",
+        "It reads the lamp's voltage"
+      ],
+      "answer": 0,
+      "why": "In amps mode a meter is nearly a plain wire. To read current it has to go in a break in the loop."
+    },
+    {
+      "id": "ohm-design",
+      "lesson": "what-flows",
+      "question": "You need 12 V to push 25 mA through a resistor. Which do you fit?",
+      "options": [
+        "470 Ω",
+        "220 Ω",
+        "4.7 kΩ"
+      ],
+      "answer": 0,
+      "why": "R = V ÷ I = 12 ÷ 0.025 = 480 Ω, and 470 Ω is the nearest standard value."
+    },
+    {
+      "id": "lamp-cold",
+      "lesson": "what-flows",
+      "question": "Why do filament bulbs usually fail just as they're switched on?",
+      "options": [
+        "A cold filament has low resistance, so it takes a surge of current",
+        "The voltage is higher at switch-on",
+        "The glass is cold"
+      ],
+      "answer": 0,
+      "why": "Cold tungsten resists about a tenth as much as hot, so for an instant the current is several times normal."
+    }
+  ]
 }

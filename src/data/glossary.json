@@ -36,5 +36,25 @@
     "term": "Short circuit",
     "text": "A path with almost no resistance where none was meant to be, such as a solder bridge. Current is limited only by the source and the wires, and things get hot.",
     "lesson": "what-flows"
+  },
+  "multimeter": {
+    "term": "Multimeter",
+    "text": "A meter for volts, amps and ohms. Volts are measured across a part; amps through a break in the loop, with the meter in it.",
+    "lesson": "what-flows",
+    "also": [
+      "meter",
+      "voltmeter",
+      "ammeter"
+    ]
+  },
+  "ohms-law": {
+    "term": "Ohm's law",
+    "text": "For a resistor, the current is the voltage divided by the resistance: I = V ÷ R. Lamps, diodes and transistors don't keep it.",
+    "lesson": "what-flows"
+  },
+  "filament": {
+    "term": "Filament",
+    "text": "The thin tungsten wire in a lamp, which glows when hot. Its resistance rises about tenfold from cold to lit.",
+    "lesson": "what-flows"
   }
 }

@@ -4,8 +4,285 @@
   "track": "core",
   "title": "What is actually flowing",
   "teaches": "Current, voltage and resistance, how to measure them with a meter, and Ohm's law, which a lamp breaks",
-  "parts": [],
-  "learned": [],
-  "next": "",
-  "journal": []
+  "parts": [
+    {
+      "title": "Round and round",
+      "blocks": [
+        {
+          "kind": "text",
+          "text": "Every circuit in this workbook is live. Wires are coloured by their [[voltage|voltage]], from the deep blue of the battery's − end up to orange, and yellow dots move along them with the [[current|current]]. Before you see either, though, you'll often be asked to guess. A guess you get wrong in front of a working circuit teaches more than one you're told."
+        },
+        {
+          "kind": "text",
+          "text": "Here is a battery and two identical bulbs in a line, one after the other. The current leaves the battery's + end, goes through bulb A, then bulb B, and back into the − end. The bulbs are covered up for now."
+        },
+        {
+          "kind": "figure",
+          "figure": "series-bulbs",
+          "caption": "A 9 V battery and two bulbs in series",
+          "task": "Guess which bulb glows brighter, then lock it in",
+          "goal": "reveal"
+        }
+      ]
+    },
+    {
+      "title": "Not used up",
+      "blocks": [
+        {
+          "kind": "text",
+          "text": "The current is the same everywhere in a single loop. It isn't used up by the first bulb, and none is left over at the end: every bit of charge that leaves the + end comes back into the − end. What the bulbs take is **energy**, which they turn into light and heat, not the current that carries it.[^conventional]"
+        },
+        {
+          "kind": "text",
+          "text": "Change bulb B and bulb A changes too, at once. The loop is one thing. Nothing in it decides on its own, first come first served; the current all the way round is set by everything in the loop together."
+        },
+        {
+          "kind": "key",
+          "title": "Hold on to",
+          "points": [
+            "In a single loop the [[current|current]] is the same at every point. Parts use energy, not current.",
+            "Change any part of a loop and the current changes everywhere in it."
+          ]
+        }
+      ]
+    },
+    {
+      "title": "The wire is already full",
+      "blocks": [
+        {
+          "kind": "text",
+          "text": "Copper is full of loose electrons, about 85 billion billion billion in every cubic metre, all of them there before you connect anything. A battery doesn't pour new charge into an empty wire. It pushes on the charge that is already there, all the way round the loop at once."
+        },
+        {
+          "kind": "figure",
+          "figure": "true-speed",
+          "caption": "A lamp and a switch. The dots can move at the electrons' true pace.",
+          "task": "Close the switch, then show the true pace",
+          "goal": "slow"
+        },
+        {
+          "kind": "text",
+          "text": "So there are two speeds. The electrons themselves drift absurdly slowly, a fraction of a millimetre a second.[^drift] The push travels at a large fraction of the speed of light, so the whole loop starts moving together. Think of a hose that is already full of water: turn the tap and water comes out of the far end at once, though no drop has travelled the length of the hose.[^fields]"
+        },
+        {
+          "kind": "key",
+          "title": "Hold on to",
+          "points": [
+            "The charge is in the wire before the battery is connected. The battery pushes it all round at once.",
+            "Electrons drift slowly; the push, and so the energy, arrives almost instantly."
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Volts are a difference",
+      "blocks": [
+        {
+          "kind": "text",
+          "text": "If current is how much charge goes past each second, [[voltage|voltage]] is how hard it is pushed. It is a difference in electrical pressure between two points, and it always takes two points: there is no voltage *at* a wire on its own. When a schematic says a point is at 5 V, it means 5 V above **ground**, the point everyone has agreed to measure from. Here ground is the battery's − end, the deep blue."
+        },
+        {
+          "kind": "text",
+          "text": "A multimeter measures it with two probes. Red goes on one point, black on the other, and the meter shows how much higher red is than black. The circuit is left exactly as it is: you just touch two points."
+        },
+        {
+          "kind": "figure",
+          "figure": "meter",
+          "caption": "A battery, a resistor and a lamp, with a multimeter",
+          "task": "Measure the voltage across the resistor",
+          "goal": "volts"
+        },
+        {
+          "kind": "text",
+          "text": "Follow the colours round. From the + end the wire is orange, all one colour, because a plain wire drops almost nothing. Across the resistor the colour slides down: that slide is the voltage across it. The lamp takes the rest, and the wire back to the battery is blue. Add up the drops round the loop and you get the battery's 9 V back."
+        }
+      ]
+    },
+    {
+      "title": "Counting the current",
+      "blocks": [
+        {
+          "kind": "text",
+          "text": "Current is the other way round. To count the charge going past, the meter has to be *in* the loop, so the current goes through it: you break the circuit and put the meter in the gap. In amps mode a meter is almost a plain wire, which is exactly what you want in the gap and exactly what you don't want anywhere else."
+        },
+        {
+          "kind": "figure",
+          "figure": "meter",
+          "caption": "The same circuit. Switch the meter to amps.",
+          "task": "Put the meter in the loop and read the current",
+          "goal": "amps"
+        },
+        {
+          "kind": "key",
+          "title": "On a real bench",
+          "points": [
+            "Most meters need the red lead moved to a separate socket, marked A or mA, to measure current. Move it back afterwards: a meter left in amps and put across a battery shorts it.",
+            "If the meter reads nothing in amps mode, check its fuse. Blowing it is the most common way to find out where the probes go."
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Choosing a resistor",
+      "blocks": [
+        {
+          "kind": "text",
+          "text": "A [[resistor|resistance]] sets how much current a voltage can push through it. For a resistor the relation is simple: the current is the voltage divided by the resistance. **I = V ÷ R**, with I in amps, V in volts and R in ohms. Twice the voltage, twice the current. This is Ohm's law, and you can run it backwards to choose a part: to let 9 V push 20 mA, you want 9 ÷ 0.02 = 450 Ω."
+        },
+        {
+          "kind": "figure",
+          "figure": "ohm-target",
+          "caption": "A 9 V battery and one resistor",
+          "task": "Pick a resistor that lets 20 mA flow, within 5%",
+          "goal": "hit"
+        }
+      ]
+    },
+    {
+      "title": "Where Ohm's law stops",
+      "blocks": [
+        {
+          "kind": "text",
+          "text": "Nobody sells a 450 Ω resistor. Resistors come in a series of standard values, twelve to each power of ten in the common E12 series: 100, 120, 150, 180, 220, 270, 330, 390, 470, 560, 680, 820, then 1 k and round again. So when a circuit has a 470 Ω in it, the designer probably worked out something near 450 and took the nearest one you can buy.[^e12]"
+        },
+        {
+          "kind": "text",
+          "text": "Ohm's law isn't a law of nature, though. It's a property of some materials, and only roughly. A curve tracer shows it best: it sweeps the voltage across a part and plots the current at each step."
+        },
+        {
+          "kind": "figure",
+          "figure": "iv-curve",
+          "caption": "A curve tracer: a supply you can turn, and a plot of the current it pushes",
+          "task": "Trace the resistor, then guess and trace the lamp",
+          "goal": "lamp"
+        }
+      ]
+    },
+    {
+      "title": "Hot and cold",
+      "blocks": [
+        {
+          "kind": "text",
+          "text": "The lamp's line bends over. A cold filament has about a tenth of the resistance it has when lit, and its resistance climbs as it heats. That's also why bulbs tend to fail at the moment they're switched on: for an instant the cold filament takes several times its normal current. Parts with curved lines like this one are everywhere in electronics. Diodes, transistors and solar cells all have them, and so does the sound of a fuzz pedal."
+        },
+        {
+          "kind": "key",
+          "title": "Hold on to",
+          "points": [
+            "Voltage is measured across, between two points. Current is measured through, with the meter in the loop.",
+            "For a resistor, I = V ÷ R. Run it backwards to choose one, then take the nearest standard value.",
+            "Not every part keeps Ohm's law. A lamp's resistance rises as it heats."
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Check",
+      "blocks": [
+        {
+          "kind": "figure",
+          "figure": "check",
+          "caption": "Six questions",
+          "task": "Answer them",
+          "options": {
+            "items": [
+              {
+                "question": "Two identical bulbs are in series with a battery. How does the current through the second compare with the first?",
+                "options": [
+                  "The same",
+                  "Less: the first used some",
+                  "More: it builds up"
+                ],
+                "answer": 0,
+                "why": "In a single loop the current is the same everywhere. The bulbs take energy from it, not current."
+              },
+              {
+                "question": "You close a switch on a long loop of wire with a lamp at the far end. When does the lamp light?",
+                "options": [
+                  "Almost at once",
+                  "Once the first electrons from the battery reach it",
+                  "After a few seconds"
+                ],
+                "answer": 0,
+                "why": "The wire is already full of charge. The push travels at a large fraction of the speed of light, so every electron in the loop starts drifting together."
+              },
+              {
+                "question": "Where do the probes go to measure the voltage across a resistor?",
+                "options": [
+                  "One on each end of the resistor",
+                  "Both on the same wire",
+                  "In a gap cut in the loop"
+                ],
+                "answer": 0,
+                "why": "Voltage is a difference between two points. Measure across the part, with the circuit left as it is."
+              },
+              {
+                "question": "Where does a meter go to measure the current in a loop?",
+                "options": [
+                  "In a break in the loop, so the current goes through it",
+                  "Across the lamp",
+                  "Across the battery"
+                ],
+                "answer": 0,
+                "why": "In amps mode the meter is nearly a plain wire. In the loop it counts the current; across a part it shorts it out and usually blows its own fuse."
+              },
+              {
+                "question": "9 V across 450 Ω pushes how much current?",
+                "options": [
+                  "20 mA",
+                  "50 mA",
+                  "4 A"
+                ],
+                "answer": 0,
+                "why": "I = V ÷ R = 9 ÷ 450 = 0.02 A, which is 20 mA."
+              },
+              {
+                "question": "Compared with when it is lit, a lamp's filament at a low voltage has…",
+                "options": [
+                  "less resistance",
+                  "the same resistance",
+                  "more resistance"
+                ],
+                "answer": 0,
+                "why": "Cold tungsten resists less, so the lamp's current line bends over as it heats. A lamp doesn't keep Ohm's law."
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "learned": [
+    "In a single loop the current is the same everywhere; parts use energy, not current.",
+    "The wire is full of charge before the battery is connected; the push arrives almost at once.",
+    "Voltage is measured across two points; current through a break in the loop.",
+    "I = V ÷ R for a resistor, and the nearest standard value is what you fit.",
+    "A lamp's resistance rises as it heats, so it doesn't keep Ohm's law."
+  ],
+  "next": "Next: bulbs side by side, and what a parallel circuit asks of a battery.",
+  "journal": [],
+  "footnotes": {
+    "conventional": {
+      "kind": "technical",
+      "title": "Conventional current",
+      "text": "The dots move from + to −, the direction current was given before anyone knew what carried it. In a copper wire the carriers are electrons, which are negative and drift the other way. It makes no difference to any circuit, and every schematic symbol and datasheet uses the + to − direction, so this workbook does too."
+    },
+    "drift": {
+      "kind": "technical",
+      "title": "Drift speed",
+      "text": "The drift speed is the current divided by the number of free electrons, their charge and the wire's cross-section: v = I ÷ (n q A). For 1 A in a wire of 1 mm² it comes to about 0.07 mm a second.",
+      "glossary": "Drift speed"
+    },
+    "fields": {
+      "kind": "digression",
+      "title": "Where the energy really goes",
+      "text": "The hose picture says the energy is carried in the moving water. In a circuit it isn't, quite: the energy travels in the electric and magnetic fields around the wires, and flows into the lamp's filament from the space around it. The electrons drifting inside the wire are what make those fields. Lesson 4 comes back to this."
+    },
+    "e12": {
+      "kind": "technical",
+      "title": "The E12 series",
+      "text": "Each E12 value is about 21% above the last, so any value you calculate is within about 10% of one you can buy, matching the 10% tolerance resistors once had. Finer series exist: E24 has 24 values a decade, E96 has 96.",
+      "glossary": "E12 series"
+    }
+  }
 }
