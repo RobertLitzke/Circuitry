@@ -60,14 +60,22 @@ export function simulate(parts: readonly Part[], o: SimOptions = {}): Sim {
       return now;
     },
     step(dt, substeps = 1) {
-      const h = dt / substeps;
-      for (let k = 0; k < substeps; k++) {
+      // One step of h seconds; where the circuit changes too fast for Newton's method to follow (a blinker
+      // flipping over), it is taken again as two half steps, down to an eighth.
+      const advance = (h: number, depth: number): void => {
+        const opts: SolveOptions = { celsius: o.celsius, t: t + h, guess: now.v, memory: { dt: h, volts, amps } };
+        const s = solve(parts, opts);
+        if (!s.converged && depth < 3) {
+          advance(h / 2, depth + 1);
+          if (!now.short) advance(h / 2, depth + 1);
+          return;
+        }
         t += h;
-        const opts: SolveOptions = { celsius: o.celsius, t, guess: now.v, memory: { dt: h, volts, amps } };
-        now = solve(parts, opts);
-        if (now.short) break;
-        remember(now);
-      }
+        now = s;
+        if (!now.short) remember(now);
+      };
+      const h = dt / substeps;
+      for (let k = 0; k < substeps && !now.short; k++) advance(h, 0);
       return now;
     },
     reset,

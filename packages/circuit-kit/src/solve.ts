@@ -32,6 +32,8 @@ export interface Solution {
   p: Record<string, number>;
   /** True when sources are shorted with nothing to limit the current: no voltages or currents are given. */
   short: boolean;
+  /** False when Newton's method ran out of steps without settling, so the answer is not to be trusted: sim.ts then takes a smaller step. */
+  converged: boolean;
 }
 
 export interface SolveOptions {
@@ -52,14 +54,16 @@ const KELVIN = 273.15;
 const K_Q = 8.617333e-5;
 
 /**
- * e^x, but straight past e^max, so a wild guess cannot overflow. Diodes go
- * straight much later than transistors, because an LED's saturation current
- * is so small (1e-26 A for blue) that it works at e^50 and more.
+ * e^x, but straight past e^max, so a wild guess cannot overflow or swamp the
+ * Jacobian. A junction passes `is` × e^x, so `straightAt(is)` sets the corner
+ * where that reaches a kiloamp, far past anything a lesson's circuit carries:
+ * about e^26 for a silicon diode and e^67 for a blue LED, whose saturation
+ * current is tiny.
  */
-function limexp(x: number, max = 40): number {
+function limexp(x: number, max: number): number {
   return x < max ? Math.exp(x) : Math.exp(max) * (1 + x - max);
 }
-const DIODE_EXP = 90;
+const straightAt = (is: number) => Math.log(1000 / is);
 
 /** A junction at a temperature: its thermal voltage n·kT/q, and its saturation current, which grows fast as it warms. */
 function junctionAt(j: Junction, celsius: number): { nvt: number; is: number } {
@@ -106,8 +110,8 @@ function currents(p: Part, v: number[], celsius: number): number[] {
       const vt = K_Q * T;
       const is = (p.is ?? 1e-14) * (T / (25 + KELVIN)) ** 3 * Math.exp((1.12 / K_Q) * (1 / (25 + KELVIN) - 1 / T));
       const betaR = 1;
-      const fe = limexp((sign * (vb - ve)) / vt) - 1;
-      const fc = limexp((sign * (vb - vc)) / vt) - 1;
+      const fe = limexp((sign * (vb - ve)) / vt, straightAt(is)) - 1;
+      const fc = limexp((sign * (vb - vc)) / vt, straightAt(is)) - 1;
       const ic = is * (fe - fc) - (is / betaR) * fc;
       const ib = (is / p.beta) * fe + (is / betaR) * fc;
       return [sign * ic, sign * ib, -sign * (ic + ib)];
@@ -138,11 +142,11 @@ type OpState = 'follow' | 'top' | 'bottom';
 
 /** A diode with series resistance r: solve i = is·(e^((d − i·r)/nvt) − 1) for i, by a few Newton steps of its own. */
 function diodeCurrent(d: number, nvt: number, is: number, r: number): number {
-  if (r <= 0) return is * (limexp(d / nvt, DIODE_EXP) - 1);
+  if (r <= 0) return is * (limexp(d / nvt, straightAt(is)) - 1);
   // Start from whichever is smaller: the bare junction or the resistor alone.
-  let i = Math.min(is * (limexp(d / nvt, DIODE_EXP) - 1), Math.max(d / r, 0));
+  let i = Math.min(is * (limexp(d / nvt, straightAt(is)) - 1), Math.max(d / r, 0));
   for (let k = 0; k < 60; k++) {
-    const e = limexp((d - i * r) / nvt, DIODE_EXP);
+    const e = limexp((d - i * r) / nvt, straightAt(is));
     const f = is * (e - 1) - i;
     const df = -is * e * (r / nvt) - 1;
     const next = i - f / df;
@@ -319,11 +323,14 @@ export function solve(parts: readonly Part[], o: SolveOptions = {}): Solution {
   const opStates = new Map<string, OpState>(opamps.map((p) => [p.id, 'follow']));
 
   /** Newton's method on the curved parts, for the op-amps' present states. */
+  let converged = true;
+  let guess = o.guess;
   const newton = (): Float64Array | null => {
+    converged = true;
     if (!curved.length) return linear(null);
     // With no guess, start from the circuit with its curved parts left out.
-    const x = o.guess ? new Float64Array(size) : (linear(null) ?? new Float64Array(size));
-    if (o.guess) for (const [n, k] of index) x[k] = o.guess[n] ?? 0;
+    const x = guess ? new Float64Array(size) : (linear(null) ?? new Float64Array(size));
+    if (guess) for (const [n, k] of index) x[k] = guess[n] ?? 0;
     else {
       // Left out, a curved part can leave a node pushed by a current source to thousands of volts, too far for the
       // damped steps below to walk back from. Start every node within reach of the largest fixed voltage instead.
@@ -334,17 +341,26 @@ export function solve(parts: readonly Part[], o: SolveOptions = {}): Solution {
       const next = linear(x);
       if (!next) return null;
       // Take the step, but no node moves more than 2 V at once, so a wild first guess walks in rather than leaps about.
+      // If that hasn't settled it, the steps get shorter still, which breaks the cycle Newton's method can fall into
+      // when two transistors are flipping each other over.
       let biggest = 0;
       for (let k = 0; k < nodeCount; k++) biggest = Math.max(biggest, Math.abs(next[k] - x[k]));
-      const scale = biggest > 2 ? 2 / biggest : 1;
+      const reach = iter < 60 ? 2 : iter < 160 ? 0.4 : 0.08;
+      const scale = biggest > reach ? reach / biggest : 1;
       for (let k = 0; k < size; k++) x[k] += (next[k] - x[k]) * (k < nodeCount ? scale : 1);
       if (biggest < 1e-8) break;
+      if (iter === 399) converged = false;
     }
     return x;
   };
 
   // Solve, then see whether each op-amp's output has run past a rail (or come back off one), and solve again if so.
   let x = newton();
+  // A circuit that has just flipped over (a blinker) can leave the last answer too far from the new one to walk to.
+  if (!converged && guess) {
+    guess = undefined;
+    x = newton();
+  }
   for (let round = 0; x && opamps.length && round < 2 * opamps.length + 4; round++) {
     const sol = x;
     const volts = (n: string) => (n === ground ? 0 : sol[at(n)]);
@@ -370,7 +386,7 @@ export function solve(parts: readonly Part[], o: SolveOptions = {}): Solution {
   if (!x || x.some((n) => !Number.isFinite(n))) {
     for (const n of names) v[n] = 0;
     for (const part of parts) i[part.id] = p[part.id] = 0;
-    return { v, i, p, short: true };
+    return { v, i, p, short: true, converged };
   }
 
   const volts = (n: string) => (n === ground ? 0 : x![index.get(n)!]);
@@ -433,7 +449,7 @@ export function solve(parts: readonly Part[], o: SolveOptions = {}): Solution {
     i[part.id] = amps;
     p[part.id] = d * amps;
   }
-  return { v, i, p, short: false };
+  return { v, i, p, short: false, converged };
 }
 
 /** Solve A x = z by Gaussian elimination with partial pivoting; null if A is singular. A and z are overwritten. */

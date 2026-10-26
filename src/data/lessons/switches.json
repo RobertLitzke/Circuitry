@@ -4,8 +4,213 @@
   "track": "core",
   "title": "A small current steering a big one",
   "teaches": "Transistors and MOSFETs as switches, driving a relay, and the flyback diode",
-  "parts": [],
-  "learned": [],
-  "next": "",
-  "journal": []
+  "parts": [
+    {
+      "title": "A valve worked by a trickle",
+      "blocks": [
+        {
+          "kind": "text",
+          "text": "A **transistor** has three legs. In the common kind, a bipolar NPN transistor, they are the **collector**, the **base** and the **emitter**. A small current into the base, out through the emitter, lets a much bigger current flow from the collector to the emitter: typically a hundred or two hundred times bigger. That ratio is its current gain, **β**.[^transistor]"
+        },
+        {
+          "kind": "text",
+          "text": "Here one switches a 9 V, 100 mA lamp. A control voltage of 5 V, from a switch or a microcontroller's pin, feeds the base through a resistor; the base itself sits at a diode's drop, about 0.7 V, because the base and emitter are a diode. So the base current is (5 − 0.7) ÷ R."
+        },
+        {
+          "kind": "figure",
+          "figure": "bjt-switch",
+          "caption": "A lamp, an NPN transistor, and a base resistor from a 5 V control",
+          "task": "Switch the lamp hard on",
+          "goal": "hard"
+        }
+      ]
+    },
+    {
+      "title": "On, off, and the bit in between",
+      "blocks": [
+        {
+          "kind": "text",
+          "text": "With too little base current the transistor lets through β times it and no more: the lamp is dim, and the transistor drops the rest of the voltage and turns it into heat. That in-between region is where an amplifier works, in lesson 9, but for a switch it is the worst place to be. Give the base more than it needs and the transistor is **saturated**, fully on, dropping only a tenth of a volt or so. Then the lamp gets almost everything and the transistor barely warms."
+        },
+        {
+          "kind": "text",
+          "text": "A rule that works: give the base about a tenth to a twentieth of the current the load needs, not just a β-th of it, because β varies from part to part and with temperature. The transistor here sits between the load and ground, a **low-side switch**, which is the easy way to switch with an NPN transistor."
+        },
+        {
+          "kind": "key",
+          "title": "Hold on to",
+          "points": [
+            "A small base current lets a current β times larger flow from collector to emitter.",
+            "As a switch, drive it hard into saturation: base current about a tenth of the load's.",
+            "Half on, it wastes power as heat: P = V(collector to emitter) × I."
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Switching with a voltage",
+      "blocks": [
+        {
+          "kind": "text",
+          "text": "A **MOSFET** does the same job a different way. Its three legs are the **drain**, the **gate** and the **source**, and its gate is insulated from the rest by a film of glass: no current flows into it at all. Instead the voltage on the gate, measured from the source, decides how freely current flows from drain to source. Below its **threshold voltage** it is off; well above it, it is on, with a resistance of a few thousandths of an ohm."
+        },
+        {
+          "kind": "figure",
+          "figure": "mosfet-switch",
+          "caption": "A 12 V pump drawing 2 A, a MOSFET, and its gate drive",
+          "task": "Guess, then run the pump fully from 3.3 V",
+          "goal": "logic"
+        },
+        {
+          "kind": "text",
+          "text": "Most MOSFETs need about 10 V on the gate to be fully on. A **logic-level** MOSFET is made to be fully on at 3.3 or 5 V, so a microcontroller can drive it straight from a pin. MOSFETs switch big loads, motors, pumps, lights, solar charge controllers, with almost no loss, which is why they have replaced bipolar transistors as power switches. One habit: put a resistor of 10 to 100 kΩ from gate to source, so the gate can't float and drift on while the controller is starting up."
+        },
+        {
+          "kind": "key",
+          "title": "Hold on to",
+          "points": [
+            "A MOSFET is switched by its gate's voltage; the gate takes no steady current.",
+            "Check it is fully on at the gate voltage you have: logic-level parts for 3.3 or 5 V.",
+            "Fully on, a MOSFET is a tiny resistance, and loses I² × R."
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Catching the kick",
+      "blocks": [
+        {
+          "kind": "text",
+          "text": "A **relay** is a switch worked by an electromagnet: current through its coil pulls a lever across, and the lever's contacts switch a completely separate circuit, which can be mains, or the big current of a battery bank. A transistor drives the coil. But lesson 6 showed what a coil does when its current is cut off."
+        },
+        {
+          "kind": "figure",
+          "figure": "relay",
+          "caption": "A transistor driving a relay's coil from 12 V",
+          "task": "Switch it off with and without a flyback diode",
+          "goal": "safe"
+        },
+        {
+          "kind": "text",
+          "text": "A diode across the coil, pointing back up to the supply, does nothing while the coil is on, since it is reverse biased. When the transistor turns off, the coil's current carries on round through the diode and fades away harmlessly. It is called a **flyback diode**, and it goes across every relay coil, solenoid and motor a transistor switches."
+        },
+        {
+          "kind": "key",
+          "title": "On a real bench",
+          "points": [
+            "Every coil a transistor switches needs a flyback diode, cathode to the supply side.",
+            "A relay's contacts are rated separately from its coil: check both, and check the DC rating for a DC load.",
+            "A classic first build is the two-transistor blinker: each transistor turns the other off through a capacitor, and R × C sets the rate."
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Stuck on",
+      "blocks": [
+        {
+          "kind": "text",
+          "text": "Transistors usually die shorted, collector to emitter. Then the load stays on whatever the control does."
+        },
+        {
+          "kind": "figure",
+          "figure": "shorted-transistor",
+          "caption": "A transistor switching a lamp, with its control off",
+          "task": "Find the fault and mark it",
+          "goal": "find"
+        }
+      ]
+    },
+    {
+      "title": "Check",
+      "blocks": [
+        {
+          "kind": "figure",
+          "figure": "check",
+          "caption": "Six questions",
+          "task": "Answer them",
+          "options": {
+            "items": [
+              {
+                "question": "A transistor with β = 100 has 1 mA into its base. The most collector current it will allow is about…",
+                "options": [
+                  "100 mA",
+                  "1 mA",
+                  "10 mA"
+                ],
+                "answer": 0,
+                "why": "The collector current can be up to β times the base current."
+              },
+              {
+                "question": "A transistor switching a lamp drops 4 V and carries 50 mA. It is…",
+                "options": [
+                  "half on, and heating 0.2 W",
+                  "fully on",
+                  "off"
+                ],
+                "answer": 0,
+                "why": "Fully on it would drop a tenth of a volt or so. 4 V × 50 mA = 0.2 W of heat."
+              },
+              {
+                "question": "A load needs 200 mA. A good base current for switching it hard on is…",
+                "options": [
+                  "10 to 20 mA",
+                  "200 mA",
+                  "0.2 mA"
+                ],
+                "answer": 0,
+                "why": "A tenth to a twentieth of the load current, so it saturates whatever the transistor's β."
+              },
+              {
+                "question": "How much current flows into a MOSFET's gate once it is on?",
+                "options": [
+                  "None",
+                  "A tenth of the drain current",
+                  "The same as the drain current"
+                ],
+                "answer": 0,
+                "why": "The gate is insulated. Only its voltage matters."
+              },
+              {
+                "question": "A 3.3 V microcontroller must switch a 5 A motor through a MOSFET. Which MOSFET?",
+                "options": [
+                  "A logic-level one, fully on at 3.3 V",
+                  "Any MOSFET rated for 5 A",
+                  "One with a high threshold, for safety"
+                ],
+                "answer": 0,
+                "why": "An ordinary MOSFET is barely on at 3.3 V, and would sit half on and overheat."
+              },
+              {
+                "question": "Which way round does a flyback diode go across a relay coil?",
+                "options": [
+                  "Cathode to the supply, anode to the transistor",
+                  "Anode to the supply",
+                  "It doesn't matter"
+                ],
+                "answer": 0,
+                "why": "It must not conduct while the coil is on. When the transistor lets go, the coil drives its end above the supply, and the diode carries the current round."
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "learned": [
+    "A transistor lets β times its base current flow from collector to emitter.",
+    "A switch should be hard on or off; half on, it heats.",
+    "A MOSFET is switched by its gate voltage; use logic-level parts for 3.3 V or 5 V.",
+    "A relay's coil needs a flyback diode, or its kick kills the transistor.",
+    "A transistor that has died shorted leaves its load on."
+  ],
+  "next": "Next: running a transistor in between, on purpose, to make a signal bigger.",
+  "journal": [],
+  "footnotes": {
+    "transistor": {
+      "kind": "digression",
+      "title": "The first transistor",
+      "text": "John Bardeen and Walter Brattain made the first working transistor at Bell Labs in December 1947: two gold contacts pressed into a slab of germanium, held by a paper clip. Their boss William Shockley worked out the junction transistor a month later. Within ten years transistors had begun replacing valves in radios, and germanium transistors are still what makes a vintage Fuzz Face sound the way it does."
+    }
+  }
 }

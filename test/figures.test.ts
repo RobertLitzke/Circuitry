@@ -376,3 +376,37 @@ describe('lesson 7', () => {
     expect(fig.node.textContent).toMatch(/about 1\.\d+ V each way/);
   });
 });
+
+describe('lesson 8', () => {
+  const click = (el: Element) => el.dispatchEvent(new Event('click', { bubbles: true }));
+  const chip = (node: HTMLElement, text: string) => [...node.querySelectorAll('.chip')].find((c) => c.textContent === text)!;
+  const button = (node: HTMLElement, text: string) => [...node.querySelectorAll('button')].find((b) => b.textContent?.includes(text))!;
+
+  it('is half on with 22 kΩ, and hard on and lean with 4.7 kΩ', async () => {
+    const fig = FIGURES['bjt-switch'](ctx(), 'hard');
+    click(chip(fig.node, '22 kΩ'));
+    expect(fig.node.textContent).toContain('Half on');
+    click(chip(fig.node, '4.7 kΩ'));
+    await expect(fig.done).resolves.toBeUndefined();
+    expect(fig.node.querySelectorAll('.star.got').length).toBe(2);
+  });
+
+  it('runs the pump from 3.3 V only with a logic-level MOSFET', async () => {
+    const fig = FIGURES['mosfet-switch'](ctx(), 'logic');
+    click(chip(fig.node, 'runs weakly, and the MOSFET gets hot'));
+    click(button(fig.node, 'Lock it in'));
+    expect(fig.node.textContent).toContain('cooking');
+    click(chip(fig.node, 'Logic-level MOSFET'));
+    await expect(fig.done).resolves.toBeUndefined();
+  });
+
+  it('kicks the collector to hundreds of volts, and the diode stops it', async () => {
+    const fig = FIGURES.relay(ctx(), 'safe');
+    click(button(fig.node, 'Switch the relay off'));
+    expect(fig.node.textContent).toMatch(/shoots to \d{3} V/);
+    click(chip(fig.node, 'Flyback diode'));
+    click(button(fig.node, 'Switch the relay off'));
+    expect(fig.node.textContent).toMatch(/rises to 12\.\d+ V/);
+    await expect(fig.done).resolves.toBeUndefined();
+  });
+});

@@ -77,6 +77,11 @@ export const FIGURE_IDS = [
   'rectifier',
   'clipper',
   'backwards-led',
+  // 8 A small current steering a big one
+  'bjt-switch',
+  'mosfet-switch',
+  'relay',
+  'shorted-transistor',
 ] as const;
 export type FigureId = (typeof FIGURE_IDS)[number];
 

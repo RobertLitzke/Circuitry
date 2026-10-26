@@ -600,6 +600,41 @@
           ]
         },
         {
+          "kind": "table",
+          "columns": [
+            "Transistor",
+            "Kind",
+            "Good for"
+          ],
+          "rows": [
+            [
+              "2N3904, BC547",
+              "NPN, small",
+              "Switching up to 100 mA, small amplifiers"
+            ],
+            [
+              "2N3906, BC557",
+              "PNP, small",
+              "High-side switching, the other half of a pair"
+            ],
+            [
+              "2N7000",
+              "N MOSFET, small",
+              "Logic switching up to 200 mA"
+            ],
+            [
+              "IRLZ44N",
+              "N MOSFET, logic-level",
+              "Motors and lights up to tens of amps from 5 V"
+            ],
+            [
+              "IRF540",
+              "N MOSFET, standard",
+              "Big loads, with a 10 V gate drive"
+            ]
+          ]
+        },
+        {
           "kind": "terms",
           "items": [
             {
@@ -615,6 +650,61 @@
               "means": "A diode’s forward voltage falls about 2 mV for each degree warmer."
             }
           ]
+        },
+        {
+          "kind": "terms",
+          "items": [
+            {
+              "term": "Base resistor",
+              "means": "R = (control − 0.7 V) ÷ (load current ÷ 10)."
+            },
+            {
+              "term": "Flyback diode",
+              "means": "Across every switched coil, cathode to the supply."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "switching",
+      "title": "Switching loads",
+      "summary": "Low-side and high-side switches, relays, and what each part needs",
+      "lesson": "switches",
+      "blocks": [
+        {
+          "kind": "table",
+          "columns": [
+            "Switch",
+            "Where it goes",
+            "Drive"
+          ],
+          "rows": [
+            [
+              "NPN transistor",
+              "Low side, load to ground",
+              "Base current a tenth of the load’s, through a resistor"
+            ],
+            [
+              "N MOSFET",
+              "Low side",
+              "Gate well above threshold; 10–100 kΩ gate to source"
+            ],
+            [
+              "PNP transistor or P MOSFET",
+              "High side, supply to load",
+              "Pull the base or gate down to turn on"
+            ],
+            [
+              "Relay",
+              "Either; contacts are a separate circuit",
+              "A transistor for the coil, and a flyback diode"
+            ]
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "Check the switch’s power: fully on, a transistor loses about 0.1 V × current and a MOSFET I² × its on-resistance. Half on, it loses far more."
         }
       ]
     },

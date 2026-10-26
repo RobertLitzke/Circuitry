@@ -288,5 +288,64 @@
     "term": "Clipping diodes",
     "text": "Two diodes back to back across a signal, which hold it to their forward voltage either way: the heart of most distortion pedals.",
     "lesson": "diodes"
+  },
+  "transistor": {
+    "term": "Transistor",
+    "text": "A bipolar transistor: a small current into its base lets β times as much flow from collector to emitter. NPN switches the low side; PNP the high side.",
+    "lesson": "switches",
+    "also": [
+      "BJT",
+      "NPN",
+      "PNP",
+      "collector",
+      "base",
+      "emitter"
+    ]
+  },
+  "beta": {
+    "term": "Current gain (β)",
+    "text": "How many times the base current a bipolar transistor lets through its collector: typically 100 to 300, varying from part to part.",
+    "lesson": "switches",
+    "also": [
+      "hFE",
+      "beta"
+    ]
+  },
+  "saturation": {
+    "term": "Saturation",
+    "text": "A transistor switched fully on, dropping only a tenth of a volt or so. Drive the base with a tenth to a twentieth of the load current to get there.",
+    "lesson": "switches"
+  },
+  "mosfet": {
+    "term": "MOSFET",
+    "text": "A transistor switched by the voltage on its insulated gate: drain, gate and source. Fully on, it is a resistance of milliohms.",
+    "lesson": "switches",
+    "also": [
+      "gate",
+      "drain",
+      "source"
+    ]
+  },
+  "threshold": {
+    "term": "Threshold voltage",
+    "text": "The gate voltage at which a MOSFET starts to conduct. Fully on needs well above it; logic-level parts are fully on at 3.3 or 5 V.",
+    "lesson": "switches",
+    "also": [
+      "logic-level MOSFET"
+    ]
+  },
+  "relay": {
+    "term": "Relay",
+    "text": "A switch worked by an electromagnet, so a small circuit can switch a separate big one.",
+    "lesson": "switches"
+  },
+  "flyback-diode": {
+    "term": "Flyback diode",
+    "text": "A diode across a coil, cathode to the supply, that carries the coil’s current when it is switched off so its kick can’t damage the switch.",
+    "lesson": "switches",
+    "also": [
+      "freewheeling diode",
+      "snubber diode"
+    ]
   }
 }

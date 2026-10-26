@@ -503,6 +503,78 @@
       ],
       "answer": 0,
       "why": "LEDs have the highest knee, near 2 V, so they clip later and louder."
+    },
+    {
+      "id": "beta",
+      "lesson": "switches",
+      "question": "β = 150 and 0.2 mA into the base. The collector can carry up to…",
+      "options": [
+        "30 mA",
+        "150 mA",
+        "0.2 mA"
+      ],
+      "answer": 0,
+      "why": "β × base current = 150 × 0.2 mA."
+    },
+    {
+      "id": "base-r",
+      "lesson": "switches",
+      "question": "From 5 V, for 5 mA into a base, the base resistor should be about…",
+      "options": [
+        "860 Ω, so 820 Ω",
+        "1 kΩ… no, 10 kΩ",
+        "100 Ω"
+      ],
+      "answer": 0,
+      "why": "(5 − 0.7) ÷ 0.005 = 860 Ω."
+    },
+    {
+      "id": "half-on",
+      "lesson": "switches",
+      "question": "Why is a transistor switch that is only half on a problem?",
+      "options": [
+        "It drops volts at full current, and heats",
+        "It draws too much base current",
+        "It can’t be turned off"
+      ],
+      "answer": 0,
+      "why": "Its power is the voltage across it times the current through it; both are large when half on."
+    },
+    {
+      "id": "gate",
+      "lesson": "switches",
+      "question": "A MOSFET’s gate voltage is 0.5 V above its threshold. It is…",
+      "options": [
+        "barely on",
+        "fully on",
+        "off"
+      ],
+      "answer": 0,
+      "why": "It needs several volts above the threshold to be fully on."
+    },
+    {
+      "id": "flyback",
+      "lesson": "switches",
+      "question": "Without a flyback diode, switching a relay off can…",
+      "options": [
+        "kill the transistor with a voltage spike",
+        "blow the relay’s contacts",
+        "reverse the battery"
+      ],
+      "answer": 0,
+      "why": "The coil drives its current on and the collector voltage shoots far past the transistor’s rating."
+    },
+    {
+      "id": "dead-short",
+      "lesson": "switches",
+      "question": "A load stays on with the control off, and the transistor’s base reads 0 V. Most likely…",
+      "options": [
+        "the transistor has failed shorted",
+        "the base resistor is open",
+        "the load is shorted"
+      ],
+      "answer": 0,
+      "why": "With 0 V on its base it should be off. A shorted transistor conducts anyway."
     }
   ]
 }
