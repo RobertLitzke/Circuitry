@@ -10,7 +10,7 @@
       "blocks": [
         {
           "kind": "text",
-          "text": "Every circuit in this workbook is live. Wires are coloured by their [[voltage|voltage]], from the deep blue of the battery's − end up to orange, and yellow dots move along them with the [[current|current]]. Before you see either, though, you'll often be asked to guess. A guess you get wrong in front of a working circuit teaches more than one you're told."
+          "text": "Every circuit in this workbook is live. Wires are coloured by their [[voltage|voltage]], from the deep blue of the battery's − end up to orange, and yellow dots move along them with the [[current|current]].[^conventional] Before you see either, though, you'll often be asked to guess. A guess you get wrong in front of a working circuit teaches more than one you're told."
         },
         {
           "kind": "text",
@@ -30,7 +30,7 @@
       "blocks": [
         {
           "kind": "text",
-          "text": "The current is the same everywhere in a single loop. It isn't used up by the first bulb, and none is left over at the end: every bit of charge that leaves the + end comes back into the − end. What the bulbs take is **energy**, which they turn into light and heat, not the current that carries it.[^conventional]"
+          "text": "The current is the same everywhere in a single loop. It isn't used up by the first bulb, and none is left over at the end: every bit of charge that leaves the + end comes back into the − end. What the bulbs take is **energy**, which they turn into light and heat, not the current that carries it."
         },
         {
           "kind": "text",
