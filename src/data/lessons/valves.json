@@ -1,0 +1,11 @@
+{
+  "id": "valves",
+  "n": 5,
+  "track": "core",
+  "title": "One-way valves and switches",
+  "teaches": "Diodes and LEDs, current limiting, and transistors and MOSFETs as switches",
+  "parts": [],
+  "learned": [],
+  "next": "",
+  "journal": []
+}

@@ -1,0 +1,40 @@
+{
+  "voltage": {
+    "term": "Voltage",
+    "text": "The difference in electrical pressure between two points, in volts (V). It is always measured between two points; a voltage \"at\" a point means from ground.",
+    "lesson": "what-flows",
+    "also": [
+      "potential difference"
+    ]
+  },
+  "current": {
+    "term": "Current",
+    "text": "How much charge flows past a point each second, in amperes (A). One amp is one coulomb a second.",
+    "lesson": "what-flows"
+  },
+  "resistance": {
+    "term": "Resistance",
+    "text": "How hard a part makes it for current to flow, in ohms (Ω). Ohm's law: V = I × R.",
+    "lesson": "what-flows"
+  },
+  "ground": {
+    "term": "Ground",
+    "text": "The point in a circuit chosen as 0 V, which every other voltage is measured from. Often the battery's − terminal or the chassis.",
+    "lesson": "what-flows"
+  },
+  "node": {
+    "term": "Node",
+    "text": "Every point joined by copper with no part in between: one stretch of a circuit at one voltage.",
+    "lesson": "what-flows"
+  },
+  "open-circuit": {
+    "term": "Open circuit",
+    "text": "A break in the loop, such as an open switch, a cracked joint or a lifted pad. No current flows, and the full voltage appears across the gap.",
+    "lesson": "what-flows"
+  },
+  "short-circuit": {
+    "term": "Short circuit",
+    "text": "A path with almost no resistance where none was meant to be, such as a solder bridge. Current is limited only by the source and the wires, and things get hot.",
+    "lesson": "what-flows"
+  }
+}

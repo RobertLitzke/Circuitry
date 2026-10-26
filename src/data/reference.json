@@ -1,0 +1,145 @@
+{
+  "sections": [
+    {
+      "id": "glossary",
+      "title": "Glossary",
+      "summary": "Every word the lessons use, A to Z, with the notes from the lessons",
+      "lesson": "what-flows",
+      "blocks": [
+        {
+          "kind": "glossary"
+        }
+      ]
+    },
+    {
+      "id": "ohms-law",
+      "title": "Ohm's law and power",
+      "summary": "Voltage, current, resistance and watts, with a live circuit",
+      "lesson": "what-flows",
+      "blocks": [
+        {
+          "kind": "figure",
+          "figure": "loop",
+          "caption": "A battery, a resistor, a lamp and a switch in one loop. Tap a wire to probe it."
+        },
+        {
+          "kind": "table",
+          "columns": [
+            "To find",
+            "From",
+            "Formula"
+          ],
+          "rows": [
+            [
+              "Voltage",
+              "Current and resistance",
+              "V = I × R"
+            ],
+            [
+              "Current",
+              "Voltage and resistance",
+              "I = V ÷ R"
+            ],
+            [
+              "Resistance",
+              "Voltage and current",
+              "R = V ÷ I"
+            ],
+            [
+              "Power",
+              "Voltage and current",
+              "P = V × I"
+            ],
+            [
+              "Power",
+              "Current and resistance",
+              "P = I² × R"
+            ],
+            [
+              "Power",
+              "Voltage and resistance",
+              "P = V² ÷ R"
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "symbols",
+      "title": "Schematic symbols",
+      "summary": "The symbol for every part the lessons use",
+      "lesson": "what-flows",
+      "blocks": []
+    },
+    {
+      "id": "series-parallel",
+      "title": "Series, parallel and dividers",
+      "summary": "Adding resistances, and the divider formula",
+      "lesson": "splitting",
+      "blocks": []
+    },
+    {
+      "id": "reading-parts",
+      "title": "Reading parts",
+      "summary": "Resistor colour bands, standard values, capacitor codes and polarity marks",
+      "lesson": "splitting",
+      "blocks": []
+    },
+    {
+      "id": "wire",
+      "title": "Wire and trace sizes",
+      "summary": "Current by wire gauge and trace width, and voltage drop over a run",
+      "lesson": "power",
+      "blocks": []
+    },
+    {
+      "id": "capacitors",
+      "title": "Capacitors and time",
+      "summary": "RC time constants, common types and where each is used",
+      "lesson": "time",
+      "blocks": []
+    },
+    {
+      "id": "semiconductors",
+      "title": "Diodes and transistors",
+      "summary": "Forward voltages, LED resistors, and transistors as switches",
+      "lesson": "valves",
+      "blocks": []
+    },
+    {
+      "id": "multimeter",
+      "title": "Using a multimeter",
+      "summary": "Volts, continuity, resistance and the diode test, and what each reading tells you",
+      "lesson": "boards",
+      "blocks": []
+    },
+    {
+      "id": "solder-faults",
+      "title": "Solder and layout faults",
+      "summary": "Cold joints, bridges, lifted pads and reversed parts: how each looks and measures",
+      "lesson": "boards",
+      "blocks": []
+    },
+    {
+      "id": "pedal-standards",
+      "title": "Pedal standards",
+      "summary": "9 V centre-negative power, impedances, clipping diodes and enclosures",
+      "lesson": "fuzz-face",
+      "blocks": []
+    },
+    {
+      "id": "solar-sizing",
+      "title": "Sizing a solar system",
+      "summary": "Panel ratings, string voltages in the cold, battery capacity and daily budgets",
+      "lesson": "solar-panels",
+      "blocks": []
+    },
+    {
+      "id": "off-grid-safety",
+      "title": "Fusing and safety off grid",
+      "summary": "Fuse and breaker sizes, disconnects, grounding and battery short-circuit current",
+      "lesson": "off-grid",
+      "blocks": []
+    }
+  ]
+}
