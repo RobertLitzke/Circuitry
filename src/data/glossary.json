@@ -376,5 +376,47 @@
     "term": "Negative feedback",
     "text": "Feeding part of an amplifier’s output back to cancel some of its input, trading a large, sloppy gain for a small, exact one.",
     "lesson": "amplifiers"
+  },
+  "schematic": {
+    "term": "Schematic",
+    "text": "A drawing of a circuit showing what connects to what, laid out to be read, not to be built.",
+    "lesson": "dead-circuit",
+    "also": [
+      "circuit diagram"
+    ]
+  },
+  "circuit-board": {
+    "term": "Circuit board",
+    "text": "A sheet of fibreglass with copper traces for wires and pads to solder each part's legs to.",
+    "lesson": "dead-circuit",
+    "also": [
+      "PCB",
+      "printed circuit board",
+      "trace",
+      "pad"
+    ]
+  },
+  "silkscreen": {
+    "term": "Silkscreen",
+    "text": "The white printing on a circuit board naming each part, R1, D1, Q1, as the schematic does.",
+    "lesson": "dead-circuit"
+  },
+  "breadboard": {
+    "term": "Breadboard",
+    "text": "A plastic block of holes joined in rows underneath, for building a circuit without solder.",
+    "lesson": "dead-circuit"
+  },
+  "dry-joint": {
+    "term": "Dry joint",
+    "text": "A solder joint where the solder never properly wet the lead or pad: dull, grainy, and anywhere from a few ohms to open.",
+    "lesson": "dead-circuit",
+    "also": [
+      "cold joint"
+    ]
+  },
+  "half-splitting": {
+    "term": "Half-splitting",
+    "text": "Fault-finding by measuring in the middle of what's left, so each reading halves where the fault can be.",
+    "lesson": "dead-circuit"
   }
 }

@@ -88,6 +88,11 @@ export const FIGURE_IDS = [
   'follower',
   'opamp-gain',
   'bridged-emitter',
+  // 10 The dead circuit
+  'two-views',
+  'dead-led',
+  'wrong-rc',
+  'dry-joint',
 ] as const;
 export type FigureId = (typeof FIGURE_IDS)[number];
 

@@ -452,3 +452,30 @@ describe('lesson 9', () => {
     expect(fig.node.textContent).toContain('clips flat');
   });
 });
+
+describe('lesson 10', () => {
+  const click = (el: Element) => el.dispatchEvent(new Event('click', { bubbles: true }));
+  const button = (node: HTMLElement, text: string) => [...node.querySelectorAll('button')].find((b) => b.textContent === text)!;
+
+  it('finds the base on the board', async () => {
+    const fig = FIGURES['two-views'](ctx(), 'match');
+    click([...fig.node.querySelectorAll('.chip')].find((c) => c.textContent === 'Board')!);
+    const hits = [...fig.node.querySelectorAll('.board polyline[stroke="transparent"]')];
+    for (const h of hits) click(h);
+    await expect(fig.done).resolves.toBeUndefined();
+    expect(fig.node.textContent).toContain('That’s the base');
+  });
+
+  for (const id of ['dead-led', 'wrong-rc', 'dry-joint'] as const) {
+    it(`marks the fault on the ${id} board`, async () => {
+      const fig = FIGURES[id](ctx(), 'find');
+      const hits = [...fig.node.querySelectorAll('polyline[stroke="transparent"]')];
+      for (const h of hits) {
+        if (fig.node.textContent?.includes('Found it')) break;
+        click(button(fig.node, 'Mark the fault'));
+        click(h);
+      }
+      await expect(fig.done).resolves.toBeUndefined();
+    });
+  }
+});

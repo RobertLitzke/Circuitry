@@ -4,6 +4,7 @@ import type { FigureId } from '../../core/lessons';
 import { biasFigure, bridgedEmitterFigure, followerFigure, gainFigure, opampGainFigure } from './amplifiers';
 import { couplingFigure, decouplingFigure, kickbackFigure, lowpassFigure, rcChargeFigure, shortedCapFigure } from './capacitors';
 import { checkFigure } from './check';
+import { deadLedFigure, dryJointFigure, twoViewsFigure, wrongRcFigure } from './dead-circuit';
 import { backwardsLedFigure, clipperFigure, diodeIvFigure, ledResistorFigure, rectifierFigure, reverseFigure } from './diodes';
 import type { FigureFactory } from './kit';
 import { loopFigure } from './loop';
@@ -62,4 +63,8 @@ export const FIGURES: Record<FigureId, FigureFactory> = {
   follower: followerFigure,
   'opamp-gain': opampGainFigure,
   'bridged-emitter': bridgedEmitterFigure,
+  'two-views': twoViewsFigure,
+  'dead-led': deadLedFigure,
+  'wrong-rc': wrongRcFigure,
+  'dry-joint': dryJointFigure,
 };

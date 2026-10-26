@@ -3,9 +3,205 @@
   "n": 10,
   "track": "core",
   "title": "The dead circuit",
-  "teaches": "One circuit as a schematic, a breadboard and a board, and finding what is wrong with a meter",
-  "parts": [],
-  "learned": [],
-  "next": "",
-  "journal": []
+  "teaches": "One circuit as a schematic and as a board, and finding what is wrong with nothing but a meter",
+  "parts": [
+    {
+      "title": "Two drawings of one circuit",
+      "blocks": [
+        {
+          "kind": "text",
+          "text": "Every circuit so far has been a **schematic**: a drawing of what connects to what, laid out to be read, with straight wires and tidy corners. A real circuit is built on something, and looks nothing like that. On a **circuit board** the wires are strips of copper, the **traces**, on a sheet of fibreglass; each part's legs go through holes and are soldered to copper **pads**; a junction on the schematic is wherever traces meet.[^pcb]"
+        },
+        {
+          "kind": "text",
+          "text": "The part names tie the two together. The schematic labels its resistors R1, R2 and so on, its diodes D1, its transistors Q1, and the board prints the same names beside each part in white, the **silkscreen**. A **breadboard**, a plastic block whose holes are joined in rows of five underneath, is the same idea without solder: the rows are the traces. Whatever it is built on, the job is the same: find the point on the board that is the point you mean on the schematic."
+        },
+        {
+          "kind": "figure",
+          "figure": "two-views",
+          "caption": "Lesson 9's amplifier and a power LED, as a schematic and as a board",
+          "task": "Find the transistor's base on the board",
+          "goal": "match"
+        }
+      ]
+    },
+    {
+      "title": "A method, not a guess",
+      "blocks": [
+        {
+          "kind": "text",
+          "text": "Every hunt in these lessons has worked the same way, and now it gets written down. Before touching the circuit, work out what each point should read: here the base about 1.6 V, the emitter 0.9 V, the collector 4.7 V. Then measure the **steady voltages** first, with no signal, as lesson 5 said. Most faults show up there."
+        },
+        {
+          "kind": "text",
+          "text": "Don't measure at random. Split the circuit in half: if the middle reads right, the fault is past it; if not, it is before it. Each measurement halves what is left, so even a big circuit takes only a handful. And measure *across* things as well as from ground: a trace or a joint should drop nothing at all, so a volt across one is the fault, found."
+        },
+        {
+          "kind": "key",
+          "title": "Hold on to",
+          "points": [
+            "Write down what each point should read before you measure anything.",
+            "Steady voltages first, signal second.",
+            "Split the circuit in halves, and measure across joints and traces: they should drop nothing."
+          ]
+        }
+      ]
+    },
+    {
+      "title": "A dark LED",
+      "blocks": [
+        {
+          "kind": "text",
+          "text": "Three boards follow, built to the same schematic, each with one fault. The meter's probes go on the copper this time, and the probe count is kept."
+        },
+        {
+          "kind": "figure",
+          "figure": "dead-led",
+          "caption": "The board, with D1 dark",
+          "task": "Find the fault and mark it",
+          "goal": "find"
+        }
+      ]
+    },
+    {
+      "title": "Weak",
+      "blocks": [
+        {
+          "kind": "text",
+          "text": "The next one works, sort of. Every part is soldered well and in the right place; one of them is simply the wrong part."
+        },
+        {
+          "kind": "figure",
+          "figure": "wrong-rc",
+          "caption": "The board, with the signal coming out weak",
+          "task": "Find the fault and mark it",
+          "goal": "find"
+        },
+        {
+          "kind": "text",
+          "text": "Resistors look alike but for their bands, and 470 Ω and 4.7 kΩ differ only in the third. Lesson 3's colour code is worth checking against a meter before a part goes in: once it is soldered, the rest of the circuit is in parallel with it, and the meter's ohms reading lies."
+        }
+      ]
+    },
+    {
+      "title": "Almost nothing",
+      "blocks": [
+        {
+          "kind": "text",
+          "text": "The last fault is the commonest of all on a hand-built board, and it isn't in any part."
+        },
+        {
+          "kind": "figure",
+          "figure": "dry-joint",
+          "caption": "The board, with the amplifier passing almost nothing",
+          "task": "Find the fault and mark it",
+          "goal": "find"
+        },
+        {
+          "kind": "text",
+          "text": "This board's collector read the same 8.6 V as the last one's, and a meter on the collector alone couldn't tell the two apart. The emitter could: right on the board with the wrong resistor, right on this one too, but with almost nothing on the far side of the joint. Measure on both sides of every join you suspect."
+        },
+        {
+          "kind": "key",
+          "title": "On a real bench",
+          "points": [
+            "A good joint is smooth and shiny, a little volcano round the lead. A dry one is dull, grainy or balled up, and may work until the board warms or flexes.",
+            "A solder bridge is a blob across two pads that should be apart: look between neighbouring pads with a light behind the board.",
+            "Check polarity before soldering: diodes, LEDs, electrolytic capacitors and transistors all go in one way round."
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Check",
+      "blocks": [
+        {
+          "kind": "figure",
+          "figure": "check",
+          "caption": "Six questions",
+          "task": "Answer them",
+          "options": {
+            "items": [
+              {
+                "question": "A schematic's R3 is on the board where?",
+                "options": [
+                  "Next to the silkscreen label R3",
+                  "Wherever it is on the schematic",
+                  "At the top right"
+                ],
+                "answer": 0,
+                "why": "The board's layout follows space and traces, not the drawing; the printed names tie the two together."
+              },
+              {
+                "question": "What should you do before measuring anything?",
+                "options": [
+                  "Work out what each point should read",
+                  "Replace the transistor",
+                  "Turn the input up"
+                ],
+                "answer": 0,
+                "why": "A reading means nothing until you know what it should be."
+              },
+              {
+                "question": "A circuit has twenty points to test. Splitting it in half each time finds the fault in about…",
+                "options": [
+                  "5 measurements",
+                  "20 measurements",
+                  "10 measurements"
+                ],
+                "answer": 0,
+                "why": "Each measurement halves what is left: 20, 10, 5, 3, 2, 1."
+              },
+              {
+                "question": "You measure 0.9 V across a solder joint. That means…",
+                "options": [
+                  "The joint is bad",
+                  "The joint is fine",
+                  "The meter is broken"
+                ],
+                "answer": 0,
+                "why": "A good joint is a piece of metal and drops nothing at all."
+              },
+              {
+                "question": "A resistor's bands read yellow, violet, brown. It is…",
+                "options": [
+                  "470 Ω",
+                  "4.7 kΩ",
+                  "47 Ω"
+                ],
+                "answer": 0,
+                "why": "4, 7, and one zero: 470 Ω. Red as the third band would make it 4.7 kΩ."
+              },
+              {
+                "question": "Why can't you trust the ohms reading of a resistor still soldered in?",
+                "options": [
+                  "The rest of the circuit is in parallel with it",
+                  "Solder adds resistance",
+                  "Meters only read loose parts"
+                ],
+                "answer": 0,
+                "why": "Other paths between its two ends make it read low."
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "learned": [
+    "A schematic shows what connects to what; a board is laid out to be built, and the part names tie the two together.",
+    "Work out what each point should read before measuring.",
+    "Steady voltages first, then split the circuit in halves.",
+    "Joints and traces should drop nothing: a voltage across one is the fault.",
+    "Wrong values and dry joints are as common as dead parts."
+  ],
+  "next": "Next: pick a branch, off-grid solar or guitar pedals.",
+  "journal": [],
+  "footnotes": {
+    "pcb": {
+      "kind": "digression",
+      "title": "The first circuit board",
+      "text": "Paul Eisler, an Austrian engineer who had fled to London, made the first printed circuit board in 1936, for a radio, by printing the wiring onto copper foil in acid-resistant ink and etching the rest away, as a printer would. Nobody wanted it until the war, when the US Army used his method for proximity fuses that had to survive being fired from a gun."
+    }
+  }
 }

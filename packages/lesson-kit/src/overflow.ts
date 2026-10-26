@@ -21,6 +21,8 @@ export function watchOverflow(): void {
     let worst: Element | null = null;
     let reach = screen + 1;
     for (const node of document.querySelectorAll('#app *')) {
+      // An SVG clips what it draws to its own box, so only the svg itself can overflow.
+      if (node.parentElement?.closest('svg')) continue;
       const box = node.getBoundingClientRect();
       if (box.width > 0 && box.right > reach) {
         reach = box.right;

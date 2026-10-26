@@ -8,6 +8,7 @@
 import { el } from 'lesson-kit/dom';
 import type { Part } from 'circuit-kit/parts';
 import { solve, type Solution } from 'circuit-kit/solve';
+import { boardView } from '../circuit/board';
 import { schematic, type Placement, type SchematicOptions } from '../circuit/schematic';
 import { volts } from '../circuit/units';
 import { meterFace, placeTip, probeTip, stars } from './guess';
@@ -31,6 +32,8 @@ export interface HuntOptions {
   hints: string[];
   /** Probes to find it in for the last star. */
   par: number;
+  /** Draw the circuit as a populated board instead of a schematic; `places` should then show the parts as they really are. */
+  board?: boolean;
 }
 
 export function hunt(ctx: FigureContext, t: Task, o: HuntOptions) {
@@ -48,33 +51,33 @@ export function hunt(ctx: FigureContext, t: Task, o: HuntOptions) {
   const redTip = probeTip('red');
   const blackTip = probeTip('black');
 
-  const sch = schematic(ctx, o.places, {
-    ...o.schematic,
-    onProbe: (node, part) => {
-      if (solved) return;
-      if (marking) {
-        marking = false;
-        if (part.id === o.culprit) {
-          solved = true;
-          sch.cover({ glow: false });
-          sch.show(s);
-          earned.replaceChildren(stars([
-            { text: 'Found the fault', got: true },
-            { text: 'With no wrong guesses', got: !wrong },
-            { text: `In ${o.par} probes or fewer (you took ${probes})`, got: probes <= o.par },
-          ]));
-          t.done();
-        } else wrong = part.id;
-        paint();
-        return;
-      }
-      if (moving === 'red') red = node;
-      else black = node;
-      moving = moving === 'red' ? 'black' : 'red';
-      probes++;
+  const onProbe = (node: string, part: Part) => {
+    if (solved) return;
+    if (marking) {
+      marking = false;
+      if (part.id === o.culprit) {
+        solved = true;
+        sch.cover({ glow: false });
+        sch.show(s);
+        earned.replaceChildren(stars([
+          { text: 'Found the fault', got: true },
+          { text: 'With no wrong guesses', got: !wrong },
+          { text: `In ${o.par} probes or fewer (you took ${probes})`, got: probes <= o.par },
+        ]));
+        t.done();
+      } else wrong = part.id;
       paint();
-    },
-  });
+      return;
+    }
+    if (moving === 'red') red = node;
+    else black = node;
+    moving = moving === 'red' ? 'black' : 'red';
+    probes++;
+    paint();
+  };
+  const sch = o.board
+    ? boardView(ctx, o.places, { size: o.size, typicalAmps: o.schematic.typicalAmps, grounds: o.schematic.grounds, onProbe })
+    : schematic(ctx, o.places, { ...o.schematic, onProbe });
   sch.cover({ colour: true, dots: true });
   f.svg.append(sch.node, redTip, blackTip, face.node);
 

@@ -73,11 +73,13 @@ always mean the same thing (`src/app/figures/kit.ts`): voltage runs from
 ground's deep blue to orange, current is the yellow of the dots, resistance
 violet, power red.
 
-Still to come, roughly in the order the lessons need them: capacitors and
-inductors (a time step), diodes, LEDs and transistors (Newton's method around
-the same solve), a solar cell, an op-amp, a breadboard and PCB view of the
-same parts, faults (cold joints, bridges, lifted pads, reversed parts) and a
-virtual multimeter, audio for the pedals, and a free-play bench.
+The solver also steps capacitors and inductors through time (backward Euler,
+halving a step that won't converge) and solves diodes, LEDs, transistors,
+MOSFETs and op-amps by Newton's method around the same matrix. A board view
+(`src/app/circuit/board.ts`) draws the same placements as a populated circuit
+board, and the fault hunts run on either. Still to come: a solar cell, audio
+for the pedals, and a free-play bench. Oscillators are weak: the two-transistor
+blinker doesn't converge at its flip yet, so lesson 8 only describes it.
 
 ## Adding a lesson
 

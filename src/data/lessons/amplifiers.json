@@ -187,7 +187,7 @@
     "An emitter follower buys current, not voltage: high impedance in, low out.",
     "Negative feedback sets an op-amp's gain with two resistors: 1 + Rf ÷ Rg."
   ],
-  "next": "Next: one circuit as a schematic, a breadboard and a board, and nothing but a meter to find what's wrong with it.",
+  "next": "Next: one circuit as a schematic and as a board, and nothing but a meter to find what's wrong with it.",
   "journal": [],
   "footnotes": {
     "bias": {

@@ -105,9 +105,9 @@ export function ledColour(part: Part): string | null {
   return colours[part.model] ?? '#e5332a';
 }
 
-const lengthOf = (path: P[]) => path.slice(1).reduce((s, p, k) => s + Math.hypot(p[0] - path[k][0], p[1] - path[k][1]), 0);
+export const lengthOf = (path: P[]) => path.slice(1).reduce((s, p, k) => s + Math.hypot(p[0] - path[k][0], p[1] - path[k][1]), 0);
 
-function pointAt(path: P[], d: number): P {
+export function pointAt(path: P[], d: number): P {
   for (let k = 1; k < path.length; k++) {
     const [x0, y0] = path[k - 1];
     const [x1, y1] = path[k];

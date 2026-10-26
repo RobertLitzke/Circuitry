@@ -34,7 +34,7 @@ const swing = (vs: number[]) => (Math.max(...vs) - Math.min(...vs)) / 2;
  * emitter to ground. With `signal`, a generator comes in through a capacitor
  * and the output leaves through another into the next stage's 100 kΩ.
  */
-function commonEmitter(signal: boolean) {
+export function commonEmitter(signal: boolean) {
   const bat = { id: 'bat', kind: 'source' as const, a: 'v9', b: 'gnd', volts: 9 };
   const w1 = wire('w1', 'v9', 'rt');
   const r1 = { id: 'r1', kind: 'resistor' as const, a: 'rt', b: 'b', ohms: 47000 };
@@ -58,9 +58,9 @@ function commonEmitter(signal: boolean) {
     { part: r2, path: [[150, 96], [150, 160]], tag: 'R2', tagSide: 'right' },
     { part: w2, path: [[150, 160], [150, 166]] },
     { part: rc, path: [[290, 20], [290, 70]], tag: 'Rc', tagSide: 'right' },
-    { part: q, at: [280, 96], leads: { b: [[254, 96], [150, 96]], c: [[290, 70]], e: [[290, 122]] } },
-    { part: re, path: [[290, 122], [290, 160]], tag: 'Re', tagSide: 'right' },
-    { part: w3, path: [[290, 160], [290, 166]] },
+    { part: q, at: [280, 96], leads: { b: [[254, 96], [150, 96]], c: [[290, 70]], e: [[290, 122], [290, 132]] } },
+    { part: re, path: [[290, 132], [290, 170]], tag: 'Re', tagSide: 'right' },
+    { part: w3, path: [[290, 170], [290, 176]] },
     ...(signal ? [
       { part: sig, path: [[50, 110], [50, 160]], tag: 'In', tagSide: 'right' },
       { part: win, path: [[50, 110], [50, 96], [80, 96]] },
@@ -70,8 +70,8 @@ function commonEmitter(signal: boolean) {
       { part: w4, path: [[340, 160], [340, 166]] },
     ] as Placement[] : []),
   ];
-  const grounds: [number, number][] = [[150, 166], [290, 166], [372, 140], ...(signal ? [[50, 160], [340, 166]] as [number, number][] : [])];
-  return { parts, places, grounds, r1, r2, rc, re, sig, q };
+  const grounds: [number, number][] = [[150, 166], [290, 176], [372, 140], ...(signal ? [[50, 160], [340, 166]] as [number, number][] : [])];
+  return { parts, places, grounds, bat, w1, r1, r2, rc, re, w3, sig, q };
 }
 
 // ---------------------------------------------------------------------------
@@ -80,7 +80,7 @@ function commonEmitter(signal: boolean) {
 const R2S = e12(2200, 47000);
 
 export const biasFigure = figure(['centre'], (ctx, t) => {
-  const f = frame(400, 190, 4);
+  const f = frame(400, 200, 4);
   const amp = commonEmitter(false);
   const sch = schematic(ctx, amp.places, { topVolts: 9, typicalAmps: 0.001, grounds: amp.grounds });
   const tags = svg('g');
@@ -94,7 +94,7 @@ export const biasFigure = figure(['centre'], (ctx, t) => {
     const vc = s.v.c;
     tags.replaceChildren(
       small(160, 112, volts(s.v.b), { bold: true, fill: COL.voltage }),
-      small(298, 140, volts(s.v.e), { bold: true, fill: COL.voltage }),
+      small(298, 150, volts(s.v.e), { bold: true, fill: COL.voltage }),
       small(298, 62, volts(vc), { bold: true, fill: COL.voltage }),
     );
     const mid = vc > 4 && vc < 5;
@@ -119,10 +119,10 @@ export const biasFigure = figure(['centre'], (ctx, t) => {
 const WINDOW_AMP = 0.003;
 
 export const gainFigure = figure(['clip'], (ctx, t) => {
-  const f = frame(400, 310, 4);
+  const f = frame(400, 320, 4);
   const amp = commonEmitter(true);
   const sch = schematic(ctx, amp.places, { topVolts: 9, typicalAmps: 0.001, grounds: amp.grounds });
-  const scr = scope({ x: 14, y: 185, w: 372, h: 112, vmin: -5, vmax: 5, window: WINDOW_AMP });
+  const scr = scope({ x: 14, y: 198, w: 372, h: 110, vmin: -5, vmax: 5, window: WINDOW_AMP });
   f.svg.append(sch.node, scr.node, small(346, 92, 'out', { fill: COL.current, bold: true }), small(60, 92, 'in', { fill: IN, bold: true }));
   let guessed = false;
   let fresh = false;
@@ -292,7 +292,7 @@ export const bridgedEmitterFigure = figure(['find'], (ctx, t) => {
     places: amp.places,
     schematic: { topVolts: 9, typicalAmps: 0.001, grounds: amp.grounds },
     size: [400, 240],
-    face: [180, 182],
+    face: [170, 186],
     brief: 'This stage should sit with its base at 1.6 V and its collector near 4.5 V. R1 is 47 kΩ, R2 10 kΩ, Rc 4.7 kΩ and Re 1 kΩ. The signal comes out tiny and badly distorted.',
     culprit: 're',
     found: 'Found it: Re is bridged by a blob of solder, so the emitter is held at 0 V and the base can only rise a diode’s drop. With nothing in the emitter to hold the current back, the transistor turns hard on: the collector sits near 0 V with no room to swing. The meter shows it as 0 V across a resistor that should have about 1 V across it.',

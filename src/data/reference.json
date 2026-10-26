@@ -782,7 +782,52 @@
       "title": "Solder and layout faults",
       "summary": "Cold joints, bridges, lifted pads and reversed parts: how each looks and measures",
       "lesson": "dead-circuit",
-      "blocks": []
+      "blocks": [
+        {
+          "kind": "table",
+          "columns": [
+            "Fault",
+            "Looks like",
+            "Measures"
+          ],
+          "rows": [
+            [
+              "Dry joint",
+              "Dull, grainy, balled up, a ring round the lead",
+              "Volts across the joint; may come and go when the board flexes"
+            ],
+            [
+              "Solder bridge",
+              "A blob joining neighbouring pads",
+              "Two nodes at the same voltage that should differ"
+            ],
+            [
+              "Cracked trace",
+              "Often nothing; a hairline across the copper",
+              "The full voltage across a stretch of copper"
+            ],
+            [
+              "Lifted pad",
+              "A pad peeled off the board, often after reheating",
+              "Like a dry joint, or open"
+            ],
+            [
+              "Part reversed",
+              "Diode band, LED flat, capacitor stripe or transistor flat the wrong way",
+              "Wrong voltages from the part onwards; a reversed electrolytic may bulge"
+            ],
+            [
+              "Wrong value",
+              "Bands that differ from the parts list",
+              "Right current, wrong voltage across it"
+            ]
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "Fault-finding order: work out what each point should read, measure the steady voltages with no signal, split what's left in halves, and measure across joints and traces as well as from ground. A good joint or trace drops nothing at all."
+        }
+      ]
     },
     {
       "id": "pedal-standards",

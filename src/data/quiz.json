@@ -647,6 +647,66 @@
       ],
       "answer": 0,
       "why": "As they start to conduct they lower the gain, so the clipping is soft."
+    },
+    {
+      "id": "silk",
+      "lesson": "dead-circuit",
+      "question": "How do you find a schematic's Q1 on its board?",
+      "options": [
+        "By the silkscreen label beside it",
+        "By its position on the schematic",
+        "By its colour"
+      ],
+      "answer": 0,
+      "why": "The board's layout differs from the drawing; the printed names match."
+    },
+    {
+      "id": "expect-first",
+      "lesson": "dead-circuit",
+      "question": "The first step in fault-finding a dead circuit is…",
+      "options": [
+        "Work out what each point should read",
+        "Replace the parts most likely to fail",
+        "Reflow every joint"
+      ],
+      "answer": 0,
+      "why": "Measurements only mean something against what they should be."
+    },
+    {
+      "id": "across-trace",
+      "lesson": "dead-circuit",
+      "question": "9 V across a stretch of copper trace means…",
+      "options": [
+        "The trace is broken",
+        "The trace is fine",
+        "The supply is low"
+      ],
+      "answer": 0,
+      "why": "Copper should drop nothing. The whole voltage appears across a break."
+    },
+    {
+      "id": "dry-look",
+      "lesson": "dead-circuit",
+      "question": "A dry solder joint usually looks…",
+      "options": [
+        "Dull and grainy, or balled up",
+        "Smooth and shiny",
+        "Exactly like a good one"
+      ],
+      "answer": 0,
+      "why": "Good solder wets the lead and pad and flows into a shiny cone."
+    },
+    {
+      "id": "halves",
+      "lesson": "dead-circuit",
+      "question": "With a hundred possible fault points, half-splitting takes about…",
+      "options": [
+        "7 measurements",
+        "50 measurements",
+        "100 measurements"
+      ],
+      "answer": 0,
+      "why": "2⁷ = 128, so seven halvings cover a hundred points."
     }
   ]
 }
