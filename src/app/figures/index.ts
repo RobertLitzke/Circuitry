@@ -4,6 +4,7 @@ import type { FigureId } from '../../core/lessons';
 import { checkFigure } from './check';
 import type { FigureFactory } from './kit';
 import { loopFigure } from './loop';
+import { dividerFigure, mysteryBoxFigure, potFigure, sagFigure, wrongValueFigure } from './sources';
 import { brokenWireFigure, cellsFigure, junctionFigure, parallelBulbsFigure, rankingFigure } from './series-parallel';
 import { ivCurveFigure, meterFigure, ohmTargetFigure, seriesBulbsFigure, trueSpeedFigure } from './what-flows';
 
@@ -20,4 +21,9 @@ export const FIGURES: Record<FigureId, FigureFactory> = {
   ranking: rankingFigure,
   cells: cellsFigure,
   'broken-wire': brokenWireFigure,
+  divider: dividerFigure,
+  pot: potFigure,
+  sag: sagFigure,
+  'mystery-box': mysteryBoxFigure,
+  'wrong-value': wrongValueFigure,
 };

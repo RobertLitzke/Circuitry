@@ -98,7 +98,7 @@
     {
       "id": "series-parallel",
       "title": "Series, parallel and dividers",
-      "summary": "Adding resistances, Kirchhoff's laws, and cells in series and parallel",
+      "summary": "Adding resistances, Kirchhoff's laws, dividers and cells in series and parallel",
       "lesson": "series-parallel",
       "blocks": [
         {
@@ -140,6 +140,27 @@
           ]
         },
         {
+          "kind": "terms",
+          "items": [
+            {
+              "term": "Divider",
+              "means": "Out = in × R2 ÷ (R1 + R2), unloaded."
+            },
+            {
+              "term": "Stiff divider",
+              "means": "Let ten times the load's current run down the divider: R2 no more than a tenth of the load."
+            },
+            {
+              "term": "Thévenin",
+              "means": "Seen from its output a divider is its unloaded voltage behind R1 ∥ R2."
+            },
+            {
+              "term": "Inside resistance",
+              "means": "Open-circuit volts ÷ short-circuit amps, or the sag under a known load ÷ the load's current."
+            }
+          ]
+        },
+        {
           "kind": "table",
           "columns": [
             "Cells",
@@ -170,8 +191,112 @@
       "id": "reading-parts",
       "title": "Reading parts",
       "summary": "Resistor colour bands, standard values, capacitor codes and polarity marks",
-      "lesson": "series-parallel",
-      "blocks": []
+      "lesson": "sources",
+      "blocks": [
+        {
+          "kind": "text",
+          "text": "Four-band resistors: two digits, then the number of noughts, then the tolerance. Five-band resistors have three digits before the multiplier."
+        },
+        {
+          "kind": "table",
+          "columns": [
+            "Colour",
+            "Digit",
+            "Noughts"
+          ],
+          "rows": [
+            [
+              "Black",
+              "0",
+              "none"
+            ],
+            [
+              "Brown",
+              "1",
+              "0"
+            ],
+            [
+              "Red",
+              "2",
+              "00"
+            ],
+            [
+              "Orange",
+              "3",
+              "000"
+            ],
+            [
+              "Yellow",
+              "4",
+              "0000"
+            ],
+            [
+              "Green",
+              "5",
+              "00000"
+            ],
+            [
+              "Blue",
+              "6",
+              "000000"
+            ],
+            [
+              "Violet",
+              "7",
+              ""
+            ],
+            [
+              "Grey",
+              "8",
+              ""
+            ],
+            [
+              "White",
+              "9",
+              ""
+            ],
+            [
+              "Gold",
+              "",
+              "÷ 10, or ±5%"
+            ],
+            [
+              "Silver",
+              "",
+              "÷ 100, or ±10%"
+            ]
+          ]
+        },
+        {
+          "kind": "table",
+          "columns": [
+            "Bands",
+            "Value"
+          ],
+          "rows": [
+            [
+              "Brown black red",
+              "1 kΩ"
+            ],
+            [
+              "Yellow violet brown",
+              "470 Ω"
+            ],
+            [
+              "Red red orange",
+              "22 kΩ"
+            ],
+            [
+              "Brown black orange",
+              "10 kΩ"
+            ],
+            [
+              "Orange orange brown",
+              "330 Ω"
+            ]
+          ]
+        }
+      ]
     },
     {
       "id": "wire",

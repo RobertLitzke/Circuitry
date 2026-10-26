@@ -143,6 +143,78 @@
       ],
       "answer": 0,
       "why": "With no current, nothing else drops any voltage, so all of it appears across the break."
+    },
+    {
+      "id": "divider-half",
+      "lesson": "sources",
+      "question": "Two equal resistors in series across 9 V. What's at the point between them, unloaded?",
+      "options": [
+        "4.5 V",
+        "9 V",
+        "3 V"
+      ],
+      "answer": 0,
+      "why": "Equal resistors share the voltage equally. Out = 9 × R ÷ (R + R) = 4.5 V."
+    },
+    {
+      "id": "divider-sag",
+      "lesson": "sources",
+      "question": "Why does a divider's output fall when you connect a load?",
+      "options": [
+        "The load in parallel makes the bottom resistance smaller",
+        "The battery runs down",
+        "The top resistor heats up"
+      ],
+      "answer": 0,
+      "why": "Two resistances in parallel are less than either, so the bottom's share of the voltage shrinks."
+    },
+    {
+      "id": "stiff-cost",
+      "lesson": "sources",
+      "question": "What does a stiffer divider cost you?",
+      "options": [
+        "More current, wasted all the time",
+        "A higher voltage",
+        "Nothing"
+      ],
+      "answer": 0,
+      "why": "Lower resistances carry more current, whether the load is there or not."
+    },
+    {
+      "id": "thevenin-box",
+      "lesson": "sources",
+      "question": "A source reads 12 V open and 11 V while delivering 0.5 A. What's its inside resistance?",
+      "options": [
+        "2 Ω",
+        "24 Ω",
+        "0.5 Ω"
+      ],
+      "answer": 0,
+      "why": "It lost 1 V inside at 0.5 A: 1 ÷ 0.5 = 2 Ω."
+    },
+    {
+      "id": "impedance-match",
+      "lesson": "sources",
+      "question": "To keep a signal's voltage, feed it into…",
+      "options": [
+        "a high input impedance",
+        "a low input impedance",
+        "any impedance at all"
+      ],
+      "answer": 0,
+      "why": "A high input impedance pulls little current, so the source hardly sags."
+    },
+    {
+      "id": "solar-source",
+      "lesson": "sources",
+      "question": "Measured open, shorted and loaded, a solar panel's points…",
+      "options": [
+        "bend: it holds its voltage, then collapses",
+        "lie on a straight line",
+        "are all the same"
+      ],
+      "answer": 0,
+      "why": "A panel is close to a current source in parallel with diodes, not a voltage behind a resistor."
     }
   ]
 }

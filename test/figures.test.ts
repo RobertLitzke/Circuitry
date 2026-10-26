@@ -154,3 +154,44 @@ describe('lesson 2', () => {
     expect(fig.node.textContent).toContain('Found it');
   });
 });
+
+describe('lesson 3', () => {
+  const click = (el: Element) => el.dispatchEvent(new Event('click', { bubbles: true }));
+  const chip = (node: HTMLElement, text: string) => [...node.querySelectorAll('.chip')].find((c) => c.textContent?.includes(text))!;
+  const set = (input: HTMLInputElement, v: number) => {
+    input.value = String(v);
+    input.dispatchEvent(new Event('input'));
+  };
+  const index = (ohms: number) => [100, 120, 150, 180, 220, 270, 330, 390, 470, 560, 680, 820].indexOf(ohms);
+
+  it('holds 3 V under load only with a stiff divider', async () => {
+    const fig = FIGURES.sag(ctx(), 'stiff');
+    const [r1, r2] = fig.node.querySelectorAll('input');
+    expect(fig.node.textContent).toContain('With the 4.7 kΩ load on: 2 V');
+    set(r1, index(680));
+    set(r2, index(330));
+    await expect(fig.done).resolves.toBeUndefined();
+    expect(fig.node.textContent).toContain('It holds');
+  });
+
+  it('models box 1 as 9 V behind 20 Ω, and box 3 refuses a line', async () => {
+    const fig = FIGURES['mystery-box'](ctx(), 'inside');
+    const inputs = fig.node.querySelectorAll('input');
+    click(chip(fig.node, 'Short it'));
+    expect(fig.node.textContent).toContain('450 mA');
+    set(inputs[1], 9);
+    set(inputs[2], 20);
+    expect(fig.node.textContent).toContain('Your model fits');
+    click(chip(fig.node, 'Box 3'));
+    click(chip(fig.node, 'Short it'));
+    for (const k of [24, 26, 28, 30]) set(inputs[0], k);
+    await expect(fig.done).resolves.toBeUndefined();
+    expect(fig.node.textContent).toContain('solar panel');
+  });
+
+  it('turns the pot to half the supply', async () => {
+    const fig = FIGURES.pot(ctx(), 'half');
+    set(fig.node.querySelector('input')!, 50);
+    await expect(fig.done).resolves.toBeUndefined();
+  });
+});

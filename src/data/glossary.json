@@ -75,5 +75,32 @@
     "term": "Junction",
     "text": "A point where three or more wires meet. In a semiconductor, also the boundary between p-type and n-type material.",
     "lesson": "series-parallel"
+  },
+  "potentiometer": {
+    "term": "Potentiometer",
+    "text": "A resistance strip with a sliding wiper: a divider you can turn. Volume and tone knobs are pots.",
+    "lesson": "sources",
+    "also": [
+      "pot"
+    ]
+  },
+  "load": {
+    "term": "Load",
+    "text": "Whatever a source or a stage of a circuit drives: the next stage, a lamp, a motor.",
+    "lesson": "sources"
+  },
+  "impedance": {
+    "term": "Impedance",
+    "text": "How much a source sags under load (output impedance) or how hard a load pulls (input impedance), in ohms. For capacitors and inductors it also depends on frequency.",
+    "lesson": "sources",
+    "also": [
+      "input impedance",
+      "output impedance"
+    ]
+  },
+  "internal-resistance": {
+    "term": "Internal resistance",
+    "text": "The resistance inside a battery or other source, which makes its voltage sag under load.",
+    "lesson": "sources"
   }
 }

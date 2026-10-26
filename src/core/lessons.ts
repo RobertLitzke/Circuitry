@@ -46,6 +46,12 @@ export const FIGURE_IDS = [
   'ranking',
   'cells',
   'broken-wire',
+  // 3 Every source has a resistor inside
+  'divider',
+  'pot',
+  'sag',
+  'mystery-box',
+  'wrong-value',
 ] as const;
 export type FigureId = (typeof FIGURE_IDS)[number];
 
