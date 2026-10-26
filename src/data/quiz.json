@@ -431,6 +431,78 @@
       ],
       "answer": 0,
       "why": "The coil’s field keeps the current going and drives whatever voltage it takes, until the field is spent."
+    },
+    {
+      "id": "knee",
+      "lesson": "diodes",
+      "question": "A conducting silicon diode drops about…",
+      "options": [
+        "0.65 V",
+        "0.065 V",
+        "6.5 V"
+      ],
+      "answer": 0,
+      "why": "Past its knee, a silicon diode holds about 0.6 to 0.7 V whatever the current."
+    },
+    {
+      "id": "led-r",
+      "lesson": "diodes",
+      "question": "A red LED (2 V) on 12 V at 10 mA needs a resistor of about…",
+      "options": [
+        "1 kΩ",
+        "1.2 kΩ",
+        "200 Ω"
+      ],
+      "answer": 0,
+      "why": "(12 − 2) ÷ 0.01 = 1000 Ω."
+    },
+    {
+      "id": "no-resistor",
+      "lesson": "diodes",
+      "question": "Why can’t you run an LED straight from a 3 V battery that “matches” its voltage?",
+      "options": [
+        "A little extra voltage makes a lot of current, so nothing sets it",
+        "LEDs need AC",
+        "It would be too dim"
+      ],
+      "answer": 0,
+      "why": "Past the knee the current climbs steeply. A resistor is what sets the current."
+    },
+    {
+      "id": "temp",
+      "lesson": "diodes",
+      "question": "Warm a silicon diode by 50 °C. Its forward voltage…",
+      "options": [
+        "falls by about 0.1 V",
+        "rises by about 0.1 V",
+        "stays the same"
+      ],
+      "answer": 0,
+      "why": "About 2 mV less for every degree warmer."
+    },
+    {
+      "id": "ripple",
+      "lesson": "diodes",
+      "question": "A 50 Hz half-wave rectifier feeds 10 mA from 1000 µF. The ripple is about…",
+      "options": [
+        "0.2 V",
+        "2 V",
+        "0.02 V"
+      ],
+      "answer": 0,
+      "why": "I ÷ (f × C) = 0.01 ÷ (50 × 0.001) = 0.2 V."
+    },
+    {
+      "id": "clip-kind",
+      "lesson": "diodes",
+      "question": "Which clipping diodes let the most signal through before they clip?",
+      "options": [
+        "LEDs",
+        "Germanium",
+        "Silicon"
+      ],
+      "answer": 0,
+      "why": "LEDs have the highest knee, near 2 V, so they clip later and louder."
     }
   ]
 }

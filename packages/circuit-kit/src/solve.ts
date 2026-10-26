@@ -51,10 +51,15 @@ const KELVIN = 273.15;
 /** Boltzmann's constant over the electron's charge, volts per kelvin. */
 const K_Q = 8.617333e-5;
 
-/** e^x, but straight past e^40, so a wild guess cannot overflow. */
-function limexp(x: number): number {
-  return x < 40 ? Math.exp(x) : Math.exp(40) * (1 + x - 40);
+/**
+ * e^x, but straight past e^max, so a wild guess cannot overflow. Diodes go
+ * straight much later than transistors, because an LED's saturation current
+ * is so small (1e-26 A for blue) that it works at e^50 and more.
+ */
+function limexp(x: number, max = 40): number {
+  return x < max ? Math.exp(x) : Math.exp(max) * (1 + x - max);
 }
+const DIODE_EXP = 90;
 
 /** A junction at a temperature: its thermal voltage n·kT/q, and its saturation current, which grows fast as it warms. */
 function junctionAt(j: Junction, celsius: number): { nvt: number; is: number } {
@@ -133,11 +138,11 @@ type OpState = 'follow' | 'top' | 'bottom';
 
 /** A diode with series resistance r: solve i = is·(e^((d − i·r)/nvt) − 1) for i, by a few Newton steps of its own. */
 function diodeCurrent(d: number, nvt: number, is: number, r: number): number {
-  if (r <= 0) return is * (limexp(d / nvt) - 1);
+  if (r <= 0) return is * (limexp(d / nvt, DIODE_EXP) - 1);
   // Start from whichever is smaller: the bare junction or the resistor alone.
-  let i = Math.min(is * (limexp(d / nvt) - 1), Math.max(d / r, 0));
+  let i = Math.min(is * (limexp(d / nvt, DIODE_EXP) - 1), Math.max(d / r, 0));
   for (let k = 0; k < 60; k++) {
-    const e = limexp((d - i * r) / nvt);
+    const e = limexp((d - i * r) / nvt, DIODE_EXP);
     const f = is * (e - 1) - i;
     const df = -is * e * (r / nvt) - 1;
     const next = i - f / df;
@@ -319,6 +324,12 @@ export function solve(parts: readonly Part[], o: SolveOptions = {}): Solution {
     // With no guess, start from the circuit with its curved parts left out.
     const x = o.guess ? new Float64Array(size) : (linear(null) ?? new Float64Array(size));
     if (o.guess) for (const [n, k] of index) x[k] = o.guess[n] ?? 0;
+    else {
+      // Left out, a curved part can leave a node pushed by a current source to thousands of volts, too far for the
+      // damped steps below to walk back from. Start every node within reach of the largest fixed voltage instead.
+      const reach = Math.max(1, ...fixed.map((f) => Math.abs(f.volts) + 1));
+      for (let k = 0; k < nodeCount; k++) x[k] = Math.max(-reach, Math.min(reach, x[k]));
+    }
     for (let iter = 0; iter < 400; iter++) {
       const next = linear(x);
       if (!next) return null;

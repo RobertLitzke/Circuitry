@@ -240,5 +240,53 @@
       "coil",
       "kickback"
     ]
+  },
+  "diode": {
+    "term": "Diode",
+    "text": "A part that conducts one way, anode to cathode, and blocks the other. The cathode is marked with a band.",
+    "lesson": "diodes",
+    "also": [
+      "anode",
+      "cathode"
+    ]
+  },
+  "forward-voltage": {
+    "term": "Forward voltage",
+    "text": "The nearly fixed voltage a conducting diode holds past its knee: 0.6–0.7 V silicon, 0.2–0.3 V germanium or Schottky, 1.8–3 V for LEDs.",
+    "lesson": "diodes",
+    "also": [
+      "knee",
+      "Vf"
+    ]
+  },
+  "led": {
+    "term": "LED",
+    "text": "A light-emitting diode. Its colour sets its forward voltage. It needs a resistor (or other limit) to set its current.",
+    "lesson": "diodes",
+    "also": [
+      "light-emitting diode"
+    ]
+  },
+  "rectifier": {
+    "term": "Rectifier",
+    "text": "Diodes that turn AC into DC: one for half-wave, four in a bridge for full-wave.",
+    "lesson": "diodes",
+    "also": [
+      "bridge rectifier"
+    ]
+  },
+  "reservoir": {
+    "term": "Reservoir capacitor",
+    "text": "The capacitor after a rectifier that fills at each peak and feeds the load between them. The sag between peaks is the ripple.",
+    "lesson": "diodes",
+    "also": [
+      "ripple",
+      "smoothing capacitor"
+    ]
+  },
+  "clipping-diodes": {
+    "term": "Clipping diodes",
+    "text": "Two diodes back to back across a signal, which hold it to their forward voltage either way: the heart of most distortion pedals.",
+    "lesson": "diodes"
   }
 }

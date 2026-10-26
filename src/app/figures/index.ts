@@ -3,6 +3,7 @@
 import type { FigureId } from '../../core/lessons';
 import { couplingFigure, decouplingFigure, kickbackFigure, lowpassFigure, rcChargeFigure, shortedCapFigure } from './capacitors';
 import { checkFigure } from './check';
+import { backwardsLedFigure, clipperFigure, diodeIvFigure, ledResistorFigure, rectifierFigure, reverseFigure } from './diodes';
 import type { FigureFactory } from './kit';
 import { loopFigure } from './loop';
 import { badJointFigure, batteryTimeFigure, fuseFigure, heatFigure, longWireFigure, matchingFigure } from './power';
@@ -44,4 +45,10 @@ export const FIGURES: Record<FigureId, FigureFactory> = {
   decoupling: decouplingFigure,
   kickback: kickbackFigure,
   'shorted-cap': shortedCapFigure,
+  'diode-iv': diodeIvFigure,
+  'led-resistor': ledResistorFigure,
+  reverse: reverseFigure,
+  rectifier: rectifierFigure,
+  clipper: clipperFigure,
+  'backwards-led': backwardsLedFigure,
 };

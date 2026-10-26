@@ -558,7 +558,65 @@
       "title": "Diodes and transistors",
       "summary": "Forward voltages, LED resistors, and transistors as switches",
       "lesson": "diodes",
-      "blocks": []
+      "blocks": [
+        {
+          "kind": "table",
+          "columns": [
+            "Diode",
+            "Forward voltage",
+            "Used for"
+          ],
+          "rows": [
+            [
+              "Silicon (1N4148, 1N400x)",
+              "0.6–0.7 V",
+              "Signals, rectifiers, protection, clipping"
+            ],
+            [
+              "Germanium (1N34A)",
+              "0.2–0.3 V",
+              "Soft clipping, old radios"
+            ],
+            [
+              "Schottky (1N5817, BAT46)",
+              "0.2–0.4 V",
+              "Low-loss protection, solar blocking"
+            ],
+            [
+              "Red LED",
+              "1.8–2 V",
+              "Indicators, loud clipping"
+            ],
+            [
+              "Green LED",
+              "2–2.2 V",
+              "Indicators"
+            ],
+            [
+              "Blue or white LED",
+              "2.8–3.2 V",
+              "Indicators, lighting"
+            ]
+          ]
+        },
+        {
+          "kind": "terms",
+          "items": [
+            {
+              "term": "LED resistor",
+              "means": "R = (supply − LED voltage) ÷ current. 2 to 20 mA."
+            },
+            {
+              "term": "Ripple",
+              "means": "≈ load current ÷ (frequency × reservoir capacitance); a bridge doubles the frequency."
+            },
+            {
+              "term": "Temperature",
+              "means": "A diode’s forward voltage falls about 2 mV for each degree warmer."
+            }
+          ]
+        }
+      ]
     },
     {
       "id": "multimeter",

@@ -70,6 +70,13 @@ export const FIGURE_IDS = [
   'decoupling',
   'kickback',
   'shorted-cap',
+  // 7 Curved lines
+  'diode-iv',
+  'led-resistor',
+  'reverse',
+  'rectifier',
+  'clipper',
+  'backwards-led',
 ] as const;
 export type FigureId = (typeof FIGURE_IDS)[number];
 

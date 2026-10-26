@@ -123,6 +123,19 @@ describe('time', () => {
     expect(sim.now.v.top).toBeCloseTo(5.5);
   });
 
+  it('pushes a current through a diode with nothing else to set its voltage', () => {
+    const s = solve([{ id: 'i', kind: 'current', a: 'gnd', b: 'a', amps: 0.01 }, { id: 'd', kind: 'diode', a: 'a', b: 'gnd', model: 'silicon' }]);
+    expect(s.i.d).toBeCloseTo(0.01, 4);
+    expect(s.v.a).toBeGreaterThan(0.5);
+    expect(s.v.a).toBeLessThan(0.9);
+  });
+
+  it('drops about 3 V across a blue LED at 10 mA', () => {
+    const s = solve([{ id: 'i', kind: 'current', a: 'gnd', b: 'a', amps: 0.01 }, { id: 'd', kind: 'diode', a: 'a', b: 'gnd', model: 'led-blue' }]);
+    expect(s.v.a).toBeGreaterThan(2.7);
+    expect(s.v.a).toBeLessThan(3.4);
+  });
+
   it('plays a guitar note that peaks at its amplitude and repeats', () => {
     const g = { id: 'g', kind: 'source' as const, a: 'top', b: 'gnd', volts: 0, wave: { shape: 'guitar' as const, amp: 0.2, hz: 110 } };
     const vs = Array.from({ length: 400 }, (_, k) => sourceVolts(g, k / 400 / 110));

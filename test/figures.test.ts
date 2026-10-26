@@ -321,3 +321,58 @@ describe('lesson 6', () => {
     expect(fig.node.textContent).toMatch(/1\.\d+ kV/);
   });
 });
+
+describe('lesson 7', () => {
+  const click = (el: Element) => el.dispatchEvent(new Event('click', { bubbles: true }));
+  const chip = (node: HTMLElement, text: string) => [...node.querySelectorAll('.chip')].find((c) => c.textContent === text)!;
+  const lock = (node: HTMLElement, text: string) => {
+    click(chip(node, text));
+    click([...node.querySelectorAll('button')].find((b) => b.textContent === 'Lock it in')!);
+  };
+
+  it('traces silicon, germanium and an LED', async () => {
+    const fig = FIGURES['diode-iv'](ctx(), 'curves');
+    lock(fig.node, 'stays near zero, then shoots up');
+    expect(fig.node.textContent).toMatch(/Silicon, at 25 °C: 6\d\d mV/);
+    click(chip(fig.node, 'Germanium'));
+    click(chip(fig.node, 'Red LED'));
+    await expect(fig.done).resolves.toBeUndefined();
+  });
+
+  it('lights the LED at 15 mA with 470 Ω', async () => {
+    const fig = FIGURES['led-resistor'](ctx(), 'design');
+    expect(fig.node.textContent).toContain('would soon die');
+    const input = fig.node.querySelector('input')!;
+    input.value = '12';
+    input.dispatchEvent(new Event('input'));
+    expect(fig.node.textContent).toContain('470 Ω');
+    await expect(fig.done).resolves.toBeUndefined();
+    expect(fig.node.querySelectorAll('.star.got').length).toBe(3);
+  });
+
+  it('blocks a battery in backwards', async () => {
+    const fig = FIGURES.reverse(ctx(), 'protect');
+    click(chip(fig.node, 'Battery in backwards'));
+    expect(fig.node.textContent).toContain('kills them');
+    click(chip(fig.node, 'Silicon diode'));
+    expect(fig.node.textContent).toContain('gets 0 V');
+    await expect(fig.done).resolves.toBeUndefined();
+  });
+
+  it('smooths the rectifier with 1000 µF', async () => {
+    const fig = FIGURES.rectifier(ctx(), 'smooth');
+    click(chip(fig.node, '100 µF'));
+    expect(fig.node.textContent).toContain('Still a lot of ripple');
+    click(chip(fig.node, '1000 µF'));
+    await expect(fig.done).resolves.toBeUndefined();
+  });
+
+  it('clips at each kind of diode’s knee', async () => {
+    const fig = FIGURES.clipper(ctx(), 'clip');
+    lock(fig.node, 'The wave, cut flat at under a volt each way');
+    click(chip(fig.node, 'Germanium'));
+    click(chip(fig.node, 'Red LED'));
+    await expect(fig.done).resolves.toBeUndefined();
+    expect(fig.node.textContent).toMatch(/about 1\.\d+ V each way/);
+  });
+});

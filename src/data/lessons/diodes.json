@@ -4,8 +4,238 @@
   "track": "core",
   "title": "Curved lines",
   "teaches": "Diodes and LEDs, their bent current curve, current limiting, rectifying and clipping",
-  "parts": [],
-  "learned": [],
-  "next": "",
-  "journal": []
+  "parts": [
+    {
+      "title": "A one-way valve",
+      "blocks": [
+        {
+          "kind": "text",
+          "text": "A **diode** lets current through one way and not the other. Its symbol is an arrow pointing the way current may flow, into a bar that stops it coming back. The arrow's end is the **anode**, the bar's end the **cathode**, and on the part itself the cathode is marked with a band.[^junction]"
+        },
+        {
+          "kind": "text",
+          "text": "Lesson 1 found that a lamp's current curve bends. A diode's bends much harder. Here is one on the curve tracer from that lesson, with a 10 Ω resistor in the tester to keep it safe."
+        },
+        {
+          "kind": "figure",
+          "figure": "diode-iv",
+          "caption": "A supply, the tester's 10 Ω, and a diode",
+          "task": "Guess, then trace a silicon, a germanium and an LED",
+          "goal": "curves"
+        }
+      ]
+    },
+    {
+      "title": "The knee",
+      "blocks": [
+        {
+          "kind": "text",
+          "text": "Below a certain voltage almost nothing flows. Then the curve turns a corner, its **knee**, and goes nearly straight up. Past the knee a tiny rise in voltage is a big rise in current, so in practice a conducting diode holds its voltage almost fixed whatever the current: about 0.6 to 0.7 V for silicon, 0.2 to 0.3 V for germanium and Schottky diodes, and 1.8 to 3 V for LEDs, set by their colour."
+        },
+        {
+          "kind": "text",
+          "text": "On the log scale the curve below the knee is a straight line: the current grows ten times for every extra 0.1 V or so. That is an exponential, and it is why there is no sharp turn-on, only a very fast one. Warm a diode and its curve slides left, about 2 mV for each degree. Germanium's slides the most, which is one reason germanium fuzz pedals sound different on a hot stage."
+        },
+        {
+          "kind": "key",
+          "title": "Hold on to",
+          "points": [
+            "A diode conducts one way, anode to cathode, and blocks the other.",
+            "Past its knee it holds about a fixed voltage: 0.6–0.7 V silicon, 0.2–0.3 V germanium or Schottky, 1.8–3 V LEDs.",
+            "Its curve moves with temperature, about 2 mV a degree."
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Lighting an LED",
+      "blocks": [
+        {
+          "kind": "text",
+          "text": "An LED is a diode that glows. Because its voltage barely moves past the knee, you can't set its current with the voltage: a little too much and the current runs away. So an LED always has something to set its current, almost always a resistor in series. The resistor takes whatever voltage the LED doesn't."
+        },
+        {
+          "kind": "figure",
+          "figure": "led-resistor",
+          "caption": "A 9 V battery, a resistor and a red LED",
+          "task": "Choose a resistor for 10 to 20 mA",
+          "goal": "design"
+        },
+        {
+          "kind": "text",
+          "text": "The sum is lesson 1's Ohm's law, used on what is left over: **R = (supply − LED voltage) ÷ current**. For a red LED on 9 V at 15 mA, (9 − 2) ÷ 0.015 is 470 Ω, an E12 value. Modern LEDs are bright at 2 to 5 mA, so a bigger resistor often does, and saves the battery."
+        },
+        {
+          "kind": "key",
+          "title": "Hold on to",
+          "points": [
+            "Never put an LED straight across a supply. Set its current with a resistor.",
+            "R = (supply − LED voltage) ÷ current. 10 to 20 mA is plenty; 2 to 5 mA is often enough."
+          ]
+        }
+      ]
+    },
+    {
+      "title": "One way only",
+      "blocks": [
+        {
+          "kind": "text",
+          "text": "The simplest use of a one-way valve is to guard against a battery put in backwards. Most pedals have a diode in their supply for just this."
+        },
+        {
+          "kind": "figure",
+          "figure": "reverse",
+          "caption": "A battery, a guard diode, and a pedal drawing 9 mA",
+          "task": "Put the battery in backwards with a diode guarding it",
+          "goal": "protect"
+        },
+        {
+          "kind": "text",
+          "text": "The price is the diode's drop, lost from the supply whenever the pedal runs. A Schottky diode costs less of it. Another way, used in many pedals, puts the diode across the supply, pointing up from ground: in normal use it does nothing, and backwards it shorts the supply so hard that the battery or the power supply's protection gives up instead of the circuit."
+        }
+      ]
+    },
+    {
+      "title": "From AC to DC",
+      "blocks": [
+        {
+          "kind": "text",
+          "text": "Mains and the output of a transformer are AC, turning round fifty or sixty times a second, but circuits want DC. A diode in the way passes only the forward half of each wave: that is a **rectifier**. Its output is DC, all one way, but in bumps."
+        },
+        {
+          "kind": "figure",
+          "figure": "rectifier",
+          "caption": "12 V AC, a diode, a capacitor and a 1 kΩ load",
+          "task": "Get the ripple under 0.5 V",
+          "goal": "smooth"
+        },
+        {
+          "kind": "text",
+          "text": "The capacitor from lesson 6 fills at each peak and feeds the load between them. This is a **reservoir capacitor**, and the sag between peaks is the **ripple**: about the load's current ÷ (frequency × capacitance). Four diodes in a square, a **bridge rectifier**, use both halves of the wave, so the peaks come twice as often and the ripple halves. Every plug-in power supply starts like this."
+        },
+        {
+          "kind": "key",
+          "title": "Hold on to",
+          "points": [
+            "A diode rectifies AC into bumps of DC; a reservoir capacitor smooths them.",
+            "Ripple ≈ load current ÷ (frequency × capacitance). A bridge doubles the frequency.",
+            "Solar panels use diodes too: bypass diodes around shaded cells, which the solar lessons come to."
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Clipping with diodes",
+      "blocks": [
+        {
+          "kind": "text",
+          "text": "In lesson 5 a stage clipped when it ran out of room. Diodes clip on purpose, and at a voltage you choose by the kind of diode. Put two across a signal, one each way round, after a resistor."
+        },
+        {
+          "kind": "figure",
+          "figure": "clipper",
+          "caption": "A signal, a 10 kΩ resistor, and two diodes, opposite ways, across the output",
+          "task": "Guess, then try all three kinds of diode",
+          "goal": "clip"
+        },
+        {
+          "kind": "text",
+          "text": "While the signal is below their knees the diodes do nothing. Past the knee they hold the voltage there, and the rest of the wave is dropped across the resistor. Because the knee is a curve and not a corner, the tops are rounded, not cut square, and that softness is a sound. This is the heart of most distortion pedals: silicon diodes for a tight, compressed sound, germanium for a softer, lower clip, LEDs for more volume and more open distortion."
+        },
+        {
+          "kind": "key",
+          "title": "Hold on to",
+          "points": [
+            "Two diodes back to back clip a signal at their knee voltage, either way.",
+            "The kind of diode sets where it clips and how softly."
+          ]
+        }
+      ]
+    },
+    {
+      "title": "A dark LED",
+      "blocks": [
+        {
+          "kind": "text",
+          "text": "A diode works one way round only, so the classic mistake on a new board is one soldered in backwards. It looks almost right; the meter knows."
+        },
+        {
+          "kind": "figure",
+          "figure": "backwards-led",
+          "caption": "Two LEDs, each with its own resistor, and one is dark",
+          "task": "Find the fault and mark it",
+          "goal": "find"
+        }
+      ]
+    },
+    {
+      "title": "Check",
+      "blocks": [
+        {
+          "kind": "figure",
+          "figure": "check",
+          "caption": "Six questions",
+          "task": "Answer them",
+          "options": {
+            "items": [
+              {
+                "question": "A silicon diode is conducting 1 mA. You push 10 mA through it instead. Its voltage…",
+                "options": ["rises a little, about 0.1 V", "rises ten times", "stays exactly the same"],
+                "answer": 0,
+                "why": "Past the knee the current grows ten times for every 0.1 V or so. Nearly fixed, but not quite."
+              },
+              {
+                "question": "A green LED drops 2.2 V. On 5 V, for 10 mA, the resistor should be about…",
+                "options": ["280 Ω, so 270 Ω", "500 Ω", "220 Ω"],
+                "answer": 0,
+                "why": "(5 − 2.2) ÷ 0.01 = 280 Ω; the nearest E12 value is 270 Ω."
+              },
+              {
+                "question": "Which diode costs the least voltage as reverse protection?",
+                "options": ["Schottky", "Silicon", "A red LED"],
+                "answer": 0,
+                "why": "Its knee is lowest, about 0.2 to 0.3 V."
+              },
+              {
+                "question": "A rectifier's ripple is too large. What helps?",
+                "options": ["A bigger reservoir capacitor", "A smaller one", "A second diode in series"],
+                "answer": 0,
+                "why": "A bigger capacitor holds up the load for longer between the peaks."
+              },
+              {
+                "question": "Two silicon diodes back to back across a signal clip it at about…",
+                "options": ["0.6 V each way", "6 V each way", "only the positive half"],
+                "answer": 0,
+                "why": "Each holds about its knee voltage, one for each half of the wave."
+              },
+              {
+                "question": "An LED is dark. Across it you read the full supply voltage, and 0 V across its resistor. Most likely…",
+                "options": ["it is in backwards", "its resistor is shorted", "it is drawing too much current"],
+                "answer": 0,
+                "why": "No current flows in that branch, so the resistor drops nothing and the LED has the whole supply across it: a diode the wrong way round."
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "learned": [
+    "A diode conducts one way, and past its knee holds a nearly fixed voltage.",
+    "Silicon 0.6–0.7 V, germanium and Schottky 0.2–0.3 V, LEDs 1.8–3 V by colour.",
+    "An LED needs a resistor: R = (supply − LED voltage) ÷ current.",
+    "A diode guards against a battery put in backwards, at the cost of its drop.",
+    "A diode rectifies AC; a reservoir capacitor smooths the bumps.",
+    "Two diodes back to back clip a signal at their knee."
+  ],
+  "next": "Next: transistors, where a small current steers a big one.",
+  "journal": [],
+  "footnotes": {
+    "junction": {
+      "kind": "technical",
+      "title": "Inside a diode",
+      "text": "A diode is a crystal of silicon (or germanium) doped two ways: one side with atoms that give it spare electrons (n-type), the other with atoms that leave gaps, holes (p-type). Where they meet, a thin layer empties of both and acts as a barrier. Push the right way and the barrier thins until current floods across; push the other way and it widens.",
+      "glossary": "PN junction"
+    }
+  }
 }
