@@ -142,6 +142,43 @@ describe('time', () => {
     expect(Math.max(...vs.map(Math.abs))).toBeCloseTo(0.2, 2);
     expect(sourceVolts(g, 0.3 / 110)).toBeCloseTo(sourceVolts(g, 2.3 / 110));
   });
+
+  it('runs a two-transistor blinker, its bases swinging below ground, at about 0.6 RC a side', () => {
+    const blinker = (c: number): Part[] => [
+      battery(9),
+      { id: 'r1', kind: 'resistor', a: 'top', b: 'l1', ohms: 470 },
+      { id: 'd1', kind: 'diode', a: 'l1', b: 'k1', model: 'led-red' },
+      { id: 'r2', kind: 'resistor', a: 'top', b: 'l2', ohms: 470 },
+      { id: 'd2', kind: 'diode', a: 'l2', b: 'k2', model: 'led-red' },
+      { id: 'rb1', kind: 'resistor', a: 'top', b: 'b1', ohms: 47000 },
+      { id: 'rb2', kind: 'resistor', a: 'top', b: 'b2', ohms: 47000 },
+      { id: 'c1', kind: 'capacitor', a: 'k1', b: 'b2', farads: c },
+      { id: 'c2', kind: 'capacitor', a: 'k2', b: 'b1', farads: c },
+      { id: 'q1', kind: 'bjt', type: 'npn', c: 'k1', b: 'b1', e: 'gnd', beta: 200 },
+      { id: 'q2', kind: 'bjt', type: 'npn', c: 'k2', b: 'b2', e: 'gnd', beta: 200 },
+    ];
+    // Perfectly balanced, both turn on together and stay on, as a real one can on a slowly rising supply.
+    const stuck = simulate(blinker(10e-6));
+    stuck.step(0.5, 100);
+    expect(stuck.now.v.k1).toBeLessThan(0.5);
+    expect(stuck.now.v.k2).toBeLessThan(0.5);
+    // Nudged, it runs, steadily: each half takes about 0.6 × 47 kΩ × 10 µF.
+    const sim = simulate(blinker(10e-6), { charged: { c1: -1 } });
+    const flips: number[] = [];
+    let low = sim.now.v.k1 < 4;
+    let lowest = 0;
+    while (sim.t < 2) {
+      const s = sim.step(0.005);
+      expect(s.converged).toBe(true);
+      lowest = Math.min(lowest, s.v.b1);
+      if (s.v.k1 < 4 !== low) flips.push(sim.t);
+      low = s.v.k1 < 4;
+    }
+    expect(flips.length).toBeGreaterThanOrEqual(6);
+    const halves = flips.slice(2).map((f, k) => f - flips[k + 1]);
+    for (const h of halves) expect(h).toBeCloseTo(0.6 * 47000 * 10e-6, 1);
+    expect(lowest).toBeLessThan(-6);
+  });
 });
 
 describe('standard values', () => {

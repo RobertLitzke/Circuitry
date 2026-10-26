@@ -9,7 +9,7 @@ import { backwardsLedFigure, clipperFigure, diodeIvFigure, ledResistorFigure, re
 import type { FigureFactory } from './kit';
 import { loopFigure } from './loop';
 import { badJointFigure, batteryTimeFigure, fuseFigure, heatFigure, longWireFigure, matchingFigure } from './power';
-import { bjtSwitchFigure, mosfetSwitchFigure, relayFigure, shortedTransistorFigure } from './switches';
+import { bjtSwitchFigure, blinkerFigure, mosfetSwitchFigure, relayFigure, shortedTransistorFigure } from './switches';
 import { offsetFigure, sineFigure, stuckBiasFigure } from './signals';
 import { dividerFigure, mysteryBoxFigure, potFigure, sagFigure, wrongValueFigure } from './sources';
 import { brokenWireFigure, cellsFigure, junctionFigure, parallelBulbsFigure, rankingFigure } from './series-parallel';
@@ -57,6 +57,7 @@ export const FIGURES: Record<FigureId, FigureFactory> = {
   'bjt-switch': bjtSwitchFigure,
   'mosfet-switch': mosfetSwitchFigure,
   relay: relayFigure,
+  blinker: blinkerFigure,
   'shorted-transistor': shortedTransistorFigure,
   bias: biasFigure,
   gain: gainFigure,

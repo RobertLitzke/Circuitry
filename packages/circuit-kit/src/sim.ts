@@ -4,8 +4,8 @@
 // charge and current for the next step. Sources with a wave move as time
 // goes on, so a scope can be drawn by recording a node at each step.
 
-import type { Part } from './parts';
-import { solve, type Solution, type SolveOptions } from './solve';
+import { junctionCaps, type Part } from './parts';
+import { solve, type Solution } from './solve';
 
 export interface Sim {
   /** Seconds since the start. */
@@ -22,6 +22,8 @@ export interface SimOptions {
   celsius?: number;
   /** Start from the steady state instead of from rest (capacitors empty, no current in inductors). */
   settled?: boolean;
+  /** Volts each named capacitor starts with, a to b, when starting from rest: a nudge for a circuit that would otherwise start balanced. */
+  charged?: Record<string, number>;
 }
 
 /** A simulation of `parts`, which a figure may change in place between steps. */
@@ -35,12 +37,13 @@ export function simulate(parts: readonly Part[], o: SimOptions = {}): Sim {
     for (const p of parts) {
       if (p.kind === 'capacitor') volts[p.id] = s.v[p.a] - s.v[p.b];
       if (p.kind === 'inductor') amps[p.id] = s.i[p.id];
+      if (p.kind === 'bjt') for (const [key, a, b] of junctionCaps(p)) volts[key] = s.v[a] - s.v[b];
     }
   };
 
   const reset = (settled = o.settled ?? false) => {
     t = 0;
-    volts = {};
+    volts = { ...o.charged };
     amps = {};
     if (settled) {
       now = solve(parts, { celsius: o.celsius, t: 0 });
@@ -60,22 +63,25 @@ export function simulate(parts: readonly Part[], o: SimOptions = {}): Sim {
       return now;
     },
     step(dt, substeps = 1) {
-      // One step of h seconds; where the circuit changes too fast for Newton's method to follow (a blinker
-      // flipping over), it is taken again as two half steps, down to an eighth.
-      const advance = (h: number, depth: number): void => {
-        const opts: SolveOptions = { celsius: o.celsius, t: t + h, guess: now.v, memory: { dt: h, volts, amps } };
-        const s = solve(parts, opts);
-        if (!s.converged && depth < 3) {
-          advance(h / 2, depth + 1);
-          if (!now.short) advance(h / 2, depth + 1);
-          return;
+      // Steps of dt / substeps seconds. Where the circuit changes too fast for Newton's method to follow (a blinker
+      // flipping over, which takes a few nanoseconds), the step is halved until it can, down to a billionth of
+      // itself, then doubled again each time one goes through, back up to its full length.
+      const full = dt / substeps;
+      const end = t + dt;
+      let h = full;
+      while (!now.short && end - t > full * 1e-9) {
+        h = Math.min(h, end - t);
+        const s = solve(parts, { celsius: o.celsius, t: t + h, guess: now.v, memory: { dt: h, volts, amps } });
+        if (!s.converged && h > full * 1e-9) {
+          h /= 2;
+          continue;
         }
         t += h;
         now = s;
         if (!now.short) remember(now);
-      };
-      const h = dt / substeps;
-      for (let k = 0; k < substeps && !now.short; k++) advance(h, 0);
+        h = Math.min(full, h * 2);
+      }
+      t = Math.max(t, end);
       return now;
     },
     reset,

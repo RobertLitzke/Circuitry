@@ -14,7 +14,10 @@ inductors, diodes and LEDs (with temperature), NPN and PNP transistors
 (Ebers–Moll), N and P MOSFETs (square law) and op-amps (gain, output
 resistance, and rails less a headroom). Curved parts are solved by Newton's
 method, op-amps by trying each one following or stuck at a rail until the
-answer agrees, and time by backward Euler. A short across an ideal source is
+answer agrees, and time by backward Euler, with each step halved where the
+circuit moves too fast to follow (a two-transistor blinker flipping over,
+which the transistors' own junction capacitance sets the pace of). A
+circuit that would start perfectly balanced can be nudged with `charged`. A short across an ideal source is
 reported as `short` rather than solved.
 
 `e12(lo, hi)` and `nearestE12(x)` give the standard part values.

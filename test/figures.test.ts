@@ -409,6 +409,19 @@ describe('lesson 8', () => {
     expect(fig.node.textContent).toMatch(/rises to 12\.\d+ V/);
     await expect(fig.done).resolves.toBeUndefined();
   });
+
+  it('blinks once a second with 15 µF a side, or 10 and 22 µF', async () => {
+    const fig = FIGURES.blinker(ctx(), 'second');
+    click(chip(fig.node, 'drops 7 V with it, to well below ground'));
+    click(button(fig.node, 'Lock it in'));
+    expect(fig.node.textContent).toContain('Make it once a second');
+    click(chip(fig.node, 'C1 15 µF'));
+    click(chip(fig.node, 'C2 15 µF'));
+    await expect(fig.done).resolves.toBeUndefined();
+    click(chip(fig.node, 'C1 10 µF'));
+    click(chip(fig.node, 'C2 22 µF'));
+    expect(fig.node.querySelectorAll('.star.got').length).toBe(3);
+  });
 });
 
 describe('lesson 9', () => {

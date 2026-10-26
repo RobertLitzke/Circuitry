@@ -16,7 +16,7 @@
 // steps a circuit through time, handing each step's charge and current back
 // in here as `memory`.
 
-import { DIODES, GROUND, nodesOf, sourceVolts, terminals, type Junction, type Part } from './parts';
+import { DIODES, GROUND, junctionCaps, nodesOf, sourceVolts, terminals, type Junction, type Part } from './parts';
 
 export interface Solution {
   /** Volts at every node, from ground. */
@@ -252,6 +252,16 @@ export function solve(parts: readonly Part[], o: SolveOptions = {}): Solution {
             push(p.a, p.b, (mem.amps[p.id] ?? 0) * (p.henries / mem.dt) * g);
           } else if (p.ohms && p.ohms > 0) conductance(p.a, p.b, 1 / p.ohms);
           break;
+        case 'bjt':
+          // Its junctions' own small capacitance, by backward Euler as for a capacitor.
+          if (mem) {
+            for (const [key, a, b, farads] of junctionCaps(p)) {
+              const g = farads / mem.dt;
+              conductance(a, b, g);
+              push(a, b, -g * (mem.volts[key] ?? 0));
+            }
+          }
+          break;
         case 'opamp': {
           // The output is a voltage behind OPAMP_OHMS: gain × (plus − minus) while it follows, or a rail less the headroom.
           const g = 1 / OPAMP_OHMS;
@@ -337,7 +347,10 @@ export function solve(parts: readonly Part[], o: SolveOptions = {}): Solution {
       const reach = Math.max(1, ...fixed.map((f) => Math.abs(f.volts) + 1));
       for (let k = 0; k < nodeCount; k++) x[k] = Math.max(-reach, Math.min(reach, x[k]));
     }
-    for (let iter = 0; iter < 400; iter++) {
+    // A step in time starts from the last step's answer, so it either settles quickly or the step is too long, and
+    // sim.ts would rather know soon and halve it.
+    const most = mem && guess ? 20 : 400;
+    for (let iter = 0; iter < most; iter++) {
       const next = linear(x);
       if (!next) return null;
       // Take the step, but no node moves more than 2 V at once, so a wild first guess walks in rather than leaps about.
@@ -349,15 +362,15 @@ export function solve(parts: readonly Part[], o: SolveOptions = {}): Solution {
       const scale = biggest > reach ? reach / biggest : 1;
       for (let k = 0; k < size; k++) x[k] += (next[k] - x[k]) * (k < nodeCount ? scale : 1);
       if (biggest < 1e-8) break;
-      if (iter === 399) converged = false;
+      if (iter === most - 1) converged = false;
     }
     return x;
   };
 
   // Solve, then see whether each op-amp's output has run past a rail (or come back off one), and solve again if so.
   let x = newton();
-  // A circuit that has just flipped over (a blinker) can leave the last answer too far from the new one to walk to.
-  if (!converged && guess) {
+  // A guess too far from the answer to walk to: start again from nothing. (In a step in time, sim.ts halves the step instead.)
+  if (!converged && guess && !mem) {
     guess = undefined;
     x = newton();
   }

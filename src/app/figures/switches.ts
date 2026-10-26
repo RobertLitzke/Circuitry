@@ -1,7 +1,8 @@
 // Lesson 8, a small current steering a big one: a bipolar transistor
 // switching a lamp, hard on or wastefully half on; a MOSFET switching a pump
 // from a microcontroller's 3.3 V; a relay's coil kicking back at the
-// transistor that drives it, and the diode that catches it; and a transistor
+// transistor that drives it, and the diode that catches it; two transistors
+// switching each other on and off to blink a pair of LEDs; and a transistor
 // that has failed shorted.
 
 import { el } from 'lesson-kit/dom';
@@ -11,11 +12,13 @@ import { simulate } from 'circuit-kit/sim';
 import { solve } from 'circuit-kit/solve';
 import { wire } from '../circuit/build';
 import { schematic } from '../circuit/schematic';
-import { amps, ohms, volts, watts } from '../circuit/units';
+import { amps, ohms, si, volts, watts } from '../circuit/units';
 import { hunt } from './bench';
 import { guess, stars } from './guess';
-import { COL, figure, frame } from './kit';
+import { animate, COL, figure, frame } from './kit';
 import { scope } from './scope';
+
+const seconds = (s: number) => si(s, 's');
 
 /** A row of chips, one picked, which calls `pick` with the chosen value. */
 function chipRow<T>(values: readonly T[], show: (v: T) => string, at: () => T, pick: (v: T) => void): HTMLElement {
@@ -218,6 +221,175 @@ export const relayFigure = figure(['safe'], (ctx, t) => {
   const unhide = () => scr.hide(null);
   offBtn.addEventListener('click', unhide);
   f.readout.textContent = 'A transistor drives a relay’s coil from 12 V; 0.1 A builds its magnetic field. The scope watches the transistor’s collector as the control turns it off.';
+  return f.node;
+});
+
+// ---------------------------------------------------------------------------
+// The two-transistor blinker: each transistor holds the other off through a capacitor, until it recharges.
+
+const BLINK_CS = [4.7e-6, 10e-6, 15e-6, 22e-6, 47e-6];
+const WINDOW_BLINK = 3;
+const BASE_TRACE = '#5b9bd5';
+
+/** The blinker's parts, with C1 and C2 given, and the nudge that starts it: C1 a little charged, so one side wins the race. */
+export function blinker(c1: number, c2: number) {
+  const parts = {
+    bat: { id: 'bat', kind: 'source' as const, a: 'v', b: 'gnd', volts: 9 },
+    w0: wire('w0', 'v', 't1'),
+    w1: wire('w1', 't1', 't2'),
+    w2: wire('w2', 't2', 't3'),
+    w3: wire('w3', 't3', 't4'),
+    r1: { id: 'r1', kind: 'resistor' as const, a: 't1', b: 'l1', ohms: 470 },
+    led1: { id: 'led1', kind: 'diode' as const, a: 'l1', b: 'k1', model: 'led-red' as const },
+    rb1: { id: 'rb1', kind: 'resistor' as const, a: 't2', b: 'b1', ohms: 47000 },
+    rb2: { id: 'rb2', kind: 'resistor' as const, a: 't3', b: 'b2', ohms: 47000 },
+    r2: { id: 'r2', kind: 'resistor' as const, a: 't4', b: 'l2', ohms: 470 },
+    led2: { id: 'led2', kind: 'diode' as const, a: 'l2', b: 'k2', model: 'led-green' as const },
+    // The cross that makes it go: C1 from Q1's collector to Q2's base, C2 from Q2's collector to Q1's base.
+    c1: { id: 'c1', kind: 'capacitor' as const, a: 'k1', b: 'b2', farads: c1 },
+    c2: { id: 'c2', kind: 'capacitor' as const, a: 'k2', b: 'b1', farads: c2 },
+    q1: { id: 'q1', kind: 'bjt' as const, type: 'npn' as const, c: 'k1', b: 'b1', e: 'gnd', beta: 200 },
+    q2: { id: 'q2', kind: 'bjt' as const, type: 'npn' as const, c: 'k2', b: 'b2', e: 'gnd', beta: 200 },
+  };
+  // Perfectly matched, both transistors would turn on together and stay on. A real one never is: C1 starting a
+  // volt charged settles which side goes first.
+  return { ...parts, list: Object.values(parts) as Part[], start: { charged: { c1: -1 } } };
+}
+
+/**
+ * How long each LED stays lit with these capacitors: run a blinker on its own,
+ * let it flip once to get going, then time a full cycle by Q1's collector,
+ * which is low while LED 1 is lit.
+ */
+export function blinkTimes(c1: number, c2: number): { on1: number; on2: number } {
+  const b = blinker(c1, c2);
+  const sim = simulate(b.list, b.start);
+  const flips: { t: number; low: boolean }[] = [];
+  let low = sim.now.v.k1 < 4;
+  while (flips.length < 4 && sim.t < 20) {
+    const now = sim.step(0.002).v.k1 < 4;
+    if (now !== low) flips.push({ t: sim.t, low: now });
+    low = now;
+  }
+  const [, f1, f2, f3] = flips;
+  // From f1 to f2 Q1's collector is f1.low, then the other way until f3.
+  const first = f2.t - f1.t;
+  const second = f3.t - f2.t;
+  return f1.low ? { on1: first, on2: second } : { on1: second, on2: first };
+}
+
+export const blinkerFigure = figure(['second'], (ctx, t) => {
+  const f = frame(400, 335, 4);
+  const b = blinker(10e-6, 10e-6);
+  const top = 22;
+  const sch = schematic(ctx, [
+    { part: b.bat, path: [[26, 100], [26, 150]], tag: '9 V', tagSide: 'left' },
+    { part: b.w0, path: [[26, 100], [26, top], [75, top]] },
+    { part: b.w1, path: [[75, top], [165, top]] },
+    { part: b.w2, path: [[165, top], [245, top]] },
+    { part: b.w3, path: [[245, top], [340, top]] },
+    { part: b.r1, path: [[75, top], [75, 70]], tag: '470 Ω', tagSide: 'left' },
+    { part: b.led1, path: [[75, 70], [75, 118]], tag: 'LED 1', tagSide: 'left' },
+    { part: b.rb1, path: [[165, top], [165, 80], [165, 136], [165, 170]], tag: '47 kΩ', tagSide: 'left' },
+    { part: b.rb2, path: [[245, top], [245, 80], [245, 118], [245, 170]], tag: '47 kΩ', tagSide: 'left' },
+    { part: b.r2, path: [[340, top], [340, 70]], tag: '470 Ω', tagSide: 'left' },
+    { part: b.led2, path: [[340, 70], [340, 118]], tag: 'LED 2', tagSide: 'left' },
+    { part: b.c1, path: [[75, 118], [130, 118], [245, 118]], tag: 'C1', tagSide: 'right' },
+    { part: b.c2, path: [[340, 136], [285, 136], [165, 136]], tag: 'C2', tagSide: 'right' },
+    { part: b.q1, at: [85, 170], flip: true, leads: { c: [[75, 144], [75, 118]], b: [[111, 170], [165, 170]], e: [[75, 196], [75, 202]] }, tag: 'Q1' },
+    { part: b.q2, at: [330, 170], leads: { c: [[340, 144], [340, 136], [340, 118]], b: [[304, 170], [245, 170]], e: [[340, 196], [340, 202]] }, tag: 'Q2' },
+  ], { topVolts: 9, typicalAmps: 0.01, grounds: [[26, 150], [75, 202], [340, 202]] });
+  const scr = scope({ x: 14, y: 236, w: 372, h: 90, vmin: -8, vmax: 10, window: WINDOW_BLINK });
+  f.svg.append(sch.node, scr.node);
+  let sim = simulate(b.list, b.start);
+  let base: number[] = [];
+  let coll: number[] = [];
+  let swept = 0;
+  let guessed = false;
+  let fresh = false;
+  const won = new Set<string>();
+  const earned = el('div');
+
+  const paint = () => {
+    if (!guessed) {
+      scr.hide('Guess first');
+      f.readout.textContent = 'Two transistor switches, each with an LED, and each one’s collector joined to the other’s base through a capacitor. When Q1 switches on, its collector drops about 7 V, from 7.4 V to nearly 0. C1’s other side is Q2’s base, at 0.7 V.';
+      return;
+    }
+    scr.hide(null);
+    const { on1, on2 } = blinkTimes(b.c1.farads, b.c2.farads);
+    const cycle = on1 + on2;
+    const once = Math.abs(cycle - 1) < 0.2;
+    const ratio = Math.max(on1, on2) / Math.min(on1, on2);
+    if (once) {
+      won.add('once');
+      if (ratio < 1.15) won.add('even');
+      if (ratio > 1.8) won.add('lopsided');
+    }
+    f.readout.textContent =
+      (fresh ? `${q.reply()} ` : '') +
+      `A capacitor can’t change its voltage at once, so when a collector drops 7 V, the base on the far side drops 7 V too, to −6.5 V, and that transistor is held hard off until its 47 kΩ charges the capacitor back up to 0.6 V. Then it flips, and the other side has its turn. ` +
+      `LED 1 is lit ${seconds(on1)}, LED 2 ${seconds(on2)}: a blink every ${seconds(cycle)}.` +
+      (once ? '' : ' Make it once a second.');
+    fresh = false;
+    if (once) {
+      t.done();
+      earned.replaceChildren(stars([
+        { text: 'Blinking about once a second', got: true },
+        { text: 'Once a second, with both LEDs lit for the same time', got: won.has('even') },
+        { text: 'Once a second, with one LED lit at least twice as long as the other', got: won.has('lopsided') },
+      ]));
+    }
+  };
+  const q = guess({
+    question: 'When Q1 switches on, Q2’s base…',
+    options: ['drops 7 V with it, to well below ground', 'drops to 0 V and stops there', 'stays at 0.7 V'],
+    answer: 0,
+    replies: [
+      'Right.',
+      'Ground isn’t a floor: a capacitor carries the whole 7 V step across, and the base goes below ground.',
+      'The base would like to stay at 0.7 V, but the capacitor carries the 7 V step straight across to it.',
+    ],
+    onLock: () => {
+      guessed = fresh = true;
+      knobs.hidden = false;
+      paint();
+    },
+  });
+  const pickC = (part: { farads: number }) => (v: number) => {
+    part.farads = v;
+    paint();
+  };
+  const knobs = el('div', { hidden: true },
+    el('p.fig-hint', {}, 'C1 sets how long LED 1 stays lit, C2 LED 2.'),
+    chipRow(BLINK_CS, (v) => `C1 ${si(v, 'F')}`, () => b.c1.farads, pickC(b.c1)),
+    chipRow(BLINK_CS, (v) => `C2 ${si(v, 'F')}`, () => b.c2.farads, pickC(b.c2)),
+  );
+  f.controls.append(q.node, knobs, earned);
+
+  // It runs in real time. The capacitors can be changed while it runs: the charge they hold carries on.
+  animate(f.svg, ctx, (dt) => {
+    if (sim.t > 600) sim = simulate(b.list, b.start);
+    sim.step(dt, 4);
+    swept += dt / WINDOW_BLINK;
+    if (swept >= 1) {
+      swept = 0;
+      base = [];
+      coll = [];
+    }
+    base.push(sim.now.v.b1);
+    coll.push(sim.now.v.k1);
+    if (guessed) {
+      scr.draw([
+        { volts: coll, colour: COL.voltage, label: 'Q1 collector', span: swept },
+        { volts: base, colour: BASE_TRACE, label: 'Q1 base', span: swept },
+      ]);
+      scr.beam(swept);
+    }
+    sch.show(sim.now);
+  });
+  sch.show(sim.now);
+  paint();
   return f.node;
 });
 

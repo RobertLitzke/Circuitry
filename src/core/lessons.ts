@@ -81,6 +81,7 @@ export const FIGURE_IDS = [
   'bjt-switch',
   'mosfet-switch',
   'relay',
+  'blinker',
   'shorted-transistor',
   // 9 Turning it up
   'bias',

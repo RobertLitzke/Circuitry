@@ -110,6 +110,25 @@ export function nodesOf(parts: readonly Part[]): string[] {
   return [...seen];
 }
 
+/**
+ * A bipolar transistor's two junctions each hold a little charge, from base
+ * to emitter and base to collector: roughly 100 pF and 10 pF for a small
+ * transistor, counting the charge crossing the base while it is on. Steady
+ * circuits never notice, but stepped through time they set how fast a
+ * transistor can flip over, and without them a blinker that flips has no
+ * in-between for the solver to follow. Keyed `id:be` and `id:bc` in a
+ * simulation's memory.
+ */
+export const JUNCTION_FARADS = { be: 100e-12, bc: 10e-12 } as const;
+
+/** A bipolar transistor's junction capacitances: [memory key, from node, to node, farads]. */
+export function junctionCaps(p: Extract<Part, { kind: 'bjt' }>): [string, string, string, number][] {
+  return [
+    [`${p.id}:be`, p.b, p.e, JUNCTION_FARADS.be],
+    [`${p.id}:bc`, p.b, p.c, JUNCTION_FARADS.bc],
+  ];
+}
+
 /** A plucked string's harmonics: how strong each multiple of the note is, and where in its cycle it starts. */
 const STRING: [number, number][] = [[1, 0], [0.55, 0.3], [0.35, 0.1], [0.12, 0.6], [0.18, 0.2], [0.08, 0.5]];
 const pluck = (turns: number) => STRING.reduce((sum, [a, ph], k) => sum + a * Math.sin(2 * Math.PI * ((k + 1) * turns + ph)), 0);

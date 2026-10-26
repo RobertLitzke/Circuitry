@@ -99,9 +99,28 @@
           "title": "On a real bench",
           "points": [
             "Every coil a transistor switches needs a flyback diode, cathode to the supply side.",
-            "A relay's contacts are rated separately from its coil: check both, and check the DC rating for a DC load.",
-            "A classic first build is the two-transistor blinker: each transistor turns the other off through a capacitor, and R × C sets the rate."
+            "A relay's contacts are rated separately from its coil: check both, and check the DC rating for a DC load."
           ]
+        }
+      ]
+    },
+    {
+      "title": "Two switches, flipping each other",
+      "blocks": [
+        {
+          "kind": "text",
+          "text": "Join two transistor switches in a ring, each one's collector to the other's base through a capacitor, and they take turns: one on, one off, then the other way, for as long as the battery lasts. It is the classic first build, an **astable multivibrator**, or just the blinker. The trick is in what a capacitor does to a sudden step."
+        },
+        {
+          "kind": "figure",
+          "figure": "blinker",
+          "caption": "Two transistors, two capacitors, two LEDs",
+          "task": "Guess, then make it blink once a second",
+          "goal": "second"
+        },
+        {
+          "kind": "text",
+          "text": "Each half of the cycle lasts about 0.6 × R × C, the time it takes the base resistor to charge the capacitor from −6.5 V back up to the 0.6 V that turns the transistor on: 47 kΩ and 10 µF give 0.28 s. Change one capacitor and only its half changes. (Textbooks say 0.7 × R × C, assuming the collector swings the whole supply; here the LED takes 2 V of it.) One thing a real board does that this one doesn't: a base driven far below ground breaks down backwards, past about −6 V for most small transistors. At 9 V it only just happens, and the 47 kΩ keeps the current tiny, but from about 12 V up a blinker wants a diode in series with each base."
         }
       ]
     },
