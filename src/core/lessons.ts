@@ -17,11 +17,15 @@
 
 import type { Block as KitBlock, Lesson as KitLesson, Part as KitPart } from 'lesson-kit/lesson';
 import whatFlows from '../data/lessons/what-flows.json';
-import splitting from '../data/lessons/splitting.json';
+import seriesParallel from '../data/lessons/series-parallel.json';
+import sources from '../data/lessons/sources.json';
 import power from '../data/lessons/power.json';
-import time from '../data/lessons/time.json';
-import valves from '../data/lessons/valves.json';
-import boards from '../data/lessons/boards.json';
+import signals from '../data/lessons/signals.json';
+import capacitors from '../data/lessons/capacitors.json';
+import diodes from '../data/lessons/diodes.json';
+import switches from '../data/lessons/switches.json';
+import amplifiers from '../data/lessons/amplifiers.json';
+import deadCircuit from '../data/lessons/dead-circuit.json';
 import fuzzFace from '../data/lessons/fuzz-face.json';
 import tubeScreamer from '../data/lessons/tube-screamer.json';
 import solarPanels from '../data/lessons/solar-panels.json';
@@ -45,7 +49,7 @@ export interface Track {
 export const TRACKS: readonly Track[] = [
   { id: 'core', title: 'The core path', blurb: 'How electricity behaves in a circuit, from one battery and a resistor to a populated board. Take these in order.' },
   { id: 'pedals', title: 'Guitar pedals', blurb: 'After the core path: two classic circuits taken apart, with the sound of each knob.' },
-  { id: 'solar', title: 'Off-grid solar', blurb: 'After the core path: panels, batteries and controllers, and wiring them into a system that is safe to leave running.' },
+  { id: 'solar', title: 'Off-grid solar', blurb: 'After the core path (lesson 9, on amplifiers, can be skipped): panels, batteries and controllers, and wiring them into a system that is safe to leave running.' },
 ];
 
 export type Block = KitBlock<FigureId>;
@@ -56,11 +60,15 @@ export interface Lesson extends KitLesson<FigureId> {
 
 export const LESSONS: readonly Lesson[] = [
   whatFlows as Lesson,
-  splitting as Lesson,
+  seriesParallel as Lesson,
+  sources as Lesson,
   power as Lesson,
-  time as Lesson,
-  valves as Lesson,
-  boards as Lesson,
+  signals as Lesson,
+  capacitors as Lesson,
+  diodes as Lesson,
+  switches as Lesson,
+  amplifiers as Lesson,
+  deadCircuit as Lesson,
   fuzzFace as Lesson,
   tubeScreamer as Lesson,
   solarPanels as Lesson,

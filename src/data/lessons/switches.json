@@ -1,0 +1,11 @@
+{
+  "id": "switches",
+  "n": 8,
+  "track": "core",
+  "title": "A small current steering a big one",
+  "teaches": "Transistors and MOSFETs as switches, driving a relay, and the flyback diode",
+  "parts": [],
+  "learned": [],
+  "next": "",
+  "journal": []
+}

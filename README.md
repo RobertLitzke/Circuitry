@@ -23,13 +23,17 @@ mentor (the kit's radio is off). The circuit engine is our own,
   for headings and JetBrains Mono for part labels.
 - **The lesson map**, as stubs (title and one line each, no parts yet), in
   three tracks:
-  - **The core path**, in order: 1 what is actually flowing, 2 splitting the
-    flow, 3 power, heat and wire, 4 storing energy over time, 5 one-way
-    valves and switches, 6 from schematic to board, and back.
-  - **Guitar pedals**, after the core: 7 inside a Fuzz Face, 8 inside a Tube
-    Screamer. Sound, when it comes, is off by default and only in this track.
-  - **Off-grid solar**, after the core: 9 solar panels, 10 wiring an off-grid
-    system.
+  - **The core path**, in order: 1 what is actually flowing, 2 series and
+    parallel, 3 every source has a resistor inside, 4 where the energy goes,
+    5 voltages that change, 6 things that take time, 7 curved lines (diodes),
+    8 a small current steering a big one (transistor switches), 9 turning it
+    up (amplifiers and feedback), 10 the dead circuit (fault-finding). The
+    plan behind it is the "Circuitry core trunk lesson plan" doc.
+  - **Guitar pedals**, after the core: 11 inside a Fuzz Face, 12 inside a
+    Tube Screamer. Sound, when it comes, is off by default and only in this
+    track.
+  - **Off-grid solar**, after the core: 13 solar panels, 14 wiring an
+    off-grid system. Lesson 9 can be skipped on the way here.
 - **The circuit engine**: `packages/circuit-kit` solves a circuit of
   resistors, lamps, sources, wires and switches (DC, modified nodal analysis),
   and `src/app/circuit/schematic.ts` draws it live. The first figure, `loop`

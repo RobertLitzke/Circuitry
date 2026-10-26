@@ -1,0 +1,11 @@
+{
+  "id": "diodes",
+  "n": 7,
+  "track": "core",
+  "title": "Curved lines",
+  "teaches": "Diodes and LEDs, their bent current curve, current limiting, rectifying and clipping",
+  "parts": [],
+  "learned": [],
+  "next": "",
+  "journal": []
+}

@@ -1,0 +1,11 @@
+{
+  "id": "capacitors",
+  "n": 6,
+  "track": "core",
+  "title": "Things that take time",
+  "teaches": "Capacitors and RC time, coupling and filtering, the corner frequency, and inductors in brief",
+  "parts": [],
+  "learned": [],
+  "next": "",
+  "journal": []
+}

@@ -1,0 +1,11 @@
+{
+  "id": "amplifiers",
+  "n": 9,
+  "track": "core",
+  "title": "Turning it up",
+  "teaches": "Bias, gain set by two resistors, the emitter follower, clipping, negative feedback and the op-amp",
+  "parts": [],
+  "learned": [],
+  "next": "",
+  "journal": []
+}

@@ -1,0 +1,11 @@
+{
+  "id": "sources",
+  "n": 3,
+  "track": "core",
+  "title": "Every source has a resistor inside",
+  "teaches": "Voltage dividers and pots, why a divider sags under load, and measuring what is inside a source",
+  "parts": [],
+  "learned": [],
+  "next": "",
+  "journal": []
+}

@@ -75,14 +75,14 @@
       "id": "series-parallel",
       "title": "Series, parallel and dividers",
       "summary": "Adding resistances, and the divider formula",
-      "lesson": "splitting",
+      "lesson": "series-parallel",
       "blocks": []
     },
     {
       "id": "reading-parts",
       "title": "Reading parts",
       "summary": "Resistor colour bands, standard values, capacitor codes and polarity marks",
-      "lesson": "splitting",
+      "lesson": "series-parallel",
       "blocks": []
     },
     {
@@ -96,28 +96,28 @@
       "id": "capacitors",
       "title": "Capacitors and time",
       "summary": "RC time constants, common types and where each is used",
-      "lesson": "time",
+      "lesson": "capacitors",
       "blocks": []
     },
     {
       "id": "semiconductors",
       "title": "Diodes and transistors",
       "summary": "Forward voltages, LED resistors, and transistors as switches",
-      "lesson": "valves",
+      "lesson": "diodes",
       "blocks": []
     },
     {
       "id": "multimeter",
       "title": "Using a multimeter",
       "summary": "Volts, continuity, resistance and the diode test, and what each reading tells you",
-      "lesson": "boards",
+      "lesson": "what-flows",
       "blocks": []
     },
     {
       "id": "solder-faults",
       "title": "Solder and layout faults",
       "summary": "Cold joints, bridges, lifted pads and reversed parts: how each looks and measures",
-      "lesson": "boards",
+      "lesson": "dead-circuit",
       "blocks": []
     },
     {

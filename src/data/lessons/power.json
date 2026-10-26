@@ -1,9 +1,9 @@
 {
   "id": "power",
-  "n": 3,
+  "n": 4,
   "track": "core",
-  "title": "Power, heat and wire",
-  "teaches": "Watts, ratings and heat, wire gauge and voltage drop over a long run, and what a fuse is for",
+  "title": "Where the energy goes",
+  "teaches": "Watts and watt-hours, heat and ratings, voltage drop along a long wire, and the fuse that protects it",
   "parts": [],
   "learned": [],
   "next": "",
