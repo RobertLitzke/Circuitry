@@ -184,5 +184,61 @@
     "also": [
       "bias"
     ]
+  },
+  "capacitor": {
+    "term": "Capacitor",
+    "text": "Two plates with an insulating gap: it stores charge, blocks a steady voltage and passes changes. Its value is in farads, usually µF or nF.",
+    "lesson": "capacitors",
+    "also": [
+      "cap"
+    ]
+  },
+  "time-constant": {
+    "term": "Time constant",
+    "text": "τ = R × C, in seconds: how long a capacitor takes to charge 63% of the way through a resistor. About 5τ to be full.",
+    "lesson": "capacitors",
+    "also": [
+      "tau",
+      "RC"
+    ]
+  },
+  "coupling-capacitor": {
+    "term": "Coupling capacitor",
+    "text": "A capacitor between two stages that passes the signal and keeps their steady voltages apart.",
+    "lesson": "capacitors"
+  },
+  "low-pass": {
+    "term": "Low-pass filter",
+    "text": "A resistor in the path and a capacitor to ground: passes low frequencies and cuts the highs above its corner. Swapped round, it is a high-pass filter.",
+    "lesson": "capacitors",
+    "also": [
+      "high-pass filter",
+      "tone control"
+    ]
+  },
+  "corner-frequency": {
+    "term": "Corner frequency",
+    "text": "Where a filter lets 71% through: f = 1 ÷ (2π R C).",
+    "lesson": "capacitors",
+    "also": [
+      "cutoff"
+    ]
+  },
+  "decoupling": {
+    "term": "Decoupling capacitor",
+    "text": "A capacitor across a supply right by a chip, which supplies bursts of current so the voltage doesn’t dip.",
+    "lesson": "capacitors",
+    "also": [
+      "bypass capacitor"
+    ]
+  },
+  "inductor": {
+    "term": "Inductor",
+    "text": "A coil of wire. Its magnetic field resists changes in its current, so cutting the current makes a voltage spike: kickback.",
+    "lesson": "capacitors",
+    "also": [
+      "coil",
+      "kickback"
+    ]
   }
 }

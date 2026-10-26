@@ -268,3 +268,56 @@ describe('lesson 5', () => {
     expect(fig.node.textContent).toContain('top and bottom');
   });
 });
+
+describe('lesson 6', () => {
+  const click = (el: Element) => el.dispatchEvent(new Event('click', { bubbles: true }));
+  const chip = (node: HTMLElement, text: string) => [...node.querySelectorAll('.chip')].find((c) => c.textContent === text)!;
+  const lock = (node: HTMLElement, text: string) => {
+    click(chip(node, text));
+    click([...node.querySelectorAll('button')].find((b) => b.textContent === 'Lock it in')!);
+  };
+
+  it('takes a second with 100 kΩ and 10 µF, and with 10 kΩ and 100 µF', async () => {
+    const fig = FIGURES['rc-charge'](ctx(), 'tau');
+    lock(fig.node, 'fast at first, then slower and slower');
+    click(chip(fig.node, '100 kΩ'));
+    await expect(fig.done).resolves.toBeUndefined();
+    click(chip(fig.node, '10 kΩ'));
+    click(chip(fig.node, '100 µF'));
+    expect(fig.node.querySelectorAll('.star.got').length).toBe(3);
+  });
+
+  it('passes the wiggle and keeps the steady part', async () => {
+    const fig = FIGURES.coupling(ctx(), 'reveal');
+    lock(fig.node, 'Just the wiggle, around 0 V');
+    await expect(fig.done).resolves.toBeUndefined();
+    expect(fig.node.textContent).toContain('1 V each way around 0 V');
+    click(chip(fig.node, '1 nF'));
+    expect(fig.node.textContent).toContain('too small');
+  });
+
+  it('finds the corner near 1.6 kHz', async () => {
+    const fig = FIGURES.lowpass(ctx(), 'corner');
+    const input = fig.node.querySelector('input')!;
+    input.value = '58';
+    input.dispatchEvent(new Event('input'));
+    expect(fig.node.textContent).toContain('1.6 kHz');
+    await expect(fig.done).resolves.toBeUndefined();
+  });
+
+  it('holds the supply up with 100 µF but not 10 µF', async () => {
+    const fig = FIGURES.decoupling(ctx(), 'hold');
+    click(chip(fig.node, '10 µF'));
+    expect(fig.node.textContent).toContain('Try a bigger one');
+    click(chip(fig.node, '100 µF'));
+    await expect(fig.done).resolves.toBeUndefined();
+    expect(fig.node.querySelectorAll('.star.got').length).toBe(2);
+  });
+
+  it('kicks back over a kilovolt', async () => {
+    const fig = FIGURES.kickback(ctx(), 'spike');
+    lock(fig.node, 'far more than 12 V, for an instant');
+    await expect(fig.done).resolves.toBeUndefined();
+    expect(fig.node.textContent).toMatch(/1\.\d+ kV/);
+  });
+});

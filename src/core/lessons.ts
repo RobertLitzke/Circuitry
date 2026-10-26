@@ -63,6 +63,13 @@ export const FIGURE_IDS = [
   'sine',
   'offset',
   'stuck-bias',
+  // 6 Things that take time
+  'rc-charge',
+  'coupling',
+  'lowpass',
+  'decoupling',
+  'kickback',
+  'shorted-cap',
 ] as const;
 export type FigureId = (typeof FIGURE_IDS)[number];
 

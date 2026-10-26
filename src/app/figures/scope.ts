@@ -21,6 +21,8 @@ export interface Trace {
   ghost?: boolean;
   /** Written at the trace's right-hand end. */
   label?: string;
+  /** How much of the screen's width the samples run across, from the left: less than 1 for a trace still being drawn. */
+  span?: number;
 }
 
 export interface ScopeOptions {
@@ -91,10 +93,11 @@ export function scope(o: ScopeOptions): Scope {
       first = list[0]?.volts ?? [];
       traces.replaceChildren(...list.map((tr) => {
         const n = tr.volts.length;
-        const pts = tr.volts.map((v, k) => `${(x + (w * k) / Math.max(1, n - 1)).toFixed(1)},${py(v).toFixed(1)}`).join(' ');
+        const across = w * (tr.span ?? 1);
+        const pts = tr.volts.map((v, k) => `${(x + (across * k) / Math.max(1, n - 1)).toFixed(1)},${py(v).toFixed(1)}`).join(' ');
         const g = svg('g', {},
           svg('polyline', { points: pts, stroke: tr.colour, 'stroke-width': tr.ghost ? 1.4 : 2.2, ...(tr.ghost ? { 'stroke-dasharray': '4 3', opacity: 0.8 } : {}) }));
-        if (tr.label && n) g.append(small(x + w - 4, py(tr.volts[n - 1]) - 5, tr.label, { anchor: 'end', fill: tr.colour, bold: true }));
+        if (tr.label && n) g.append(small(x + across - 4, py(tr.volts[n - 1]) - 5, tr.label, { anchor: 'end', fill: tr.colour, bold: true }));
         return g;
       }));
     },
@@ -134,12 +137,13 @@ export function sample(read: (t: number) => number, window: number, n = 300, fro
 /**
  * Run `parts` through time and record what each of `reads` gives, `n` times
  * across `window` seconds, after first letting it run for `settle` seconds so
- * the capacitors have charged to where they will stay.
+ * the capacitors have charged to where they will stay. Starting `settled`, from
+ * the circuit's steady state, needs a much shorter settle than from rest.
  */
-export function capture(parts: readonly Part[], reads: ((s: Solution) => number)[], o: { window: number; settle?: number; n?: number; celsius?: number }): number[][] {
+export function capture(parts: readonly Part[], reads: ((s: Solution) => number)[], o: { window: number; settle?: number; n?: number; celsius?: number; settled?: boolean }): number[][] {
   const n = o.n ?? 300;
   const dt = o.window / (n - 1);
-  const sim = simulate(parts, { celsius: o.celsius });
+  const sim = simulate(parts, { celsius: o.celsius, settled: o.settled });
   if (o.settle) sim.step(o.settle, Math.min(4000, Math.max(1, Math.ceil(o.settle / dt))));
   const out = reads.map(() => [] as number[]);
   let s = sim.now;

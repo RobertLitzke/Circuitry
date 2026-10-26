@@ -359,6 +359,78 @@
       ],
       "answer": 0,
       "why": "The input has gone to the top: whatever should pull it down to the middle isn’t. A flat battery would make it lower, not 9 V."
+    },
+    {
+      "id": "tau",
+      "lesson": "capacitors",
+      "question": "10 kΩ and 100 µF have a time constant of…",
+      "options": [
+        "1 s",
+        "0.1 s",
+        "10 s"
+      ],
+      "answer": 0,
+      "why": "τ = R × C = 10,000 × 0.0001 = 1 s."
+    },
+    {
+      "id": "five-tau",
+      "lesson": "capacitors",
+      "question": "A capacitor charges with τ = 2 s. When is it nearly full?",
+      "options": [
+        "After about 10 s",
+        "After 2 s",
+        "After 1 s"
+      ],
+      "answer": 0,
+      "why": "About five time constants: 10 s. After one, it is only 63% of the way."
+    },
+    {
+      "id": "dc-block",
+      "lesson": "capacitors",
+      "question": "In a circuit that has settled, how much current flows through a capacitor?",
+      "options": [
+        "None",
+        "The same as through the resistor before it",
+        "It depends on its size"
+      ],
+      "answer": 0,
+      "why": "Once it has charged to the steady voltage, nothing more flows. Only changes pass."
+    },
+    {
+      "id": "corner",
+      "lesson": "capacitors",
+      "question": "R = 1 kΩ and C = 100 nF in a low-pass filter. The corner is about…",
+      "options": [
+        "1.6 kHz",
+        "16 kHz",
+        "160 Hz"
+      ],
+      "answer": 0,
+      "why": "1 ÷ (2π × 1000 × 0.0000001) ≈ 1590 Hz."
+    },
+    {
+      "id": "tone",
+      "lesson": "capacitors",
+      "question": "Turning a tone knob that raises R in a low-pass filter makes the sound…",
+      "options": [
+        "darker, with fewer highs",
+        "brighter",
+        "louder"
+      ],
+      "answer": 0,
+      "why": "A bigger R lowers the corner, so more of the highs are cut."
+    },
+    {
+      "id": "kickback",
+      "lesson": "capacitors",
+      "question": "You switch off a relay coil. Across the switch there is, for an instant…",
+      "options": [
+        "a spike far above the supply voltage",
+        "exactly the supply voltage",
+        "nothing"
+      ],
+      "answer": 0,
+      "why": "The coil’s field keeps the current going and drives whatever voltage it takes, until the field is spent."
     }
   ]
 }

@@ -467,9 +467,91 @@
     {
       "id": "capacitors",
       "title": "Capacitors and time",
-      "summary": "RC time constants, common types and where each is used",
+      "summary": "RC time, filters and their corners, decoupling, and common types",
       "lesson": "capacitors",
-      "blocks": []
+      "blocks": [
+        {
+          "kind": "table",
+          "columns": [
+            "To find",
+            "Formula",
+            "Example"
+          ],
+          "rows": [
+            [
+              "Time constant",
+              "τ = R × C",
+              "10 kΩ × 100 µF = 1 s"
+            ],
+            [
+              "Charge after t",
+              "V × (1 − e^(−t/τ))",
+              "63% at τ, 86% at 2τ, 99% at 5τ"
+            ],
+            [
+              "Corner frequency",
+              "f = 1 ÷ (2π R C)",
+              "10 kΩ, 10 nF: 1.6 kHz"
+            ],
+            [
+              "Reactance",
+              "X = 1 ÷ (2π f C)",
+              "100 nF at 1 kHz: 1.6 kΩ"
+            ]
+          ]
+        },
+        {
+          "kind": "table",
+          "columns": [
+            "Type",
+            "Values",
+            "Used for"
+          ],
+          "rows": [
+            [
+              "Ceramic",
+              "1 pF to 10 µF",
+              "Decoupling (100 nF by every chip), filters"
+            ],
+            [
+              "Film",
+              "1 nF to 10 µF",
+              "Audio paths and tone controls"
+            ],
+            [
+              "Electrolytic",
+              "1 µF and up",
+              "Reservoirs and big coupling caps; has a + and −"
+            ],
+            [
+              "Tantalum",
+              "0.1 to 100 µF",
+              "Small boards; fails short if reversed"
+            ]
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "Capacitor markings: “104” is 10 and four noughts in picofarads, 100 nF; “473” is 47 nF. Choose a voltage rating well above the voltage across the part."
+        },
+        {
+          "kind": "terms",
+          "items": [
+            {
+              "term": "Low-pass",
+              "means": "R in the path, C to ground: passes below the corner."
+            },
+            {
+              "term": "High-pass",
+              "means": "C in the path, R to ground: passes above the corner."
+            },
+            {
+              "term": "Kickback",
+              "means": "The spike a coil makes when its current is cut. Lesson 8 adds the diode that catches it."
+            }
+          ]
+        }
+      ]
     },
     {
       "id": "semiconductors",

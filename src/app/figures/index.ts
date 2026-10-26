@@ -1,6 +1,7 @@
 // Every figure a lesson can use, by the id core/lessons.ts names it with.
 
 import type { FigureId } from '../../core/lessons';
+import { couplingFigure, decouplingFigure, kickbackFigure, lowpassFigure, rcChargeFigure, shortedCapFigure } from './capacitors';
 import { checkFigure } from './check';
 import type { FigureFactory } from './kit';
 import { loopFigure } from './loop';
@@ -37,4 +38,10 @@ export const FIGURES: Record<FigureId, FigureFactory> = {
   sine: sineFigure,
   offset: offsetFigure,
   'stuck-bias': stuckBiasFigure,
+  'rc-charge': rcChargeFigure,
+  coupling: couplingFigure,
+  lowpass: lowpassFigure,
+  decoupling: decouplingFigure,
+  kickback: kickbackFigure,
+  'shorted-cap': shortedCapFigure,
 };
