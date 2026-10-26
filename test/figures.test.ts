@@ -195,3 +195,39 @@ describe('lesson 3', () => {
     await expect(fig.done).resolves.toBeUndefined();
   });
 });
+
+describe('lesson 4', () => {
+  const click = (el: Element) => el.dispatchEvent(new Event('click', { bubbles: true }));
+  const chip = (node: HTMLElement, text: string) => [...node.querySelectorAll('.chip')].find((c) => c.textContent === text)!;
+
+  it('stalls the pump on thin cable and runs it at 48 V', async () => {
+    const fig = FIGURES['long-wire'](ctx(), 'pump');
+    expect(fig.node.textContent).toContain('The pump stalls');
+    click(chip(fig.node, '10 mm²'));
+    expect(fig.node.textContent).toContain('The pump gets');
+    click(chip(fig.node, '1.5 mm²'));
+    click(chip(fig.node, '48 V system'));
+    await expect(fig.done).resolves.toBeUndefined();
+    expect(fig.node.querySelectorAll('.star.got').length).toBe(3);
+  });
+
+  it('protects the cable only with a 15 A fuse', async () => {
+    const fig = FIGURES.fuse(ctx(), 'protect');
+    const tryAll = () => ['Running', 'Motor jams', 'Cable shorts'].forEach((k) => click(chip(fig.node, k)));
+    click(chip(fig.node, '30 A fuse'));
+    click(chip(fig.node, 'Motor jams'));
+    expect(fig.node.textContent).toContain('melt its insulation');
+    click(chip(fig.node, '15 A fuse'));
+    tryAll();
+    await expect(fig.done).resolves.toBeUndefined();
+  });
+
+  it('wastes half at the matched load', async () => {
+    const fig = FIGURES.matching(ctx(), 'peak');
+    const input = fig.node.querySelector('input')!;
+    input.value = '4';
+    input.dispatchEvent(new Event('input'));
+    await expect(fig.done).resolves.toBeUndefined();
+    expect(fig.node.textContent).toContain('50% of the energy');
+  });
+});

@@ -4,8 +4,251 @@
   "track": "core",
   "title": "Where the energy goes",
   "teaches": "Watts and watt-hours, heat and ratings, voltage drop along a long wire, and the fuse that protects it",
-  "parts": [],
-  "learned": [],
-  "next": "",
-  "journal": []
+  "parts": [
+    {
+      "title": "Power is how fast",
+      "blocks": [
+        {
+          "kind": "text",
+          "text": "A volt is energy per bit of charge: one joule for every coulomb pushed through. An amp is a coulomb a second. Multiply them and you get joules a second, which is [[power|power]], in watts: **P = V × I**.[^watt] Every part a current flows through turns that much energy into something else, mostly heat."
+        },
+        {
+          "kind": "text",
+          "text": "Here is a 100 Ω resistor of the ordinary kind, rated a quarter of a watt. The red glow is its heat."
+        },
+        {
+          "kind": "figure",
+          "figure": "heat",
+          "caption": "A supply you can turn, and a ¼ W resistor",
+          "task": "Guess, then find where the resistor goes over its rating",
+          "goal": "rating"
+        }
+      ]
+    },
+    {
+      "title": "Twice the push, four times the heat",
+      "blocks": [
+        {
+          "kind": "text",
+          "text": "Double the voltage across a resistor and twice the current flows, so the power, volts times amps, goes up four times. Put Ohm's law into P = V × I and you get two more ways to write it: **P = I² × R** and **P = V² ÷ R**. The squares are why heat runs away so fast."
+        },
+        {
+          "kind": "text",
+          "text": "Every part has a power rating, the heat it can shed without cooking. Ordinary small resistors are ¼ W; at their rating they are too hot to hold. Designers leave a margin, often running a part at half its rating or less, because heat ages parts. Where the heat actually comes from is stranger than it looks.[^fields]"
+        },
+        {
+          "kind": "key",
+          "title": "Hold on to",
+          "points": [
+            "Power P = V × I = I² × R = V² ÷ R, in watts.",
+            "Twice the current through a resistor means four times the heat.",
+            "Keep every part well inside its power rating."
+          ]
+        }
+      ]
+    },
+    {
+      "title": "How much there is",
+      "blocks": [
+        {
+          "kind": "text",
+          "text": "Watts say how fast energy is used. How much a battery holds is a different quantity: energy, in watt-hours. A watt-hour is one watt for an hour, 3600 joules. A battery's label usually gives its voltage and its amp-hours, and you multiply them to get watt-hours."
+        },
+        {
+          "kind": "figure",
+          "figure": "battery-time",
+          "caption": "A 12 V, 7 Ah battery and three loads",
+          "task": "Guess how long it runs the pump",
+          "goal": "hours"
+        },
+        {
+          "kind": "text",
+          "text": "Amp-hours on their own say nothing about energy. A phone's 3.7 V, 5 Ah cell holds 18.5 Wh; a 12 V, 5 Ah battery holds 60 Wh, more than three times as much for the same amp-hours. Always multiply by the voltage before comparing. Sizing a solar system is mostly this sum, done carefully: the watt-hours you use in a day, and the watt-hours the sun and the battery can give."
+        },
+        {
+          "kind": "key",
+          "title": "Hold on to",
+          "points": [
+            "Watts are how fast; watt-hours are how much.",
+            "Watt-hours = volts × amp-hours. Hours of running = watt-hours ÷ watts."
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Wire is a resistor",
+      "blocks": [
+        {
+          "kind": "text",
+          "text": "Copper is a very good conductor, not a perfect one. A metre of 1 mm² copper wire is about 0.017 Ω. That is nothing in a pedal, where a few centimetres carry a few milliamps. It is a lot when a pump draws 5 A at the end of twenty metres of cable, out and back: forty metres of wire."
+        },
+        {
+          "kind": "figure",
+          "figure": "long-wire",
+          "caption": "A battery and a 60 W pump 20 m away. The cable's colour fades as it drops volts.",
+          "task": "Get the pump within 3% of the battery voltage",
+          "goal": "pump"
+        }
+      ]
+    },
+    {
+      "title": "Higher voltage, thinner wire",
+      "blocks": [
+        {
+          "kind": "text",
+          "text": "The same 60 W at 24 V is half the current, and at 48 V a quarter. The cable's loss is I² × R, so half the current loses a quarter as much, and a quarter of the current a sixteenth. This is why off-grid systems of any size run at 24 or 48 V rather than 12, and why power lines run at hundreds of thousands of volts. Raise the voltage and the same wire carries the same power with far less of it lost."
+        },
+        {
+          "kind": "text",
+          "text": "A common rule for cable runs is to lose no more than 3% of the voltage. Work it out before you buy the cable: thick copper is expensive, but a thin cable costs more in the energy it burns, and it can run hot enough to be a fire risk."
+        },
+        {
+          "kind": "key",
+          "title": "Hold on to",
+          "points": [
+            "A cable drops I × R and burns I² × R. Long runs at high current need thick wire.",
+            "The same power at a higher voltage needs less current, and loses much less in the cable."
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Fuses protect the wire",
+      "blocks": [
+        {
+          "kind": "text",
+          "text": "A fuse is a weak link put in on purpose: a thin strip that melts when the current is more than it is rated for. The surprising part is what it is for. It protects the **wire**, not the thing at the end of it. A cable has a current it can carry safely, its ampacity, and above that it heats until its insulation melts. The fuse has to blow before that happens, and not in normal use."
+        },
+        {
+          "kind": "figure",
+          "figure": "fuse",
+          "caption": "A 12 V battery, a fuse, and a motor on a cable rated for 20 A",
+          "task": "Choose a fuse that holds when running and blows when it should",
+          "goal": "protect"
+        },
+        {
+          "kind": "text",
+          "text": "So the rule is: above what the load draws, below what the wire can carry. A big fuse on a thin wire protects nothing. The fuse also goes as close to the battery as it can, so that every bit of wire after it is protected."
+        },
+        {
+          "kind": "key",
+          "title": "On a real bench",
+          "points": [
+            "A battery can push an enormous current into a short. A car battery will weld a spanner across its terminals. Take rings and watches off before working on one.",
+            "Direct current makes arcs that don't put themselves out, unlike mains, whose current passes through zero a hundred times a second. Use fuses and switches rated for DC at your voltage."
+          ]
+        }
+      ]
+    },
+    {
+      "title": "The most power isn't the best",
+      "blocks": [
+        {
+          "kind": "text",
+          "text": "Every source has a resistance inside it, from lesson 3. So what load gets the most power out of it? Too small and the current is large but the load's voltage tiny; too large and the voltage is all there but hardly any current flows."
+        },
+        {
+          "kind": "figure",
+          "figure": "matching",
+          "caption": "A 12 V source with 4 Ω inside, and a load you can set",
+          "task": "Find the load that gets the most power",
+          "goal": "peak"
+        },
+        {
+          "kind": "text",
+          "text": "The load gets the most when its resistance equals the source's. But then as much energy is wasted inside the source as reaches the load: half. A battery or a power system wants the opposite, a load much larger than the inside resistance, so that nearly all the energy arrives. Matching is used where a tiny signal is all there is, as with a radio aerial. A solar panel's best working point, which the solar lessons come to, is something else again: it comes from the shape of its curve, not from matching."
+        }
+      ]
+    },
+    {
+      "title": "A dull lamp",
+      "blocks": [
+        {
+          "kind": "text",
+          "text": "This one turns up on every boat, van and shed. Measure the voltage across short stretches with the current flowing; a good wire or joint drops almost nothing."
+        },
+        {
+          "kind": "figure",
+          "figure": "bad-joint",
+          "caption": "A 12 V lamp at the end of a cable",
+          "task": "Find the fault and mark it",
+          "goal": "find"
+        }
+      ]
+    },
+    {
+      "title": "Check",
+      "blocks": [
+        {
+          "kind": "figure",
+          "figure": "check",
+          "caption": "Six questions",
+          "task": "Answer them",
+          "options": {
+            "items": [
+              {
+                "question": "A resistor turns 0.1 W into heat. You double the current through it. Now it turns…",
+                "options": ["0.4 W", "0.2 W", "0.1 W"],
+                "answer": 0,
+                "why": "P = I² × R: twice the current is four times the heat."
+              },
+              {
+                "question": "Which battery holds more energy?",
+                "options": ["12 V, 10 Ah", "3.7 V, 20 Ah", "They're the same"],
+                "answer": 0,
+                "why": "Watt-hours = volts × amp-hours: 120 Wh against 74 Wh. Amp-hours alone don't measure energy."
+              },
+              {
+                "question": "A 100 Wh battery runs a 25 W light for about…",
+                "options": ["4 hours", "25 hours", "100 hours"],
+                "answer": 0,
+                "why": "Hours = watt-hours ÷ watts = 100 ÷ 25 = 4."
+              },
+              {
+                "question": "You move a 240 W load from a 12 V system to a 48 V one, with the same cable. The cable's loss…",
+                "options": ["falls to a sixteenth", "falls to a quarter", "stays the same"],
+                "answer": 0,
+                "why": "A quarter of the current, and the loss is I² × R: a sixteenth."
+              },
+              {
+                "question": "A load draws 6 A on a cable rated for 15 A. Which fuse?",
+                "options": ["10 A", "20 A", "5 A"],
+                "answer": 0,
+                "why": "Above what the load draws, below what the cable can carry. 20 A wouldn't protect the cable; 5 A would blow in normal use."
+              },
+              {
+                "question": "A crimped joint is warm and the lamp at the end is dim. With the lamp on, across the joint you'd expect to read…",
+                "options": ["several volts", "about 0 V", "the full battery voltage"],
+                "answer": 0,
+                "why": "A bad joint has resistance, so the current drops volts across it and heats it. With the lamp still glowing, the circuit isn't fully open, so it isn't the full voltage."
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "learned": [
+    "Power P = V × I = I² × R; twice the current is four times the heat.",
+    "Watt-hours measure energy: volts × amp-hours. Hours = watt-hours ÷ watts.",
+    "A cable is a resistor: long runs at high current need thick wire, or a higher voltage.",
+    "A fuse protects the wire: above the load's current, below the wire's.",
+    "Matching a load to a source gets the most power and wastes half; power systems don't match.",
+    "A bad joint drops volts under load and gets hot."
+  ],
+  "next": "Next: voltages that change, and how to watch them on a scope.",
+  "journal": [],
+  "footnotes": {
+    "watt": {
+      "kind": "technical",
+      "title": "Joules and watts",
+      "text": "A joule is a unit of energy, about what it takes to lift an apple a metre. A watt is a joule a second. A volt is a joule for each coulomb of charge, and an amp is a coulomb a second, so volts × amps = joules a second = watts.",
+      "glossary": "Watt"
+    },
+    "fields": {
+      "kind": "digression",
+      "title": "Heat from the side",
+      "text": "Lesson 1 said energy travels in the fields around the wires, not in the electrons. You can follow it: the electric field along a resistor and the magnetic field circling it combine into a flow of energy pointing into the resistor from the space all round it, and the total that flows in is exactly I² × R. The electrons inside only steer it."
+    }
+  }
 }

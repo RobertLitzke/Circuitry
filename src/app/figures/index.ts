@@ -4,6 +4,7 @@ import type { FigureId } from '../../core/lessons';
 import { checkFigure } from './check';
 import type { FigureFactory } from './kit';
 import { loopFigure } from './loop';
+import { badJointFigure, batteryTimeFigure, fuseFigure, heatFigure, longWireFigure, matchingFigure } from './power';
 import { dividerFigure, mysteryBoxFigure, potFigure, sagFigure, wrongValueFigure } from './sources';
 import { brokenWireFigure, cellsFigure, junctionFigure, parallelBulbsFigure, rankingFigure } from './series-parallel';
 import { ivCurveFigure, meterFigure, ohmTargetFigure, seriesBulbsFigure, trueSpeedFigure } from './what-flows';
@@ -26,4 +27,10 @@ export const FIGURES: Record<FigureId, FigureFactory> = {
   sag: sagFigure,
   'mystery-box': mysteryBoxFigure,
   'wrong-value': wrongValueFigure,
+  heat: heatFigure,
+  'battery-time': batteryTimeFigure,
+  'long-wire': longWireFigure,
+  fuse: fuseFigure,
+  matching: matchingFigure,
+  'bad-joint': badJointFigure,
 };

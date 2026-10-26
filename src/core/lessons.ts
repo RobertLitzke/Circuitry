@@ -52,6 +52,13 @@ export const FIGURE_IDS = [
   'sag',
   'mystery-box',
   'wrong-value',
+  // 4 Where the energy goes
+  'heat',
+  'battery-time',
+  'long-wire',
+  'fuse',
+  'matching',
+  'bad-joint',
 ] as const;
 export type FigureId = (typeof FIGURE_IDS)[number];
 

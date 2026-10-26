@@ -215,6 +215,78 @@
       ],
       "answer": 0,
       "why": "A panel is close to a current source in parallel with diodes, not a voltage behind a resistor."
+    },
+    {
+      "id": "i2r",
+      "lesson": "power",
+      "question": "Three times the current through a resistor means how much heat?",
+      "options": [
+        "Nine times",
+        "Three times",
+        "The same"
+      ],
+      "answer": 0,
+      "why": "P = I² × R, so 3² = 9 times."
+    },
+    {
+      "id": "wh",
+      "lesson": "power",
+      "question": "A 24 V, 100 Ah battery holds…",
+      "options": [
+        "2.4 kWh",
+        "100 Wh",
+        "124 Wh"
+      ],
+      "answer": 0,
+      "why": "Watt-hours = volts × amp-hours: 24 × 100 = 2400 Wh."
+    },
+    {
+      "id": "system-voltage",
+      "lesson": "power",
+      "question": "Why do larger off-grid systems run at 48 V rather than 12 V?",
+      "options": [
+        "A quarter of the current, so a sixteenth of the cable loss",
+        "Batteries last longer at 48 V",
+        "48 V is safer to touch"
+      ],
+      "answer": 0,
+      "why": "The same power at four times the voltage needs a quarter of the current; I² × R falls sixteenfold."
+    },
+    {
+      "id": "fuse-wire",
+      "lesson": "power",
+      "question": "What does a fuse protect?",
+      "options": [
+        "The wire after it",
+        "The load",
+        "The battery's charge"
+      ],
+      "answer": 0,
+      "why": "It must blow before the cable overheats: above the load's current, below the cable's rating."
+    },
+    {
+      "id": "matching",
+      "lesson": "power",
+      "question": "A load matched to its source's inside resistance gets the most power. What's the catch?",
+      "options": [
+        "Half the energy is wasted inside the source",
+        "The voltage doubles",
+        "Nothing"
+      ],
+      "answer": 0,
+      "why": "At the match, the inside resistance and the load share the power equally. Power systems want a load much bigger than the inside resistance."
+    },
+    {
+      "id": "bad-joint",
+      "lesson": "power",
+      "question": "How do you find a high-resistance joint?",
+      "options": [
+        "Measure the voltage across it with the current flowing",
+        "Measure its resistance with the power off",
+        "Look for a broken wire"
+      ],
+      "answer": 0,
+      "why": "Under load a bad joint drops volts. With no current it drops nothing, and a meter's tiny test current may not show it."
     }
   ]
 }

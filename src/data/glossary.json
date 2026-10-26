@@ -102,5 +102,42 @@
     "term": "Internal resistance",
     "text": "The resistance inside a battery or other source, which makes its voltage sag under load.",
     "lesson": "sources"
+  },
+  "power": {
+    "term": "Power",
+    "text": "How fast energy is used or delivered, in watts: P = V × I.",
+    "lesson": "power"
+  },
+  "watt-hour": {
+    "term": "Watt-hour",
+    "text": "Energy: one watt for one hour, 3600 joules. Watt-hours = volts × amp-hours.",
+    "lesson": "power",
+    "also": [
+      "Wh",
+      "kWh"
+    ]
+  },
+  "amp-hour": {
+    "term": "Amp-hour",
+    "text": "A battery's charge: one amp for one hour. Multiply by the voltage to get energy.",
+    "lesson": "power",
+    "also": [
+      "Ah"
+    ]
+  },
+  "ampacity": {
+    "term": "Ampacity",
+    "text": "The current a cable can carry without overheating its insulation.",
+    "lesson": "power"
+  },
+  "fuse": {
+    "term": "Fuse",
+    "text": "A weak link that melts above its rated current, there to protect the wire after it.",
+    "lesson": "power"
+  },
+  "voltage-drop": {
+    "term": "Voltage drop",
+    "text": "The volts lost along a wire or across a part: current × resistance.",
+    "lesson": "power"
   }
 }

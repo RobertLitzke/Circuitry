@@ -85,6 +85,19 @@
               "E12 plus 11 13 16 20 24 30 36 43 51 62 75 91"
             ]
           ]
+        },
+        {
+          "kind": "terms",
+          "items": [
+            {
+              "term": "Energy",
+              "means": "Watt-hours = volts × amp-hours. 1 Wh = 3600 J."
+            },
+            {
+              "term": "Run time",
+              "means": "Hours = watt-hours ÷ watts."
+            }
+          ]
         }
       ]
     },
@@ -301,9 +314,70 @@
     {
       "id": "wire",
       "title": "Wire and trace sizes",
-      "summary": "Current by wire gauge and trace width, and voltage drop over a run",
+      "summary": "Resistance and current by cable size, voltage drop over a run, and fusing",
       "lesson": "power",
-      "blocks": []
+      "blocks": [
+        {
+          "kind": "text",
+          "text": "Drop = current × resistance of the whole loop, out and back. Aim for 3% or less on power runs. Fuse below the cable's rating, above the load's current, as close to the battery as you can."
+        },
+        {
+          "kind": "table",
+          "columns": [
+            "Cross-section",
+            "Nearest AWG",
+            "Ohms per metre",
+            "Typical rating"
+          ],
+          "rows": [
+            [
+              "0.5 mm²",
+              "20",
+              "0.034 Ω",
+              "3 A"
+            ],
+            [
+              "1.5 mm²",
+              "16",
+              "0.011 Ω",
+              "13 A"
+            ],
+            [
+              "2.5 mm²",
+              "14",
+              "0.0069 Ω",
+              "20 A"
+            ],
+            [
+              "4 mm²",
+              "12",
+              "0.0043 Ω",
+              "25 A"
+            ],
+            [
+              "6 mm²",
+              "10",
+              "0.0029 Ω",
+              "32 A"
+            ],
+            [
+              "10 mm²",
+              "8",
+              "0.0017 Ω",
+              "45 A"
+            ]
+          ]
+        },
+        {
+          "kind": "text",
+          "text": "Ratings depend on insulation, bundling and air temperature; take the cable maker's figure over this table. Trace widths on a board follow the same rule: a 1 oz copper trace 0.25 mm wide carries well under an amp."
+        },
+        {
+          "kind": "figure",
+          "figure": "long-wire",
+          "caption": "20 m of cable to a 60 W pump: pick the size, or raise the voltage."
+        }
+      ]
     },
     {
       "id": "capacitors",
