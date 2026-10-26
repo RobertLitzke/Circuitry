@@ -56,5 +56,24 @@
     "term": "Filament",
     "text": "The thin tungsten wire in a lamp, which glows when hot. Its resistance rises about tenfold from cold to lit.",
     "lesson": "what-flows"
+  },
+  "series": {
+    "term": "Series",
+    "text": "Parts joined end to end on one path. They share one current; the voltage splits between them.",
+    "lesson": "series-parallel"
+  },
+  "kirchhoff": {
+    "term": "Kirchhoff's laws",
+    "text": "The current into a junction equals the current out of it, and the voltages round any loop add up to zero.",
+    "lesson": "series-parallel",
+    "also": [
+      "current law",
+      "voltage law"
+    ]
+  },
+  "junction": {
+    "term": "Junction",
+    "text": "A point where three or more wires meet. In a semiconductor, also the boundary between p-type and n-type material.",
+    "lesson": "series-parallel"
   }
 }

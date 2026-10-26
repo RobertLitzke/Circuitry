@@ -71,6 +71,78 @@
       ],
       "answer": 0,
       "why": "Cold tungsten resists about a tenth as much as hot, so for an instant the current is several times normal."
+    },
+    {
+      "id": "parallel-voltage",
+      "lesson": "series-parallel",
+      "question": "What do two parts in parallel always share?",
+      "options": [
+        "The same voltage across them",
+        "The same current through them",
+        "The same resistance"
+      ],
+      "answer": 0,
+      "why": "Both their ends are joined, so they have the same voltage across them. The current splits between them."
+    },
+    {
+      "id": "series-current",
+      "lesson": "series-parallel",
+      "question": "What do two parts in series always share?",
+      "options": [
+        "The same current",
+        "The same voltage",
+        "The same power"
+      ],
+      "answer": 0,
+      "why": "There's only one path, so the same current goes through both. The voltage splits between them."
+    },
+    {
+      "id": "kcl",
+      "lesson": "series-parallel",
+      "question": "Three wires meet. 40 mA flows in on one and 15 mA out on another. What flows on the third?",
+      "options": [
+        "25 mA out",
+        "55 mA out",
+        "25 mA in"
+      ],
+      "answer": 0,
+      "why": "What flows into a junction flows out: 40 in, so 40 out in all, and 40 − 15 = 25 mA goes out on the third."
+    },
+    {
+      "id": "parallel-smaller",
+      "lesson": "series-parallel",
+      "question": "You put a 10 kΩ resistor in parallel with a 1 kΩ. The pair is…",
+      "options": [
+        "a little less than 1 kΩ",
+        "11 kΩ",
+        "5.5 kΩ"
+      ],
+      "answer": 0,
+      "why": "Each parallel path is another way through, so the pair is less than the smallest: about 909 Ω."
+    },
+    {
+      "id": "mismatched-cells",
+      "lesson": "series-parallel",
+      "question": "Why not put a fresh battery in parallel with a flat one?",
+      "options": [
+        "Current flows from the fresh one into the flat one",
+        "The voltages add and overload the circuit",
+        "Nothing happens: they just share"
+      ],
+      "answer": 0,
+      "why": "The fresh battery pushes current back into the flat one, wasting charge and warming both. Big batteries can do it hard enough to be dangerous."
+    },
+    {
+      "id": "open-volts",
+      "lesson": "series-parallel",
+      "question": "A string of parts has stopped working. Across which part will you read the full supply voltage?",
+      "options": [
+        "The one with the break in it",
+        "The first one",
+        "None: it's all 0 V"
+      ],
+      "answer": 0,
+      "why": "With no current, nothing else drops any voltage, so all of it appears across the break."
     }
   ]
 }

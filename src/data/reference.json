@@ -98,9 +98,73 @@
     {
       "id": "series-parallel",
       "title": "Series, parallel and dividers",
-      "summary": "Adding resistances, and the divider formula",
+      "summary": "Adding resistances, Kirchhoff's laws, and cells in series and parallel",
       "lesson": "series-parallel",
-      "blocks": []
+      "blocks": [
+        {
+          "kind": "table",
+          "columns": [
+            "Joined",
+            "What they share",
+            "Combined resistance"
+          ],
+          "rows": [
+            [
+              "In series",
+              "One current; the voltage splits",
+              "R1 + R2 + …"
+            ],
+            [
+              "In parallel",
+              "One voltage; the current splits",
+              "1 ÷ (1/R1 + 1/R2 + …), less than the smallest"
+            ],
+            [
+              "Two in parallel",
+              "",
+              "(R1 × R2) ÷ (R1 + R2)"
+            ]
+          ]
+        },
+        {
+          "kind": "terms",
+          "items": [
+            {
+              "term": "Current law",
+              "means": "The current into a junction equals the current out of it."
+            },
+            {
+              "term": "Voltage law",
+              "means": "The rises and drops round any loop add up to zero."
+            }
+          ]
+        },
+        {
+          "kind": "table",
+          "columns": [
+            "Cells",
+            "Voltage",
+            "Current each gives"
+          ],
+          "rows": [
+            [
+              "Two in series",
+              "Twice one cell's",
+              "All of the load's"
+            ],
+            [
+              "Two matched in parallel",
+              "One cell's",
+              "Half the load's"
+            ]
+          ]
+        },
+        {
+          "kind": "figure",
+          "figure": "junction",
+          "caption": "Three resistors in parallel: the battery's current is the sum of theirs."
+        }
+      ]
     },
     {
       "id": "reading-parts",

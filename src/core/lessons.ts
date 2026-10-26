@@ -40,6 +40,12 @@ export const FIGURE_IDS = [
   'meter',
   'ohm-target',
   'iv-curve',
+  // 2 Series and parallel
+  'parallel-bulbs',
+  'junction',
+  'ranking',
+  'cells',
+  'broken-wire',
 ] as const;
 export type FigureId = (typeof FIGURE_IDS)[number];
 

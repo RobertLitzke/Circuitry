@@ -4,8 +4,234 @@
   "track": "core",
   "title": "Series and parallel",
   "teaches": "Bulbs in a line and side by side, Kirchhoff's two laws, and cells stacked and paired",
-  "parts": [],
-  "learned": [],
-  "next": "",
-  "journal": []
+  "parts": [
+    {
+      "title": "Side by side",
+      "blocks": [
+        {
+          "kind": "text",
+          "text": "In lesson 1 the bulbs were in **series**: one path, and everything on it in a line. Now put a second bulb **in parallel** with the first,[^parallel] beside it, so each has its own path from the battery's + end to its − end."
+        },
+        {
+          "kind": "figure",
+          "figure": "parallel-bulbs",
+          "caption": "A 9 V battery, bulb A, and bulb B on a switch beside it",
+          "task": "Guess what happens to bulb A, then lock it in",
+          "goal": "reveal"
+        }
+      ]
+    },
+    {
+      "title": "Asking more of the battery",
+      "blocks": [
+        {
+          "kind": "text",
+          "text": "A bulb in parallel doesn't share out what the first bulb had. Each bulb has the whole battery across it, so each takes the current it would take on its own, and the battery gives the two together. Plug in a kettle and the lights don't dim; the house just draws more current from the street."
+        },
+        {
+          "kind": "text",
+          "text": "Look at the colours. The top wires are all orange and the bottom ones all blue, whichever bulb they lead to: every point on a wire is at the same voltage as the rest of that wire. That is what *in parallel* means. Two parts are in parallel when both their ends are joined, so they have the same voltage across them."
+        },
+        {
+          "kind": "key",
+          "title": "Hold on to",
+          "points": [
+            "In **series**, parts share one current, and the voltage splits between them.",
+            "In **parallel**, parts share one voltage, and the current splits between them.",
+            "A battery isn't a fixed current. It gives whatever current its load draws."
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Kirchhoff's two laws",
+      "blocks": [
+        {
+          "kind": "text",
+          "text": "Two rules hold in every circuit there is, and they are both bookkeeping. Gustav Kirchhoff wrote them down in 1845.[^kirchhoff]"
+        },
+        {
+          "kind": "text",
+          "text": "**The current law.** Charge doesn't pile up anywhere, so all the current flowing into a junction flows out of it again. Where a wire splits into three, the three currents add up to the one that came in."
+        },
+        {
+          "kind": "text",
+          "text": "**The voltage law.** Go round any loop and add up the rises and drops, and you're back where you started: the total is zero. However the path winds, the battery's 9 V is all used up by the time you're back at its − end."
+        },
+        {
+          "kind": "figure",
+          "figure": "junction",
+          "caption": "Three resistors in parallel. The battery's current splits between them.",
+          "task": "Set the resistors so the battery gives 30 mA in all",
+          "goal": "target"
+        },
+        {
+          "kind": "text",
+          "text": "Each branch takes 9 V ÷ its own resistance, and the battery gives the sum. A smaller resistor takes more of the current: current goes down every path it can, most where it's easiest. That is also why the combined resistance of parts in parallel is always less than the smallest of them. Each one you add is another way through."
+        }
+      ]
+    },
+    {
+      "title": "Putting them together",
+      "blocks": [
+        {
+          "kind": "text",
+          "text": "Most circuits are both at once. Here bulb A is in series with a pair, B and C, that are in parallel with each other. All three bulbs are the same."
+        },
+        {
+          "kind": "figure",
+          "figure": "ranking",
+          "caption": "Bulb A, then B and C side by side",
+          "task": "Rank the bulbs, then guess what happens without C",
+          "goal": "rank"
+        }
+      ]
+    },
+    {
+      "title": "One thing, not a list",
+      "blocks": [
+        {
+          "kind": "text",
+          "text": "Taking bulb C away dimmed bulb A, though A never touched C. That surprises nearly everyone, and it's the most useful thing in this lesson. A circuit isn't a list of parts each doing its own thing. The current everywhere is set by the whole circuit at once, so change any part of it and everything else moves."
+        },
+        {
+          "kind": "text",
+          "text": "The same goes for cells. Stack them + to −, in series, and their voltages add: that is how two 1.5 V cells make 3 V, and how a 12 V battery is six 2 V cells inside one case. Put them side by side, in parallel, and the voltage stays at one cell's, but each gives only part of the current, so the pair lasts longer."
+        },
+        {
+          "kind": "figure",
+          "figure": "cells",
+          "caption": "Two 1.5 V cells and a lamp",
+          "task": "Try all three ways of joining the cells",
+          "goal": "all"
+        },
+        {
+          "kind": "key",
+          "title": "On a real bench",
+          "points": [
+            "Only put cells or batteries in parallel when they are the same kind, the same age and the same charge. A strong one pushes current into a weak one, and big batteries can do it hard enough to get hot.",
+            "Solar panels and battery banks are wired in series and in parallel for exactly these reasons. The solar lessons come back to it."
+          ]
+        }
+      ]
+    },
+    {
+      "title": "A dark bulb",
+      "blocks": [
+        {
+          "kind": "text",
+          "text": "Every lesson from here on ends with a fault to find. The colours and dots are off, as they are on a real bench, but you have a meter and you can see which bulbs are lit. Measure first; mark the fault when you're sure."
+        },
+        {
+          "kind": "figure",
+          "figure": "broken-wire",
+          "caption": "Two bulbs in parallel, and one is dark",
+          "task": "Find the fault and mark it",
+          "goal": "find"
+        },
+        {
+          "kind": "text",
+          "text": "Remember what you used there. Where a loop is broken, no current flows, so no resistor or bulb on that loop drops any voltage, and the whole of the battery's voltage turns up across the break. It is the quickest way to find an open circuit, and it works on any board."
+        }
+      ]
+    },
+    {
+      "title": "Check",
+      "blocks": [
+        {
+          "kind": "figure",
+          "figure": "check",
+          "caption": "Six questions",
+          "task": "Answer them",
+          "options": {
+            "items": [
+              {
+                "question": "You add a third identical bulb in parallel with two others on a battery. What happens to the first two?",
+                "options": [
+                  "They stay about as bright",
+                  "They dim to two-thirds",
+                  "They get brighter"
+                ],
+                "answer": 0,
+                "why": "Each has the whole battery across it, so each takes the same current as before. The battery gives more in total."
+              },
+              {
+                "question": "Into a junction flow 50 mA. Two wires leave it; one carries 20 mA. What does the other carry?",
+                "options": [
+                  "30 mA",
+                  "20 mA",
+                  "70 mA"
+                ],
+                "answer": 0,
+                "why": "Kirchhoff's current law: what goes into a junction comes out. 50 − 20 = 30 mA."
+              },
+              {
+                "question": "A 9 V battery feeds a resistor and a lamp in series. The resistor drops 4 V. What does the lamp drop?",
+                "options": [
+                  "5 V",
+                  "9 V",
+                  "4 V"
+                ],
+                "answer": 0,
+                "why": "Kirchhoff's voltage law: the drops round a loop add up to the battery's voltage. 9 − 4 = 5 V."
+              },
+              {
+                "question": "Two resistors in parallel, 100 Ω and 1 kΩ. Their combined resistance is…",
+                "options": [
+                  "a little under 100 Ω",
+                  "550 Ω",
+                  "1.1 kΩ"
+                ],
+                "answer": 0,
+                "why": "Parallel paths add ways through, so the combination is always less than the smallest. Here it's 91 Ω."
+              },
+              {
+                "question": "Bulb A feeds bulbs B and C in parallel. You unscrew C. What happens to A?",
+                "options": [
+                  "It dims",
+                  "It brightens",
+                  "Nothing"
+                ],
+                "answer": 0,
+                "why": "With C gone the circuit is harder to push through, so less current flows from the battery, and all of it goes through A."
+              },
+              {
+                "question": "One bulb in a circuit is dark. With the power on, your meter reads the full supply voltage across a wire next to it. What is wrong?",
+                "options": [
+                  "That wire is broken",
+                  "The bulb is shorted",
+                  "Nothing: wires always read that"
+                ],
+                "answer": 0,
+                "why": "A whole wire drops almost nothing. The full supply voltage across it means there is a break there and no current is flowing."
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "learned": [
+    "In series, parts share a current and split the voltage; in parallel, they share a voltage and split the current.",
+    "A battery gives whatever current its load draws.",
+    "Kirchhoff: current into a junction equals current out; voltages round a loop add to zero.",
+    "Change one part of a circuit and the current everywhere changes.",
+    "Cells in series add voltage; matched cells in parallel share the current.",
+    "Across a break, the whole supply voltage appears."
+  ],
+  "next": "Next: why a real battery, or a voltage divider, sags when you load it.",
+  "journal": [],
+  "footnotes": {
+    "kirchhoff": {
+      "kind": "digression",
+      "title": "Gustav Kirchhoff",
+      "text": "Kirchhoff was 21 and still a student in Königsberg when he wrote the circuit laws. He went on to found spectroscopy with Robert Bunsen, reading the elements in the Sun from the dark lines in its light."
+    },
+    "parallel": {
+      "kind": "technical",
+      "title": "Parallel, written down",
+      "text": "Engineers write two parts in parallel as R1 ∥ R2, with two upright bars, and parts in series simply as R1 + R2.",
+      "glossary": "Parallel"
+    }
+  }
 }
