@@ -3,8 +3,8 @@
 // through, a resistor sized to hit a current, and a curve tracer on which a
 // lamp breaks Ohm's law.
 
-import { el, svg } from 'lesson-kit/dom';
-import { label, line, small, type P } from 'lesson-kit/draw';
+import { el, svg } from 'didactics/dom';
+import { label, line, small, type P } from 'didactics/draw';
 import { e12, type Part } from 'circuit-kit/parts';
 import { solve, type Solution } from 'circuit-kit/solve';
 import { schematic, type Placement } from '../circuit/schematic';

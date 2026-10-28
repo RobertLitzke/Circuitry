@@ -5,7 +5,9 @@ describe('the save', () => {
   it('repairs junk into an empty save, metric, with no radio', () => {
     expect(migrate('x')).toEqual(emptySave());
     expect(emptySave().units).toBe('metric');
-    expect(migrate({ talk: true, units: 'imperial' })).toMatchObject({ talk: false, units: 'metric' });
+    const s = migrate({ talk: true, heard: {}, units: 'imperial' });
+    expect(s.units).toBe('metric');
+    expect(s).not.toHaveProperty('talk');
   });
 
   it('keeps what can be kept', () => {

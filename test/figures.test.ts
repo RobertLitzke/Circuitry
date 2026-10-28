@@ -1,6 +1,7 @@
 // @vitest-environment happy-dom
 // Every figure builds, the ones in lessons with their lesson's options, and the board draws.
 import { describe, expect, it } from 'vitest';
+import { isDiagram } from 'didactics/blocks';
 import { FIGURES } from '../src/app/figures';
 import { makeBoard } from '../src/app/scene/board';
 import { LESSONS, type FigureId } from '../src/core/lessons';
@@ -18,8 +19,8 @@ describe('figures', () => {
 
   it('all build as the lessons use them', () => {
     for (const l of LESSONS) for (const p of l.parts) for (const b of p.blocks) {
-      if (b.kind !== 'figure') continue;
-      expect(FIGURES[b.figure](ctx(), b.goal, b.options).node, b.figure).toBeInstanceOf(HTMLElement);
+      if (!isDiagram(b)) continue;
+      expect(FIGURES[b.id](ctx(), b.goal, b.options).node, b.id).toBeInstanceOf(HTMLElement);
     }
   });
 

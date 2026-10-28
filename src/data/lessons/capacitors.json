@@ -9,16 +9,16 @@
       "title": "A bucket for charge",
       "blocks": [
         {
-          "kind": "text",
+          "type": "text",
           "text": "A **capacitor** is two metal plates with a thin insulating gap between them. No current crosses the gap. But push current at one plate and charge piles up there, pushing as much charge off the other plate, so for a while current seems to flow straight through. The more charge it holds, the higher the voltage across it, like water rising in a bucket."
         },
         {
-          "kind": "text",
+          "type": "text",
           "text": "How much charge it holds for each volt is its capacitance, in farads.[^farad] A farad is huge; real parts are in microfarads (µF, millionths) and nanofarads (nF, thousandths of those). Here one charges from a 9 V battery through a resistor, and the scope watches its voltage in real time."
         },
         {
-          "kind": "figure",
-          "figure": "rc-charge",
+          "type": "interactive_diagram",
+          "id": "rc-charge",
           "caption": "A 9 V battery, a switch, a resistor, a capacitor, and a scope on the capacitor",
           "task": "Guess, then set R and C to take one second",
           "goal": "tau"
@@ -29,15 +29,15 @@
       "title": "The time constant",
       "blocks": [
         {
-          "kind": "text",
+          "type": "text",
           "text": "At first the capacitor is empty, so the resistor has the whole 9 V across it and a large current flows. As the capacitor fills, the voltage left across the resistor shrinks, so the current shrinks, so the filling slows. It never quite finishes, but it gets close fast."
         },
         {
-          "kind": "text",
+          "type": "text",
           "text": "Resistance times capacitance has units of seconds: **τ = R × C**, the **time constant**. In one τ the capacitor gets 63% of the way; in five it is all but full. A bigger resistor lets the charge in more slowly, a bigger capacitor needs more of it, and either makes things take longer. Discharging through a resistor follows the same curve, falling instead of rising. Every blinker, debounce and timer you meet is built on this."
         },
         {
-          "kind": "key",
+          "type": "key_ideas",
           "title": "Hold on to",
           "points": [
             "A capacitor stores charge; its voltage rises as it fills.",
@@ -51,12 +51,12 @@
       "title": "Across the gap",
       "blocks": [
         {
-          "kind": "text",
+          "type": "text",
           "text": "Lesson 5 lifted a signal onto a steady voltage so it could fit inside one battery's range. Each stage of a pedal sets its own steady voltage. So how do you hand a signal from one stage to the next without handing over the steady part too?"
         },
         {
-          "kind": "figure",
-          "figure": "coupling",
+          "type": "interactive_diagram",
+          "id": "coupling",
           "caption": "A wiggle on 4.5 V, a capacitor, and a 100 kΩ resistor to ground",
           "task": "Guess what comes out",
           "goal": "reveal"
@@ -67,15 +67,15 @@
       "title": "Changes pass, steady stays",
       "blocks": [
         {
-          "kind": "text",
+          "type": "text",
           "text": "Once the capacitor has charged to 4.5 V, the steady part pushes no more current, so none of it reaches the far side. The wiggle keeps changing, though, and each change pushes charge on and off the plates, so the far side wiggles too, around 0 V. A capacitor used like this is a **coupling capacitor**, and nearly every audio stage has one at its input and output."
         },
         {
-          "kind": "text",
+          "type": "text",
           "text": "A smaller capacitor passes less of a low note. It hasn't time to pass much charge before the wiggle turns round. That makes the coupling capacitor a quiet tone control too: pedal designers shrink it to thin out the bass before a stage that would turn it to mud."
         },
         {
-          "kind": "key",
+          "type": "key_ideas",
           "title": "Hold on to",
           "points": [
             "A capacitor blocks a steady voltage and passes changes.",
@@ -89,12 +89,12 @@
       "title": "A tone knob",
       "blocks": [
         {
-          "kind": "text",
+          "type": "text",
           "text": "Turn it round: a resistor in the signal's path, and a capacitor from the output to ground. Now the capacitor is a path to ground for anything that changes quickly, and it soaks up the high notes, while slow ones barely notice it. Sweep the frequency and watch how much gets through."
         },
         {
-          "kind": "figure",
-          "figure": "lowpass",
+          "type": "interactive_diagram",
+          "id": "lowpass",
           "caption": "A 10 kΩ resistor and a 10 nF capacitor, a sweep, and the response it plots",
           "task": "Find the frequency where 71% gets through",
           "goal": "corner"
@@ -105,15 +105,15 @@
       "title": "The corner frequency",
       "blocks": [
         {
-          "kind": "text",
+          "type": "text",
           "text": "The point where it is down to 71% is the filter's **corner frequency**: **f = 1 ÷ (2π × R × C)**.[^corner] Here, 1 ÷ (2π × 10 kΩ × 10 nF) is about 1.6 kHz. Below the corner nearly everything passes; above it, each doubling of the frequency halves what gets through. This is a **low-pass filter**, and it is the tone knob on most guitars and on the Tube Screamer: the knob changes R, and so moves the corner."
         },
         {
-          "kind": "text",
+          "type": "text",
           "text": "Swap the parts, capacitor in the path and resistor to ground, and you have a **high-pass filter** with the same corner, passing the highs and losing the lows. The coupling capacitor you just met was one, with its corner far below anything you can hear."
         },
         {
-          "kind": "key",
+          "type": "key_ideas",
           "title": "Hold on to",
           "points": [
             "Resistor then capacitor to ground: a low-pass filter. Capacitor then resistor: a high-pass.",
@@ -127,18 +127,18 @@
       "title": "Holding up the supply",
       "blocks": [
         {
-          "kind": "text",
+          "type": "text",
           "text": "Lesson 4 said wire is a resistor. A load that switches on and off pulls bursts of current through it, and every burst drops the supply voltage for everything else on it. A capacitor right across the supply, beside the parts that need a steady voltage, fills up between bursts and gives the load what it asks for, so the battery's leads only have to supply the average."
         },
         {
-          "kind": "figure",
-          "figure": "decoupling",
+          "type": "interactive_diagram",
+          "id": "decoupling",
           "caption": "A load switching on and off ten thousand times a second, long leads, and a chip on the same supply",
           "task": "Keep the chip's supply within 0.1 V",
           "goal": "hold"
         },
         {
-          "kind": "text",
+          "type": "text",
           "text": "This is a **decoupling capacitor**, and every chip on every board has one, as close to its supply pin as it will go. The same idea on a bigger scale is the **reservoir capacitor** that smooths a power supply, which lesson 7 comes to."
         }
       ]
@@ -147,18 +147,18 @@
       "title": "Coils",
       "blocks": [
         {
-          "kind": "text",
+          "type": "text",
           "text": "A coil of wire, an **inductor**, is the capacitor's opposite. Current through it builds a magnetic field, and the field resists any change in the current: it is slow to start, and it won't stop. Motors, relays, loudspeakers and transformers are all coils. What happens when you cut the current to one suddenly?"
         },
         {
-          "kind": "figure",
-          "figure": "kickback",
+          "type": "interactive_diagram",
+          "id": "kickback",
           "caption": "A 12 V battery, a switch and a relay coil",
           "task": "Guess, then open the switch",
           "goal": "spike"
         },
         {
-          "kind": "key",
+          "type": "key_ideas",
           "title": "On a real bench",
           "points": [
             "Big capacitors keep their charge after the power is off. Discharge one through a resistor before touching it, never with a screwdriver.",
@@ -172,12 +172,12 @@
       "title": "Stuck together",
       "blocks": [
         {
-          "kind": "text",
+          "type": "text",
           "text": "A capacitor's gap is very thin, and it can fail: run past its voltage rating, the insulation breaks down and it conducts. Then the two stages it was keeping apart share one steady voltage, and one of them is wrong."
         },
         {
-          "kind": "figure",
-          "figure": "shorted-cap",
+          "type": "interactive_diagram",
+          "id": "shorted-cap",
           "caption": "Two buffers joined by a coupling capacitor",
           "task": "Find the fault and mark it",
           "goal": "find"
@@ -188,8 +188,8 @@
       "title": "Check",
       "blocks": [
         {
-          "kind": "figure",
-          "figure": "check",
+          "type": "quiz",
+          "id": "check",
           "caption": "Six questions",
           "task": "Answer them",
           "options": {

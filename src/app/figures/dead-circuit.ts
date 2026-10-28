@@ -3,7 +3,7 @@
 // it is built on, and then three boards that don't work, to be found with a
 // meter and a budget of probes.
 
-import { el } from 'lesson-kit/dom';
+import { el } from 'didactics/dom';
 import type { Part } from 'circuit-kit/parts';
 import { solve } from 'circuit-kit/solve';
 import { OPEN, wire } from '../circuit/build';

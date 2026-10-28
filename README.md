@@ -6,11 +6,11 @@ explainers, on what voltage and current really are, how parts shape them,
 and how to find out why a board doesn't work. Every circuit is live: wires
 are coloured by their voltage and dots move along them with the current.
 
-Built on `packages/lesson-kit`, copied from
-[Dirt](https://github.com/RobertLitzke/Dirt) (which copied it from
-[Clouds](https://github.com/RobertLitzke/CloudsWhatAreTheyUpTo)); fixes to
-the kit are copied between the three by hand. There is no story or radio
-mentor (the kit's radio is off). The circuit engine is our own,
+Built on [Didactics](https://github.com/RobertLitzke/Didactics), the lesson
+library shared with [Dirt](https://github.com/RobertLitzke/Dirt) and
+[Clouds](https://github.com/RobertLitzke/CloudsWhatAreTheyUpTo), pinned to a
+commit in package.json (`npm install github:RobertLitzke/Didactics#<sha>` to
+move it). There is no story or radio mentor (the save has no radio). The circuit engine is our own,
 `packages/circuit-kit`.
 
 ## What is built
@@ -84,7 +84,8 @@ blinker doesn't converge at its flip yet, so lesson 8 only describes it.
 ## Adding a lesson
 
 1. Fill its `src/data/lessons/<id>.json` (the format is in
-   `packages/lesson-kit/README.md`); a lesson with no parts shows as coming.
+   Didactics' README; `npx didactics-course upgrade src/data/lessons`
+   converts a file in the older `kind` shape); a lesson with no parts shows as coming.
 2. Put its figures in `src/app/figures/<id>.ts`, add their ids to
    `FIGURE_IDS` in `src/core/lessons.ts`, and name them in
    `src/app/figures/index.ts`.
@@ -96,11 +97,10 @@ blinker doesn't converge at its flip yet, so lesson 8 only describes it.
 
 ```
 packages/circuit-kit/  the solver: parts, nodes, solve (pure TypeScript)
-packages/lesson-kit/   the lesson engine, figures, quiz, shell and build
 src/core/     pure TypeScript, no DOM
   lessons.ts    the tracks and lessons, figure ids
   reference.ts  the reference page's shape
-  save.ts       the save, on top of lesson-kit's progress.ts
+  save.ts       the save, on top of Didactics' progress.ts
 src/data/     lessons/*.json, reference.json, glossary.json, quiz.json
 src/app/      store.ts, asset.ts
   circuit/      schematic.ts (a live circuit drawing), units.ts (4.7 kΩ, 23 mA)

@@ -1,10 +1,10 @@
-@import 'lesson-kit/styles/kit.css';
+@import 'didactics/styles/kit.css';
 @import './tokens.css';
 
-/* What only Circuitry has: the circuit-board look over lesson-kit's shell, the
+/* What only Circuitry has: the circuit-board look over Didactics' shell, the
    home page and its tracks, the reference page, and the figures' extras.
    Everything else, from the top bar to the figures and the log, is
-   lesson-kit's kit.css. */
+   Didactics' kit.css. */
 
 /* ---- Type: a geometric grotesque for headings, plain sans for the small
    uppercase labels that kit.css sets in the display face. */
@@ -17,7 +17,7 @@ h2 { font-weight: 600; letter-spacing: 0.02em; text-transform: none; font-size: 
   text-shadow: none;
   transform: none;
 }
-.btn, .tag, .eyebrow, .seg button, .fig-slider span, .topbar nav a, .count, .field > span,
+.btn, .tag, .eyebrow, .seg button, .fig-slider span, .navmenu summary, .navmenu nav a, .count, .field > span,
 .key-ideas .key-title, .update-text strong, .part-n {
   font-family: var(--font);
   font-weight: 800;
@@ -26,8 +26,8 @@ h2 { font-weight: 600; letter-spacing: 0.02em; text-transform: none; font-size: 
 .btn:hover { background: #f4c25f; }
 .btn-ghost:hover { background: rgba(29, 37, 48, 0.08); }
 .wordmark { font-family: var(--display); text-transform: none; letter-spacing: 0.01em; font-size: 1.5rem; font-weight: 700; }
-.wordmark span { font-family: var(--font); font-weight: 800; font-size: 0.6rem; letter-spacing: 0.16em; text-transform: uppercase; }
-.topbar nav a.here { color: var(--ink); background: var(--sun); }
+.wordmark span { white-space: nowrap; font-family: var(--font); font-weight: 800; font-size: 0.6rem; letter-spacing: 0.16em; text-transform: uppercase; }
+.navmenu nav a.here { color: var(--ink); background: var(--sun); }
 
 /* A lesson's title on the paper: copper, upright. */
 .article-intro h1 {

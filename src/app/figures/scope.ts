@@ -5,8 +5,8 @@
 // figure sets, so the screen can keep time with a schematic slowed down
 // beside it.
 
-import { svg } from 'lesson-kit/dom';
-import { line, small } from 'lesson-kit/draw';
+import { svg } from 'didactics/dom';
+import { line, small } from 'didactics/draw';
 import type { Part } from 'circuit-kit/parts';
 import { simulate } from 'circuit-kit/sim';
 import type { Solution } from 'circuit-kit/solve';

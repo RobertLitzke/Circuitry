@@ -6,8 +6,8 @@
 // asks for its node, as on the schematic, so a fault hunt (bench.ts) can run
 // on either.
 
-import { svg } from 'lesson-kit/dom';
-import { label, type P } from 'lesson-kit/draw';
+import { svg } from 'didactics/dom';
+import { label, type P } from 'didactics/draw';
 import { terminals, type Part } from 'circuit-kit/parts';
 import type { Solution } from 'circuit-kit/solve';
 import { COL, type FigureContext } from '../figures/kit';

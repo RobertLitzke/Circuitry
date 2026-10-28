@@ -15,8 +15,8 @@
 // greys the colours, stops the dots or puts out the lamps, so the drawing
 // does not give the answer away; uncovering it is the reveal.
 
-import { svg } from 'lesson-kit/dom';
-import { label, type P } from 'lesson-kit/draw';
+import { svg } from 'didactics/dom';
+import { label, type P } from 'didactics/draw';
 import { terminals, type Part } from 'circuit-kit/parts';
 import type { Solution } from 'circuit-kit/solve';
 import { animate, COL, type FigureContext } from '../figures/kit';

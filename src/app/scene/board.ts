@@ -5,8 +5,8 @@
 // the grid and turning in 45° jogs, from a seed, so the same seed draws the
 // same board.
 
-import { svg } from 'lesson-kit/dom';
-import { makeRng, type Rng } from 'lesson-kit/rng';
+import { svg } from 'didactics/dom';
+import { makeRng, type Rng } from 'didactics/rng';
 import { COL } from '../figures/kit';
 
 export interface BoardOptions {

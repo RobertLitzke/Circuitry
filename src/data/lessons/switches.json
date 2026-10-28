@@ -9,16 +9,16 @@
       "title": "A valve worked by a trickle",
       "blocks": [
         {
-          "kind": "text",
+          "type": "text",
           "text": "A **transistor** has three legs. In the common kind, a bipolar NPN transistor, they are the **collector**, the **base** and the **emitter**. A small current into the base, out through the emitter, lets a much bigger current flow from the collector to the emitter: typically a hundred or two hundred times bigger. That ratio is its current gain, **β**.[^transistor]"
         },
         {
-          "kind": "text",
+          "type": "text",
           "text": "Here one switches a 9 V, 100 mA lamp. A control voltage of 5 V, from a switch or a microcontroller's pin, feeds the base through a resistor; the base itself sits at a diode's drop, about 0.7 V, because the base and emitter are a diode. So the base current is (5 − 0.7) ÷ R."
         },
         {
-          "kind": "figure",
-          "figure": "bjt-switch",
+          "type": "interactive_diagram",
+          "id": "bjt-switch",
           "caption": "A lamp, an NPN transistor, and a base resistor from a 5 V control",
           "task": "Switch the lamp hard on",
           "goal": "hard"
@@ -29,15 +29,15 @@
       "title": "On, off, and the bit in between",
       "blocks": [
         {
-          "kind": "text",
+          "type": "text",
           "text": "With too little base current the transistor lets through β times it and no more: the lamp is dim, and the transistor drops the rest of the voltage and turns it into heat. That in-between region is where an amplifier works, in lesson 9, but for a switch it is the worst place to be. Give the base more than it needs and the transistor is **saturated**, fully on, dropping only a tenth of a volt or so. Then the lamp gets almost everything and the transistor barely warms."
         },
         {
-          "kind": "text",
+          "type": "text",
           "text": "A rule that works: give the base about a tenth to a twentieth of the current the load needs, not just a β-th of it, because β varies from part to part and with temperature. The transistor here sits between the load and ground, a **low-side switch**, which is the easy way to switch with an NPN transistor."
         },
         {
-          "kind": "key",
+          "type": "key_ideas",
           "title": "Hold on to",
           "points": [
             "A small base current lets a current β times larger flow from collector to emitter.",
@@ -51,22 +51,22 @@
       "title": "Switching with a voltage",
       "blocks": [
         {
-          "kind": "text",
+          "type": "text",
           "text": "A **MOSFET** does the same job a different way. Its three legs are the **drain**, the **gate** and the **source**, and its gate is insulated from the rest by a film of glass: no current flows into it at all. Instead the voltage on the gate, measured from the source, decides how freely current flows from drain to source. Below its **threshold voltage** it is off; well above it, it is on, with a resistance of a few thousandths of an ohm."
         },
         {
-          "kind": "figure",
-          "figure": "mosfet-switch",
+          "type": "interactive_diagram",
+          "id": "mosfet-switch",
           "caption": "A 12 V pump drawing 2 A, a MOSFET, and its gate drive",
           "task": "Guess, then run the pump fully from 3.3 V",
           "goal": "logic"
         },
         {
-          "kind": "text",
+          "type": "text",
           "text": "Most MOSFETs need about 10 V on the gate to be fully on. A **logic-level** MOSFET is made to be fully on at 3.3 or 5 V, so a microcontroller can drive it straight from a pin. MOSFETs switch big loads, motors, pumps, lights, solar charge controllers, with almost no loss, which is why they have replaced bipolar transistors as power switches. One habit: put a resistor of 10 to 100 kΩ from gate to source, so the gate can't float and drift on while the controller is starting up."
         },
         {
-          "kind": "key",
+          "type": "key_ideas",
           "title": "Hold on to",
           "points": [
             "A MOSFET is switched by its gate's voltage; the gate takes no steady current.",
@@ -80,22 +80,22 @@
       "title": "Catching the kick",
       "blocks": [
         {
-          "kind": "text",
+          "type": "text",
           "text": "A **relay** is a switch worked by an electromagnet: current through its coil pulls a lever across, and the lever's contacts switch a completely separate circuit, which can be mains, or the big current of a battery bank. A transistor drives the coil. But lesson 6 showed what a coil does when its current is cut off."
         },
         {
-          "kind": "figure",
-          "figure": "relay",
+          "type": "interactive_diagram",
+          "id": "relay",
           "caption": "A transistor driving a relay's coil from 12 V",
           "task": "Switch it off with and without a flyback diode",
           "goal": "safe"
         },
         {
-          "kind": "text",
+          "type": "text",
           "text": "A diode across the coil, pointing back up to the supply, does nothing while the coil is on, since it is reverse biased. When the transistor turns off, the coil's current carries on round through the diode and fades away harmlessly. It is called a **flyback diode**, and it goes across every relay coil, solenoid and motor a transistor switches."
         },
         {
-          "kind": "key",
+          "type": "key_ideas",
           "title": "On a real bench",
           "points": [
             "Every coil a transistor switches needs a flyback diode, cathode to the supply side.",
@@ -108,18 +108,18 @@
       "title": "Two switches, flipping each other",
       "blocks": [
         {
-          "kind": "text",
+          "type": "text",
           "text": "Join two transistor switches in a ring, each one's collector to the other's base through a capacitor, and they take turns: one on, one off, then the other way, for as long as the battery lasts. It is the classic first build, an **astable multivibrator**, or just the blinker. The trick is in what a capacitor does to a sudden step."
         },
         {
-          "kind": "figure",
-          "figure": "blinker",
+          "type": "interactive_diagram",
+          "id": "blinker",
           "caption": "Two transistors, two capacitors, two LEDs",
           "task": "Guess, then make it blink once a second",
           "goal": "second"
         },
         {
-          "kind": "text",
+          "type": "text",
           "text": "Each half of the cycle lasts about 0.6 × R × C, the time it takes the base resistor to charge the capacitor from −6.5 V back up to the 0.6 V that turns the transistor on: 47 kΩ and 10 µF give 0.28 s. Change one capacitor and only its half changes. (Textbooks say 0.7 × R × C, assuming the collector swings the whole supply; here the LED takes 2 V of it.) One thing a real board does that this one doesn't: a base driven far below ground breaks down backwards, past about −6 V for most small transistors. At 9 V it only just happens, and the 47 kΩ keeps the current tiny, but from about 12 V up a blinker wants a diode in series with each base."
         }
       ]
@@ -128,12 +128,12 @@
       "title": "Stuck on",
       "blocks": [
         {
-          "kind": "text",
+          "type": "text",
           "text": "Transistors usually die shorted, collector to emitter. Then the load stays on whatever the control does."
         },
         {
-          "kind": "figure",
-          "figure": "shorted-transistor",
+          "type": "interactive_diagram",
+          "id": "shorted-transistor",
           "caption": "A transistor switching a lamp, with its control off",
           "task": "Find the fault and mark it",
           "goal": "find"
@@ -144,8 +144,8 @@
       "title": "Check",
       "blocks": [
         {
-          "kind": "figure",
-          "figure": "check",
+          "type": "quiz",
+          "id": "check",
           "caption": "Six questions",
           "task": "Answer them",
           "options": {

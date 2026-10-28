@@ -2,8 +2,8 @@
 // the divider sagging under load, a box to measure and model, and a resistor
 // that isn't what its bands said.
 
-import { el, svg } from 'lesson-kit/dom';
-import { line, small } from 'lesson-kit/draw';
+import { el, svg } from 'didactics/dom';
+import { line, small } from 'didactics/draw';
 import { e12, type Junction, type Part } from 'circuit-kit/parts';
 import { solve } from 'circuit-kit/solve';
 import { wire } from '../circuit/build';

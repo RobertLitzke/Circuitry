@@ -9,16 +9,16 @@
       "title": "Splitting a voltage",
       "blocks": [
         {
-          "kind": "text",
+          "type": "text",
           "text": "Circuits often need a voltage the battery doesn't give: 3 V from a 9 V battery, or half the supply for an amplifier to work around. The simplest way to get one is two resistors in series. The same current goes through both, so each drops a share of the 9 V in proportion to its resistance. The point between them sits at that share."
         },
         {
-          "kind": "text",
+          "type": "text",
           "text": "This is a **voltage divider**. If R1 is on top and R2 below, the output is the input × R2 ÷ (R1 + R2).[^divider] Two equal resistors give half. To get a third, R2 must be half of R1."
         },
         {
-          "kind": "figure",
-          "figure": "divider",
+          "type": "interactive_diagram",
+          "id": "divider",
           "caption": "Two resistors in series across 9 V, and a meter on the point between them",
           "task": "Make 3 V, within 3%",
           "goal": "three"
@@ -29,18 +29,18 @@
       "title": "A divider you can turn",
       "blocks": [
         {
-          "kind": "text",
+          "type": "text",
           "text": "A **potentiometer**, or pot, is a divider with a sliding tap. Inside is one strip of resistance with a leg at each end and a third leg on a wiper that rides along it. Turning the shaft moves the wiper, so the share above it and the share below it change while the total stays the same. A volume knob is a pot: the signal goes across the whole strip, and the wiper picks off as much of it as you want."
         },
         {
-          "kind": "figure",
-          "figure": "pot",
+          "type": "interactive_diagram",
+          "id": "pot",
           "caption": "A 10 kΩ pot across 9 V",
           "task": "Turn it to give 4.5 V",
           "goal": "half"
         },
         {
-          "kind": "text",
+          "type": "text",
           "text": "Half the supply is worth remembering. A pedal running from one 9 V battery has no negative supply, so it makes a middle voltage of 4.5 V, usually with a divider of two equal resistors, and lets the guitar's signal swing up and down around it. You'll find that divider in the Tube Screamer."
         }
       ]
@@ -49,12 +49,12 @@
       "title": "Loading it",
       "blocks": [
         {
-          "kind": "text",
+          "type": "text",
           "text": "A voltage on its own does nothing. Sooner or later you connect something to it: the next part of the circuit, which takes some current. Here that load is a 4.7 kΩ resistor on a switch. The divider you made earlier gave 3 V with nothing connected. See what happens when the load goes on."
         },
         {
-          "kind": "figure",
-          "figure": "sag",
+          "type": "interactive_diagram",
+          "id": "sag",
           "caption": "A divider from 9 V, and a 4.7 kΩ load on a switch",
           "task": "Make about 3 V that holds at 2.8 V or more under load",
           "goal": "stiff"
@@ -65,19 +65,19 @@
       "title": "Why it sags",
       "blocks": [
         {
-          "kind": "text",
+          "type": "text",
           "text": "The load sits in parallel with R2, and two resistors in parallel are less than either. So the bottom of the divider gets smaller, its share of the 9 V shrinks, and the output falls. The cure is to make the divider's own current large compared with what the load takes, so the load hardly changes it. A rule of thumb: let at least ten times the load's current run down the divider, which means R2 no more than a tenth of the load."
         },
         {
-          "kind": "text",
+          "type": "text",
           "text": "That costs something. A stiff divider wastes current, warming its resistors and draining the battery whether the load is there or not. Every design is a trade between holding the voltage and the current that holding it takes."
         },
         {
-          "kind": "text",
+          "type": "text",
           "text": "Now look at the divider from the output, as the load does. It behaves like a voltage with a resistor in front of it: open, it gives its full voltage; loaded, it sags, by more the harder it is loaded. **Every real source is like that.** A battery is a voltage with a small resistance inside it, from the chemistry and the plates. That is why the lamp in lesson 2 dimmed a hair when the second bulb went in.[^thevenin]"
         },
         {
-          "kind": "key",
+          "type": "key_ideas",
           "title": "Hold on to",
           "points": [
             "A divider gives the input × R2 ÷ (R1 + R2), but only while nothing loads it.",
@@ -91,22 +91,22 @@
       "title": "What's in the box?",
       "blocks": [
         {
-          "kind": "text",
+          "type": "text",
           "text": "If every source is a voltage behind a resistor, two measurements should tell you both. With nothing connected no current flows, so nothing is lost inside, and the meter reads the voltage itself. Short the terminals and the outside has no resistance at all, so the only thing limiting the current is the resistance inside. Divide one by the other and you have it."
         },
         {
-          "kind": "text",
+          "type": "text",
           "text": "Here are three sealed boxes. Measure each open, shorted and loaded; the points go on the plot. Then set your model of what is inside so its line runs through them."
         },
         {
-          "kind": "figure",
-          "figure": "mystery-box",
+          "type": "interactive_diagram",
+          "id": "mystery-box",
           "caption": "Three sealed boxes with two terminals each, a meter, and a load you can set",
           "task": "Work out what is inside a box, then try Box 3",
           "goal": "inside"
         },
         {
-          "kind": "key",
+          "type": "key_ideas",
           "title": "On a real bench",
           "points": [
             "Don't short a real battery to measure it. Even a 9 V battery gets hot, and a car battery can push hundreds of amps into a spanner. Measure it open and under a known load instead, and work out the inside resistance from the sag."
@@ -118,19 +118,19 @@
       "title": "Impedance",
       "blocks": [
         {
-          "kind": "text",
+          "type": "text",
           "text": "Box 3 wouldn't fit a straight line, and that's the point of it. It is a small solar panel. It holds its voltage almost steady until the current nears what the light can make, then the voltage collapses. A solar panel isn't a voltage behind a resistor; it is much closer to a current source. The solar lessons are built on that curve, and on finding the spot on it where the panel gives the most power."
         },
         {
-          "kind": "text",
+          "type": "text",
           "text": "Everything else in this lesson has a name you'll meet everywhere: **impedance**. A source's output impedance is the resistance it seems to have inside, how much it sags under load. A load's input impedance is how hard it pulls. A source with a low output impedance into a load with a high input impedance keeps nearly all its voltage; the other way round, most of it is lost."
         },
         {
-          "kind": "text",
+          "type": "text",
           "text": "A guitar pickup is a weak source, with several thousand ohms inside. Plug it into a pedal whose input impedance is low and the signal sags before the pedal sees it. The Fuzz Face has just such an input, and guitarists use that on purpose: turning the guitar's volume knob down changes the impedance the fuzz sees, and the fuzz cleans up."
         },
         {
-          "kind": "key",
+          "type": "key_ideas",
           "title": "Hold on to",
           "points": [
             "Open-circuit volts and short-circuit current give a source's volts and inside resistance.",
@@ -144,12 +144,12 @@
       "title": "Wrong part",
       "blocks": [
         {
-          "kind": "text",
+          "type": "text",
           "text": "Resistors are marked with coloured bands: two digits and a number of noughts. Brown-black-red is 1, 0 and two noughts, 1 kΩ. A tired eye under a yellow lamp mixes up red, orange and brown, and a wrong part looks just like a right one in the board. A meter tells them apart."
         },
         {
-          "kind": "figure",
-          "figure": "wrong-value",
+          "type": "interactive_diagram",
+          "id": "wrong-value",
           "caption": "Three resistors in series across 9 V",
           "task": "Find the fault and mark it",
           "goal": "find"
@@ -160,8 +160,8 @@
       "title": "Check",
       "blocks": [
         {
-          "kind": "figure",
-          "figure": "check",
+          "type": "quiz",
+          "id": "check",
           "caption": "Six questions",
           "task": "Answer them",
           "options": {

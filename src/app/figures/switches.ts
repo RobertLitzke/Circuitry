@@ -5,8 +5,8 @@
 // switching each other on and off to blink a pair of LEDs; and a transistor
 // that has failed shorted.
 
-import { el } from 'lesson-kit/dom';
-import { small } from 'lesson-kit/draw';
+import { el } from 'didactics/dom';
+import { small } from 'didactics/draw';
 import type { Part } from 'circuit-kit/parts';
 import { simulate } from 'circuit-kit/sim';
 import { solve } from 'circuit-kit/solve';

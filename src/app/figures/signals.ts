@@ -3,8 +3,8 @@
 // cut flat when it runs out of room; and a buffer whose steady voltage has
 // gone wrong.
 
-import { el } from 'lesson-kit/dom';
-import { small } from 'lesson-kit/draw';
+import { el } from 'didactics/dom';
+import { small } from 'didactics/draw';
 import { sourceVolts, type Part } from 'circuit-kit/parts';
 import { solve } from 'circuit-kit/solve';
 import { OPEN, wire } from '../circuit/build';

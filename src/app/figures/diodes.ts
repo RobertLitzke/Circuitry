@@ -3,8 +3,8 @@
 // against a battery put in backwards, a rectifier and its reservoir
 // capacitor, diodes clipping a signal, and an LED put in the wrong way round.
 
-import { el, svg } from 'lesson-kit/dom';
-import { line, polyline, small, type P } from 'lesson-kit/draw';
+import { el, svg } from 'didactics/dom';
+import { line, polyline, small, type P } from 'didactics/draw';
 import { e12, type DiodeKind, type Part } from 'circuit-kit/parts';
 import { solve } from 'circuit-kit/solve';
 import { wire } from '../circuit/build';

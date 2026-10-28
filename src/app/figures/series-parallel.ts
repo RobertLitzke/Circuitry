@@ -2,7 +2,7 @@
 // first dim?), currents adding at a junction, three bulbs to rank, cells
 // stacked and side by side, and a broken wire to find.
 
-import { el, svg } from 'lesson-kit/dom';
+import { el, svg } from 'didactics/dom';
 import { e12, type Part } from 'circuit-kit/parts';
 import { solve } from 'circuit-kit/solve';
 import { OPEN, wire } from '../circuit/build';

@@ -2,7 +2,7 @@
 // live schematics use, in plain ink with a short lead either side, and no
 // voltage, current or glow.
 
-import { svg } from 'lesson-kit/dom';
+import { svg } from 'didactics/dom';
 import type { Part } from 'circuit-kit/parts';
 import { COL } from '../figures/kit';
 import { BODY, body, groundSymbol, symbol, type ThreeTerminal, type TwoTerminal } from './schematic';

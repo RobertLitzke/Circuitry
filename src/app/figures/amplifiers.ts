@@ -3,8 +3,8 @@
 // feedback sets its gain, and an amplifier whose emitter resistor has been
 // bridged with solder.
 
-import { el, svg } from 'lesson-kit/dom';
-import { small } from 'lesson-kit/draw';
+import { el, svg } from 'didactics/dom';
+import { small } from 'didactics/draw';
 import { e12, type Part } from 'circuit-kit/parts';
 import { solve } from 'circuit-kit/solve';
 import { wire } from '../circuit/build';

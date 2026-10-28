@@ -3,8 +3,8 @@
 // tone control, holding up a supply rail, a coil kicking back when its
 // current is cut, and a coupling capacitor that has shorted.
 
-import { el, svg } from 'lesson-kit/dom';
-import { line, polyline, small, type P } from 'lesson-kit/draw';
+import { el, svg } from 'didactics/dom';
+import { line, polyline, small, type P } from 'didactics/draw';
 import type { Part } from 'circuit-kit/parts';
 import { simulate, type Sim } from 'circuit-kit/sim';
 import { solve } from 'circuit-kit/solve';

@@ -1,13 +1,14 @@
 // @vitest-environment happy-dom
 import { describe, expect, it } from 'vitest';
-import { lessonProblems } from 'lesson-kit/lesson';
+import { isDiagram } from 'didactics/blocks';
+import { lessonProblems } from 'didactics/lesson';
 import { FIGURES } from '../src/app/figures';
 import { FIGURE_IDS, isWritten, LESSONS, TRACKS, type Question } from '../src/core/lessons';
 import { REFERENCE } from '../src/core/reference';
 import { SYMBOLS } from '../src/app/circuit/symbols';
 import { DECK } from '../src/app/views/quiz';
 import quiz from '../src/data/quiz.json';
-import type { Concept } from 'lesson-kit/quiz';
+import type { Concept } from 'didactics/quiz';
 
 describe('lessons', () => {
   it('use only figures and goals that exist', () => {
@@ -22,7 +23,7 @@ describe('lessons', () => {
   it('each end in a check, once written', () => {
     for (const l of LESSONS.filter(isWritten)) {
       const last = l.parts[l.parts.length - 1];
-      expect(last.blocks.some((b) => b.kind === 'figure' && FIGURES[b.figure].quiz), l.id).toBe(true);
+      expect(last.blocks.some((b) => isDiagram(b) && FIGURES[b.id].quiz), l.id).toBe(true);
       expect(l.learned.length, l.id).toBeGreaterThan(0);
     }
   });
@@ -37,7 +38,7 @@ describe('lessons', () => {
 
   it('ask questions with a real answer', () => {
     for (const l of LESSONS) for (const p of l.parts) for (const b of p.blocks) {
-      if (b.kind !== 'figure' || b.figure !== 'check') continue;
+      if (!isDiagram(b) || b.id !== 'check') continue;
       const items = (b.options?.items ?? []) as Question[];
       expect(items.length).toBeGreaterThan(0);
       for (const q of items) {

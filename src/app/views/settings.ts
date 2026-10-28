@@ -1,8 +1,8 @@
-// Name, and moving progress between devices (lesson-kit's settings page, in
+// Name, and moving progress between devices (Didactics' settings page, in
 // Circuitry's words). Electronics is metric, so there is no units switch.
 
-import { el } from 'lesson-kit/dom';
-import { settingsView as kitSettingsView } from 'lesson-kit/settings';
+import { el } from 'didactics/dom';
+import { settingsView as kitSettingsView } from 'didactics/settings';
 import { emptySave } from '../../core/save';
 import { asset } from '../asset';
 import { store } from '../store';

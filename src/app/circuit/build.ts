@@ -1,7 +1,7 @@
 // Shorthands for figures that build circuits: a wire between two nodes, and
 // the corners of a rectangular loop.
 
-import type { P } from 'lesson-kit/draw';
+import type { P } from 'didactics/draw';
 import type { Part } from 'circuit-kit/parts';
 
 export type Wire = Extract<Part, { kind: 'wire' }>;

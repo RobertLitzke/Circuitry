@@ -9,16 +9,16 @@
       "title": "Power is how fast",
       "blocks": [
         {
-          "kind": "text",
+          "type": "text",
           "text": "A volt is energy per bit of charge: one joule for every coulomb pushed through. An amp is a coulomb a second. Multiply them and you get joules a second, which is [[power|power]], in watts: **P = V × I**.[^watt] Every part a current flows through turns that much energy into something else, mostly heat."
         },
         {
-          "kind": "text",
+          "type": "text",
           "text": "Here is a 100 Ω resistor of the ordinary kind, rated a quarter of a watt. The red glow is its heat."
         },
         {
-          "kind": "figure",
-          "figure": "heat",
+          "type": "interactive_diagram",
+          "id": "heat",
           "caption": "A supply you can turn, and a ¼ W resistor",
           "task": "Guess, then find where the resistor goes over its rating",
           "goal": "rating"
@@ -29,15 +29,15 @@
       "title": "Twice the push, four times the heat",
       "blocks": [
         {
-          "kind": "text",
+          "type": "text",
           "text": "Double the voltage across a resistor and twice the current flows, so the power, volts times amps, goes up four times. Put Ohm's law into P = V × I and you get two more ways to write it: **P = I² × R** and **P = V² ÷ R**. The squares are why heat runs away so fast."
         },
         {
-          "kind": "text",
+          "type": "text",
           "text": "Every part has a power rating, the heat it can shed without cooking. Ordinary small resistors are ¼ W; at their rating they are too hot to hold. Designers leave a margin, often running a part at half its rating or less, because heat ages parts. Where the heat actually comes from is stranger than it looks.[^fields]"
         },
         {
-          "kind": "key",
+          "type": "key_ideas",
           "title": "Hold on to",
           "points": [
             "Power P = V × I = I² × R = V² ÷ R, in watts.",
@@ -51,22 +51,22 @@
       "title": "How much there is",
       "blocks": [
         {
-          "kind": "text",
+          "type": "text",
           "text": "Watts say how fast energy is used. How much a battery holds is a different quantity: energy, in watt-hours. A watt-hour is one watt for an hour, 3600 joules. A battery's label usually gives its voltage and its amp-hours, and you multiply them to get watt-hours."
         },
         {
-          "kind": "figure",
-          "figure": "battery-time",
+          "type": "interactive_diagram",
+          "id": "battery-time",
           "caption": "A 12 V, 7 Ah battery and three loads",
           "task": "Guess how long it runs the pump",
           "goal": "hours"
         },
         {
-          "kind": "text",
+          "type": "text",
           "text": "Amp-hours on their own say nothing about energy. A phone's 3.7 V, 5 Ah cell holds 18.5 Wh; a 12 V, 5 Ah battery holds 60 Wh, more than three times as much for the same amp-hours. Always multiply by the voltage before comparing. Sizing a solar system is mostly this sum, done carefully: the watt-hours you use in a day, and the watt-hours the sun and the battery can give."
         },
         {
-          "kind": "key",
+          "type": "key_ideas",
           "title": "Hold on to",
           "points": [
             "Watts are how fast; watt-hours are how much.",
@@ -79,12 +79,12 @@
       "title": "Wire is a resistor",
       "blocks": [
         {
-          "kind": "text",
+          "type": "text",
           "text": "Copper is a very good conductor, not a perfect one. A metre of 1 mm² copper wire is about 0.017 Ω. That is nothing in a pedal, where a few centimetres carry a few milliamps. It is a lot when a pump draws 5 A at the end of twenty metres of cable, out and back: forty metres of wire."
         },
         {
-          "kind": "figure",
-          "figure": "long-wire",
+          "type": "interactive_diagram",
+          "id": "long-wire",
           "caption": "A battery and a 60 W pump 20 m away. The cable's colour fades as it drops volts.",
           "task": "Get the pump within 3% of the battery voltage",
           "goal": "pump"
@@ -95,15 +95,15 @@
       "title": "Higher voltage, thinner wire",
       "blocks": [
         {
-          "kind": "text",
+          "type": "text",
           "text": "The same 60 W at 24 V is half the current, and at 48 V a quarter. The cable's loss is I² × R, so half the current loses a quarter as much, and a quarter of the current a sixteenth. This is why off-grid systems of any size run at 24 or 48 V rather than 12, and why power lines run at hundreds of thousands of volts. Raise the voltage and the same wire carries the same power with far less of it lost."
         },
         {
-          "kind": "text",
+          "type": "text",
           "text": "A common rule for cable runs is to lose no more than 3% of the voltage. Work it out before you buy the cable: thick copper is expensive, but a thin cable costs more in the energy it burns, and it can run hot enough to be a fire risk."
         },
         {
-          "kind": "key",
+          "type": "key_ideas",
           "title": "Hold on to",
           "points": [
             "A cable drops I × R and burns I² × R. Long runs at high current need thick wire.",
@@ -116,22 +116,22 @@
       "title": "Fuses protect the wire",
       "blocks": [
         {
-          "kind": "text",
+          "type": "text",
           "text": "A fuse is a weak link put in on purpose: a thin strip that melts when the current is more than it is rated for. The surprising part is what it is for. It protects the **wire**, not the thing at the end of it. A cable has a current it can carry safely, its ampacity, and above that it heats until its insulation melts. The fuse has to blow before that happens, and not in normal use."
         },
         {
-          "kind": "figure",
-          "figure": "fuse",
+          "type": "interactive_diagram",
+          "id": "fuse",
           "caption": "A 12 V battery, a fuse, and a motor on a cable rated for 20 A",
           "task": "Choose a fuse that holds when running and blows when it should",
           "goal": "protect"
         },
         {
-          "kind": "text",
+          "type": "text",
           "text": "So the rule is: above what the load draws, below what the wire can carry. A big fuse on a thin wire protects nothing. The fuse also goes as close to the battery as it can, so that every bit of wire after it is protected."
         },
         {
-          "kind": "key",
+          "type": "key_ideas",
           "title": "On a real bench",
           "points": [
             "A battery can push an enormous current into a short. A car battery will weld a spanner across its terminals. Take rings and watches off before working on one.",
@@ -144,18 +144,18 @@
       "title": "The most power isn't the best",
       "blocks": [
         {
-          "kind": "text",
+          "type": "text",
           "text": "Every source has a resistance inside it, from lesson 3. So what load gets the most power out of it? Too small and the current is large but the load's voltage tiny; too large and the voltage is all there but hardly any current flows."
         },
         {
-          "kind": "figure",
-          "figure": "matching",
+          "type": "interactive_diagram",
+          "id": "matching",
           "caption": "A 12 V source with 4 Ω inside, and a load you can set",
           "task": "Find the load that gets the most power",
           "goal": "peak"
         },
         {
-          "kind": "text",
+          "type": "text",
           "text": "The load gets the most when its resistance equals the source's. But then as much energy is wasted inside the source as reaches the load: half. A battery or a power system wants the opposite, a load much larger than the inside resistance, so that nearly all the energy arrives. Matching is used where a tiny signal is all there is, as with a radio aerial. A solar panel's best working point, which the solar lessons come to, is something else again: it comes from the shape of its curve, not from matching."
         }
       ]
@@ -164,12 +164,12 @@
       "title": "A dull lamp",
       "blocks": [
         {
-          "kind": "text",
+          "type": "text",
           "text": "This one turns up on every boat, van and shed. Measure the voltage across short stretches with the current flowing; a good wire or joint drops almost nothing."
         },
         {
-          "kind": "figure",
-          "figure": "bad-joint",
+          "type": "interactive_diagram",
+          "id": "bad-joint",
           "caption": "A 12 V lamp at the end of a cable",
           "task": "Find the fault and mark it",
           "goal": "find"
@@ -180,8 +180,8 @@
       "title": "Check",
       "blocks": [
         {
-          "kind": "figure",
-          "figure": "check",
+          "type": "quiz",
+          "id": "check",
           "caption": "Six questions",
           "task": "Answer them",
           "options": {

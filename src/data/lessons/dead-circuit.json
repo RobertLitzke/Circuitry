@@ -9,16 +9,16 @@
       "title": "Two drawings of one circuit",
       "blocks": [
         {
-          "kind": "text",
+          "type": "text",
           "text": "Every circuit so far has been a **schematic**: a drawing of what connects to what, laid out to be read, with straight wires and tidy corners. A real circuit is built on something, and looks nothing like that. On a **circuit board** the wires are strips of copper, the **traces**, on a sheet of fibreglass; each part's legs go through holes and are soldered to copper **pads**; a junction on the schematic is wherever traces meet.[^pcb]"
         },
         {
-          "kind": "text",
+          "type": "text",
           "text": "The part names tie the two together. The schematic labels its resistors R1, R2 and so on, its diodes D1, its transistors Q1, and the board prints the same names beside each part in white, the **silkscreen**. A **breadboard**, a plastic block whose holes are joined in rows of five underneath, is the same idea without solder: the rows are the traces. Whatever it is built on, the job is the same: find the point on the board that is the point you mean on the schematic."
         },
         {
-          "kind": "figure",
-          "figure": "two-views",
+          "type": "interactive_diagram",
+          "id": "two-views",
           "caption": "Lesson 9's amplifier and a power LED, as a schematic and as a board",
           "task": "Find the transistor's base on the board",
           "goal": "match"
@@ -29,15 +29,15 @@
       "title": "A method, not a guess",
       "blocks": [
         {
-          "kind": "text",
+          "type": "text",
           "text": "Every hunt in these lessons has worked the same way, and now it gets written down. Before touching the circuit, work out what each point should read: here the base about 1.6 V, the emitter 0.9 V, the collector 4.7 V. Then measure the **steady voltages** first, with no signal, as lesson 5 said. Most faults show up there."
         },
         {
-          "kind": "text",
+          "type": "text",
           "text": "Don't measure at random. Split the circuit in half: if the middle reads right, the fault is past it; if not, it is before it. Each measurement halves what is left, so even a big circuit takes only a handful. And measure *across* things as well as from ground: a trace or a joint should drop nothing at all, so a volt across one is the fault, found."
         },
         {
-          "kind": "key",
+          "type": "key_ideas",
           "title": "Hold on to",
           "points": [
             "Write down what each point should read before you measure anything.",
@@ -51,12 +51,12 @@
       "title": "A dark LED",
       "blocks": [
         {
-          "kind": "text",
+          "type": "text",
           "text": "Three boards follow, built to the same schematic, each with one fault. The meter's probes go on the copper this time, and the probe count is kept."
         },
         {
-          "kind": "figure",
-          "figure": "dead-led",
+          "type": "interactive_diagram",
+          "id": "dead-led",
           "caption": "The board, with D1 dark",
           "task": "Find the fault and mark it",
           "goal": "find"
@@ -67,18 +67,18 @@
       "title": "Weak",
       "blocks": [
         {
-          "kind": "text",
+          "type": "text",
           "text": "The next one works, sort of. Every part is soldered well and in the right place; one of them is simply the wrong part."
         },
         {
-          "kind": "figure",
-          "figure": "wrong-rc",
+          "type": "interactive_diagram",
+          "id": "wrong-rc",
           "caption": "The board, with the signal coming out weak",
           "task": "Find the fault and mark it",
           "goal": "find"
         },
         {
-          "kind": "text",
+          "type": "text",
           "text": "Resistors look alike but for their bands, and 470 Ω and 4.7 kΩ differ only in the third. Lesson 3's colour code is worth checking against a meter before a part goes in: once it is soldered, the rest of the circuit is in parallel with it, and the meter's ohms reading lies."
         }
       ]
@@ -87,22 +87,22 @@
       "title": "Almost nothing",
       "blocks": [
         {
-          "kind": "text",
+          "type": "text",
           "text": "The last fault is the commonest of all on a hand-built board, and it isn't in any part."
         },
         {
-          "kind": "figure",
-          "figure": "dry-joint",
+          "type": "interactive_diagram",
+          "id": "dry-joint",
           "caption": "The board, with the amplifier passing almost nothing",
           "task": "Find the fault and mark it",
           "goal": "find"
         },
         {
-          "kind": "text",
+          "type": "text",
           "text": "This board's collector read the same 8.6 V as the last one's, and a meter on the collector alone couldn't tell the two apart. The emitter could: right on the board with the wrong resistor, right on this one too, but with almost nothing on the far side of the joint. Measure on both sides of every join you suspect."
         },
         {
-          "kind": "key",
+          "type": "key_ideas",
           "title": "On a real bench",
           "points": [
             "A good joint is smooth and shiny, a little volcano round the lead. A dry one is dull, grainy or balled up, and may work until the board warms or flexes.",
@@ -116,8 +116,8 @@
       "title": "Check",
       "blocks": [
         {
-          "kind": "figure",
-          "figure": "check",
+          "type": "quiz",
+          "id": "check",
           "caption": "Six questions",
           "task": "Answer them",
           "options": {

@@ -1,7 +1,7 @@
 // Who made what.
 
-import { el } from 'lesson-kit/dom';
-import type { View } from 'lesson-kit/router';
+import { el } from 'didactics/dom';
+import type { View } from 'didactics/router';
 
 export const creditsView: View = (root) => {
   root.append(

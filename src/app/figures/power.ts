@@ -2,8 +2,8 @@
 // battery's watt-hours, a long cable to a pump, the fuse that protects the
 // cable, the matched load that wastes half, and a joint that has gone bad.
 
-import { el, svg } from 'lesson-kit/dom';
-import { line, small, type P } from 'lesson-kit/draw';
+import { el, svg } from 'didactics/dom';
+import { line, small, type P } from 'didactics/draw';
 import type { Part } from 'circuit-kit/parts';
 import { solve, type Solution } from 'circuit-kit/solve';
 import { wire, type Wire } from '../circuit/build';

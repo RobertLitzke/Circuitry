@@ -8,8 +8,8 @@
 // can carry its own reply, so a common wrong guess is met with why it is
 // tempting rather than a cross.
 
-import { el, svg } from 'lesson-kit/dom';
-import { label } from 'lesson-kit/draw';
+import { el, svg } from 'didactics/dom';
+import { label } from 'didactics/draw';
 import { choices, COL, lockIn } from './kit';
 
 export interface GuessOptions {

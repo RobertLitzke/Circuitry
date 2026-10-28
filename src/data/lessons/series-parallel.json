@@ -9,12 +9,12 @@
       "title": "Side by side",
       "blocks": [
         {
-          "kind": "text",
+          "type": "text",
           "text": "In lesson 1 the bulbs were in **series**: one path, and everything on it in a line. Now put a second bulb **in parallel** with the first,[^parallel] beside it, so each has its own path from the battery's + end to its − end."
         },
         {
-          "kind": "figure",
-          "figure": "parallel-bulbs",
+          "type": "interactive_diagram",
+          "id": "parallel-bulbs",
           "caption": "A 9 V battery, bulb A, and bulb B on a switch beside it",
           "task": "Guess what happens to bulb A, then lock it in",
           "goal": "reveal"
@@ -25,15 +25,15 @@
       "title": "Asking more of the battery",
       "blocks": [
         {
-          "kind": "text",
+          "type": "text",
           "text": "A bulb in parallel doesn't share out what the first bulb had. Each bulb has the whole battery across it, so each takes the current it would take on its own, and the battery gives the two together. Plug in a kettle and the lights don't dim; the house just draws more current from the street."
         },
         {
-          "kind": "text",
+          "type": "text",
           "text": "Look at the colours. The top wires are all orange and the bottom ones all blue, whichever bulb they lead to: every point on a wire is at the same voltage as the rest of that wire. That is what *in parallel* means. Two parts are in parallel when both their ends are joined, so they have the same voltage across them."
         },
         {
-          "kind": "key",
+          "type": "key_ideas",
           "title": "Hold on to",
           "points": [
             "In **series**, parts share one current, and the voltage splits between them.",
@@ -47,26 +47,26 @@
       "title": "Kirchhoff's two laws",
       "blocks": [
         {
-          "kind": "text",
+          "type": "text",
           "text": "Two rules hold in every circuit there is, and they are both bookkeeping. Gustav Kirchhoff wrote them down in 1845.[^kirchhoff]"
         },
         {
-          "kind": "text",
+          "type": "text",
           "text": "**The current law.** Charge doesn't pile up anywhere, so all the current flowing into a junction flows out of it again. Where a wire splits into three, the three currents add up to the one that came in."
         },
         {
-          "kind": "text",
+          "type": "text",
           "text": "**The voltage law.** Go round any loop and add up the rises and drops, and you're back where you started: the total is zero. However the path winds, the battery's 9 V is all used up by the time you're back at its − end."
         },
         {
-          "kind": "figure",
-          "figure": "junction",
+          "type": "interactive_diagram",
+          "id": "junction",
           "caption": "Three resistors in parallel. The battery's current splits between them.",
           "task": "Set the resistors so the battery gives 30 mA in all",
           "goal": "target"
         },
         {
-          "kind": "text",
+          "type": "text",
           "text": "Each branch takes 9 V ÷ its own resistance, and the battery gives the sum. A smaller resistor takes more of the current: current goes down every path it can, most where it's easiest. That is also why the combined resistance of parts in parallel is always less than the smallest of them. Each one you add is another way through."
         }
       ]
@@ -75,12 +75,12 @@
       "title": "Putting them together",
       "blocks": [
         {
-          "kind": "text",
+          "type": "text",
           "text": "Most circuits are both at once. Here bulb A is in series with a pair, B and C, that are in parallel with each other. All three bulbs are the same."
         },
         {
-          "kind": "figure",
-          "figure": "ranking",
+          "type": "interactive_diagram",
+          "id": "ranking",
           "caption": "Bulb A, then B and C side by side",
           "task": "Rank the bulbs, then guess what happens without C",
           "goal": "rank"
@@ -91,22 +91,22 @@
       "title": "One thing, not a list",
       "blocks": [
         {
-          "kind": "text",
+          "type": "text",
           "text": "Taking bulb C away dimmed bulb A, though A never touched C. That surprises nearly everyone, and it's the most useful thing in this lesson. A circuit isn't a list of parts each doing its own thing. The current everywhere is set by the whole circuit at once, so change any part of it and everything else moves."
         },
         {
-          "kind": "text",
+          "type": "text",
           "text": "The same goes for cells. Stack them + to −, in series, and their voltages add: that is how two 1.5 V cells make 3 V, and how a 12 V battery is six 2 V cells inside one case. Put them side by side, in parallel, and the voltage stays at one cell's, but each gives only part of the current, so the pair lasts longer."
         },
         {
-          "kind": "figure",
-          "figure": "cells",
+          "type": "interactive_diagram",
+          "id": "cells",
           "caption": "Two 1.5 V cells and a lamp",
           "task": "Try all three ways of joining the cells",
           "goal": "all"
         },
         {
-          "kind": "key",
+          "type": "key_ideas",
           "title": "On a real bench",
           "points": [
             "Only put cells or batteries in parallel when they are the same kind, the same age and the same charge. A strong one pushes current into a weak one, and big batteries can do it hard enough to get hot.",
@@ -119,18 +119,18 @@
       "title": "A dark bulb",
       "blocks": [
         {
-          "kind": "text",
+          "type": "text",
           "text": "Every lesson from here on ends with a fault to find. The colours and dots are off, as they are on a real bench, but you have a meter and you can see which bulbs are lit. Measure first; mark the fault when you're sure."
         },
         {
-          "kind": "figure",
-          "figure": "broken-wire",
+          "type": "interactive_diagram",
+          "id": "broken-wire",
           "caption": "Two bulbs in parallel, and one is dark",
           "task": "Find the fault and mark it",
           "goal": "find"
         },
         {
-          "kind": "text",
+          "type": "text",
           "text": "Remember what you used there. Where a loop is broken, no current flows, so no resistor or bulb on that loop drops any voltage, and the whole of the battery's voltage turns up across the break. It is the quickest way to find an open circuit, and it works on any board."
         }
       ]
@@ -139,8 +139,8 @@
       "title": "Check",
       "blocks": [
         {
-          "kind": "figure",
-          "figure": "check",
+          "type": "quiz",
+          "id": "check",
           "caption": "Six questions",
           "task": "Answer them",
           "options": {

@@ -5,7 +5,7 @@
 // and marks it. A hint costs a probe. Every lesson from 2 on ends with one;
 // lesson 10 is made of them.
 
-import { el } from 'lesson-kit/dom';
+import { el } from 'didactics/dom';
 import type { Part } from 'circuit-kit/parts';
 import { solve, type Solution } from 'circuit-kit/solve';
 import { boardView } from '../circuit/board';

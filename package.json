@@ -31,6 +31,6 @@
   ],
   "dependencies": {
     "circuit-kit": "*",
-    "lesson-kit": "*"
+    "didactics": "github:RobertLitzke/Didactics#7b553fbf11cf5dc7b27320c4413c443496c170f8"
   }
 }

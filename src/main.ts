@@ -1,7 +1,7 @@
 import './app/styles/app.css';
-import { el } from 'lesson-kit/dom';
-import { Router } from 'lesson-kit/router';
-import { watchForUpdates } from 'lesson-kit/update';
+import { Router } from 'didactics/router';
+import { appShell, type NavLink } from 'didactics/shell';
+import { watchForUpdates } from 'didactics/update';
 import { creditsView } from './app/views/credits';
 import { homeView } from './app/views/home';
 import { lessonView } from './app/views/lesson';
@@ -9,11 +9,11 @@ import { quizView } from './app/views/quiz';
 import { referenceView } from './app/views/reference';
 import { settingsView } from './app/views/settings';
 
-const NAV: readonly [string, string][] = [
-  ['/home', 'Home'],
-  ['/reference', 'Reference'],
-  ['/quiz', 'Quiz'],
-  ['/settings', 'Settings'],
+const NAV: readonly NavLink[] = [
+  { path: '/home', label: 'Home' },
+  { path: '/reference', label: 'Reference' },
+  { path: '/quiz', label: 'Quiz' },
+  { path: '/settings', label: 'Settings' },
 ];
 
 /** A lit LED on a board, for the update banner: drawn inline so it shows offline. */
@@ -23,27 +23,15 @@ const LED =
   '<path d="M13 25V17a9 9 0 0 1 18 0v8Z" fill="#ffb21c"/><circle cx="18" cy="15" r="2.5" fill="#fff4cf"/></svg>';
 
 function boot(): void {
-  const app = document.getElementById('app')!;
-  const links = NAV.map(([path, label]) => el('a', { href: `#${path}` }, label));
-  const header = el(
-    'header.topbar',
-    {},
-    el('a.wordmark', { href: '#/home' }, 'Circuitry', el('span', {}, 'A circuits workbook')),
-    el('nav', {}, links),
-  );
-  const outlet = el('main');
-  app.replaceChildren(header, outlet);
-
-  const markHere = () => {
-    const here = location.hash.replace(/^#/, '');
-    links.forEach((a, i) => a.classList.toggle('here', here.startsWith(NAV[i][0])));
-  };
-  window.addEventListener('hashchange', markHere);
-
-  const router = new Router(outlet, {
+  const shell = appShell({
+    mount: document.getElementById('app')!,
+    title: 'Circuitry',
+    subtitle: 'A circuits workbook',
+    nav: NAV,
     // A lesson fills the screen: the header would only be in the way.
-    before: (path) => document.body.classList.toggle('in-lesson', path.startsWith('/lesson/')),
+    fullScreen: (path) => path.startsWith('/lesson/'),
   });
+  const router = new Router(shell.outlet, { before: shell.before });
   router
     .add('/home', homeView)
     .add('/lesson/:id', lessonView)
@@ -52,9 +40,8 @@ function boot(): void {
     .add('/credits', creditsView)
     .add('/settings', settingsView)
     .start('/home');
-  markHere();
 
-  if (import.meta.env.DEV) void import('lesson-kit/overflow').then((m) => m.watchOverflow());
+  if (import.meta.env.DEV) void import('didactics/overflow').then((m) => m.watchOverflow());
 
   // The page also runs straight from disk, where there is no service worker.
   if (import.meta.env.PROD && 'serviceWorker' in navigator && location.protocol.startsWith('http')) {
