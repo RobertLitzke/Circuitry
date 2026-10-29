@@ -99,7 +99,7 @@ blinker doesn't converge at its flip yet, so lesson 8 only describes it.
 packages/circuit-kit/  the solver: parts, nodes, solve (pure TypeScript)
 src/core/     pure TypeScript, no DOM
   lessons.ts    the tracks and lessons, figure ids
-  reference.ts  the reference page's shape
+  reference.ts  the reference sections, and the symbols block Circuitry adds to Didactics' reference page
   save.ts       the save, on top of Didactics' progress.ts
 src/data/     lessons/*.json, reference.json, glossary.json, quiz.json
 src/app/      store.ts, asset.ts

@@ -11,10 +11,10 @@ export type SaveData = Progress;
 
 export function emptySave(): SaveData {
   // Electronics is metric throughout. Circuitry tells no story, so the save has no radio.
-  return emptyProgress('metric', { radio: false });
+  return emptyProgress('metric', { radio: false, fixedUnits: true });
 }
 
 /** Repair whatever was stored into a valid save, keeping all that can be kept. */
 export function migrate(raw: unknown): SaveData {
-  return { ...migrateProgress(raw, emptySave()), units: 'metric' };
+  return migrateProgress(raw, emptySave());
 }

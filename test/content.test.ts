@@ -2,6 +2,7 @@
 import { describe, expect, it } from 'vitest';
 import { isDiagram } from 'didactics/blocks';
 import { lessonProblems } from 'didactics/lesson';
+import { referenceProblems } from 'didactics/reference';
 import { FIGURES } from '../src/app/figures';
 import { FIGURE_IDS, isWritten, LESSONS, TRACKS, type Question } from '../src/core/lessons';
 import { REFERENCE } from '../src/core/reference';
@@ -56,19 +57,18 @@ describe('lessons', () => {
 
 describe('the reference page', () => {
   it('names real lessons and figures', () => {
+    expect(referenceProblems(REFERENCE, { figures: FIGURES, lessons: LESSONS, blocks: ['symbols'], glossary: true })).toEqual([]);
     const ids = new Set(LESSONS.map((l) => l.id));
     for (const s of REFERENCE) {
-      expect(ids.has(s.lesson), s.id).toBe(true);
+      expect(ids.has(s.lesson!), s.id).toBe(true);
       for (const b of s.blocks) {
-        if (b.kind === 'figure') expect(FIGURE_IDS.includes(b.figure), b.figure).toBe(true);
-        if (b.kind === 'symbols') for (const sym of b.items) {
+        if (b.type === 'symbols') for (const sym of b.items) {
           expect(sym.symbol in SYMBOLS, sym.symbol).toBe(true);
           expect(ids.has(sym.lesson), sym.lesson).toBe(true);
         }
-        if (b.kind === 'table') for (const r of b.rows) expect(r.length, `${s.id} row ${r[0]}`).toBe(b.columns.length);
+        if (b.type === 'table') for (const r of b.rows) expect(r.length, `${s.id} row ${r[0]}`).toBe(b.columns.length);
       }
     }
-    expect(new Set(REFERENCE.map((s) => s.id)).size).toBe(REFERENCE.length);
   });
 
   it('has something for every written lesson', () => {

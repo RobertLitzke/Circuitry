@@ -1,36 +1,20 @@
 // The reference page: everything the lessons teach, set out to look things up
 // at the bench rather than to read through. Its words are data/reference.json,
-// one section per topic. A section names the lesson it comes from; one whose
-// lesson is not written yet has no blocks and shows as coming soon.
+// one section per topic, in Didactics' reference format (blocks.ts): a section
+// names the lesson it comes from, and one whose lesson is not written yet has
+// no blocks and shows as coming soon. Circuitry adds one block type of its own.
 
+import type { RefBlock, RefSection } from 'didactics/reference';
 import type { FigureId } from './lessons';
 import type { SymbolId } from '../app/circuit/symbols';
 import data from '../data/reference.json';
 
-export type RefBlock =
-  /** A paragraph, with the same markup as lesson text. */
-  | { kind: 'text'; text: string }
-  /** Terms and what they mean. */
-  | { kind: 'terms'; items: { term: string; means: string }[] }
-  /** A table; the first column is the row's name. */
-  | { kind: 'table'; columns: string[]; rows: string[][] }
-  /** Numbered steps. */
-  | { kind: 'steps'; items: string[] }
-  /** A lesson figure, live, with no task. */
-  | { kind: 'figure'; figure: FigureId; caption: string }
-  /** Schematic symbols, each drawn as the figures draw it, with what it is and the lesson that brings it in. */
-  | { kind: 'symbols'; items: { symbol: SymbolId; name: string; means: string; lesson: string }[] }
-  /** The glossary: data/glossary.json and the lessons' technical notes, A to Z, with a search box. */
-  | { kind: 'glossary' };
-
-export interface RefSection {
-  id: string;
-  title: string;
-  /** One line under the title, and the line in the contents. */
-  summary: string;
-  /** The lesson it comes from, by id. */
-  lesson: string;
-  blocks: RefBlock[];
+/** Schematic symbols, each drawn as the figures draw it, with what it is and the lesson that brings it in. */
+export interface SymbolsBlock {
+  type: 'symbols';
+  items: { symbol: SymbolId; name: string; means: string; lesson: string }[];
 }
 
-export const REFERENCE: readonly RefSection[] = data.sections as RefSection[];
+export type Block = RefBlock<FigureId> | SymbolsBlock;
+
+export const REFERENCE: readonly RefSection<Block>[] = data.sections as RefSection<Block>[];

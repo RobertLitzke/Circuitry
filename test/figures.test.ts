@@ -2,12 +2,13 @@
 // Every figure builds, the ones in lessons with their lesson's options, and the board draws.
 import { describe, expect, it } from 'vitest';
 import { isDiagram } from 'didactics/blocks';
+import { testContext } from 'didactics/figure';
 import { FIGURES } from '../src/app/figures';
 import { makeBoard } from '../src/app/scene/board';
 import { LESSONS, type FigureId } from '../src/core/lessons';
 import { emptySave } from '../src/core/save';
 
-const ctx = () => ({ save: emptySave(), closed: new AbortController().signal, score: () => {} });
+const ctx = () => testContext(emptySave());
 
 describe('figures', () => {
   it('all build on their own', () => {

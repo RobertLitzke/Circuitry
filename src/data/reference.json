@@ -7,7 +7,7 @@
       "lesson": "what-flows",
       "blocks": [
         {
-          "kind": "glossary"
+          "type": "glossary"
         }
       ]
     },
@@ -18,12 +18,12 @@
       "lesson": "what-flows",
       "blocks": [
         {
-          "kind": "figure",
-          "figure": "loop",
+          "type": "interactive_diagram",
+          "id": "loop",
           "caption": "A battery, a resistor, a lamp and a switch in one loop. Tap a wire to probe it."
         },
         {
-          "kind": "table",
+          "type": "table",
           "columns": [
             "To find",
             "From",
@@ -63,11 +63,11 @@
           ]
         },
         {
-          "kind": "text",
+          "type": "text",
           "text": "Run it backwards to choose a part, then fit the nearest standard value. 9 V and 20 mA want 450 Ω; the E12 series gives 470 Ω."
         },
         {
-          "kind": "table",
+          "type": "table",
           "columns": [
             "Series",
             "Values a decade",
@@ -87,7 +87,7 @@
           ]
         },
         {
-          "kind": "terms",
+          "type": "terms",
           "items": [
             {
               "term": "Energy",
@@ -108,15 +108,15 @@
       "lesson": "what-flows",
       "blocks": [
         {
-          "kind": "text",
+          "type": "text",
           "text": "How the lessons draw each part, and what to look for when you meet it in someone else's schematic. In the figures each wire takes the colour of its voltage; here everything is in ink."
         },
         {
-          "kind": "text",
+          "type": "text",
           "text": "A line is a wire, and all of one line is at one voltage. Lines that meet at a T are joined. Many schematics also put a dot on every join, and draw lines that cross without a dot as not touching: when in doubt, look for the dot."
         },
         {
-          "kind": "symbols",
+          "type": "symbols",
           "items": [
             {
               "symbol": "battery",
@@ -231,7 +231,7 @@
       "lesson": "series-parallel",
       "blocks": [
         {
-          "kind": "table",
+          "type": "table",
           "columns": [
             "Joined",
             "What they share",
@@ -256,7 +256,7 @@
           ]
         },
         {
-          "kind": "terms",
+          "type": "terms",
           "items": [
             {
               "term": "Current law",
@@ -269,7 +269,7 @@
           ]
         },
         {
-          "kind": "terms",
+          "type": "terms",
           "items": [
             {
               "term": "Divider",
@@ -290,7 +290,7 @@
           ]
         },
         {
-          "kind": "table",
+          "type": "table",
           "columns": [
             "Cells",
             "Voltage",
@@ -310,8 +310,8 @@
           ]
         },
         {
-          "kind": "figure",
-          "figure": "junction",
+          "type": "interactive_diagram",
+          "id": "junction",
           "caption": "Three resistors in parallel: the battery's current is the sum of theirs."
         }
       ]
@@ -323,11 +323,11 @@
       "lesson": "sources",
       "blocks": [
         {
-          "kind": "text",
+          "type": "text",
           "text": "Four-band resistors: two digits, then the number of noughts, then the tolerance. Five-band resistors have three digits before the multiplier."
         },
         {
-          "kind": "table",
+          "type": "table",
           "columns": [
             "Colour",
             "Digit",
@@ -397,7 +397,7 @@
           ]
         },
         {
-          "kind": "table",
+          "type": "table",
           "columns": [
             "Bands",
             "Value"
@@ -434,11 +434,11 @@
       "lesson": "power",
       "blocks": [
         {
-          "kind": "text",
+          "type": "text",
           "text": "Drop = current × resistance of the whole loop, out and back. Aim for 3% or less on power runs. Fuse below the cable's rating, above the load's current, as close to the battery as you can."
         },
         {
-          "kind": "table",
+          "type": "table",
           "columns": [
             "Cross-section",
             "Nearest AWG",
@@ -485,12 +485,12 @@
           ]
         },
         {
-          "kind": "text",
+          "type": "text",
           "text": "Ratings depend on insulation, bundling and air temperature; take the cable maker's figure over this table. Trace widths on a board follow the same rule: a 1 oz copper trace 0.25 mm wide carries well under an amp."
         },
         {
-          "kind": "figure",
-          "figure": "long-wire",
+          "type": "interactive_diagram",
+          "id": "long-wire",
           "caption": "20 m of cable to a 60 W pump: pick the size, or raise the voltage."
         }
       ]
@@ -502,7 +502,7 @@
       "lesson": "signals",
       "blocks": [
         {
-          "kind": "table",
+          "type": "table",
           "columns": [
             "Quantity",
             "Means",
@@ -537,7 +537,7 @@
           ]
         },
         {
-          "kind": "table",
+          "type": "table",
           "columns": [
             "Signal",
             "Frequency",
@@ -562,11 +562,11 @@
           ]
         },
         {
-          "kind": "text",
+          "type": "text",
           "text": "On a scope, set the volts a square so the wave fills most of the screen’s height, and the time a square so two or three cycles fit across. Check the steady voltages with a meter before looking at the signal."
         },
         {
-          "kind": "terms",
+          "type": "terms",
           "items": [
             {
               "term": "Bias",
@@ -587,7 +587,7 @@
       "lesson": "capacitors",
       "blocks": [
         {
-          "kind": "table",
+          "type": "table",
           "columns": [
             "To find",
             "Formula",
@@ -617,7 +617,7 @@
           ]
         },
         {
-          "kind": "table",
+          "type": "table",
           "columns": [
             "Type",
             "Values",
@@ -647,11 +647,11 @@
           ]
         },
         {
-          "kind": "text",
+          "type": "text",
           "text": "Capacitor markings: “104” is 10 and four noughts in picofarads, 100 nF; “473” is 47 nF. Choose a voltage rating well above the voltage across the part."
         },
         {
-          "kind": "terms",
+          "type": "terms",
           "items": [
             {
               "term": "Low-pass",
@@ -676,7 +676,7 @@
       "lesson": "diodes",
       "blocks": [
         {
-          "kind": "table",
+          "type": "table",
           "columns": [
             "Diode",
             "Forward voltage",
@@ -716,7 +716,7 @@
           ]
         },
         {
-          "kind": "table",
+          "type": "table",
           "columns": [
             "Transistor",
             "Kind",
@@ -751,7 +751,7 @@
           ]
         },
         {
-          "kind": "terms",
+          "type": "terms",
           "items": [
             {
               "term": "LED resistor",
@@ -768,7 +768,7 @@
           ]
         },
         {
-          "kind": "terms",
+          "type": "terms",
           "items": [
             {
               "term": "Base resistor",
@@ -789,7 +789,7 @@
       "lesson": "switches",
       "blocks": [
         {
-          "kind": "table",
+          "type": "table",
           "columns": [
             "Switch",
             "Where it goes",
@@ -819,7 +819,7 @@
           ]
         },
         {
-          "kind": "text",
+          "type": "text",
           "text": "Check the switch’s power: fully on, a transistor loses about 0.1 V × current and a MOSFET I² × its on-resistance. Half on, it loses far more."
         }
       ]
@@ -831,7 +831,7 @@
       "lesson": "amplifiers",
       "blocks": [
         {
-          "kind": "table",
+          "type": "table",
           "columns": [
             "Stage",
             "Voltage gain",
@@ -861,7 +861,7 @@
           ]
         },
         {
-          "kind": "text",
+          "type": "text",
           "text": "Biasing a common-emitter stage on a single supply: choose the current, put about a tenth of the supply across Re, size Rc to drop about half the supply, and set R1 and R2 so the base sits a diode’s drop above the emitter, with R2’s current several times the base current."
         }
       ]
@@ -873,11 +873,11 @@
       "lesson": "what-flows",
       "blocks": [
         {
-          "kind": "text",
+          "type": "text",
           "text": "Volts are measured **across**: one probe on each side of the part, circuit left alone. Amps are measured **through**: break the loop and put the meter in the gap."
         },
         {
-          "kind": "steps",
+          "type": "steps",
           "items": [
             "Volts: dial to V (DC is the straight-line symbol), black lead in COM, red in V.",
             "Touch black to ground or one side of the part, red to the other. A minus sign means red is lower than black.",
@@ -887,8 +887,8 @@
           ]
         },
         {
-          "kind": "figure",
-          "figure": "meter",
+          "type": "interactive_diagram",
+          "id": "meter",
           "caption": "Volts across, amps through. Tap a wire to place a probe or cut the loop."
         }
       ]
@@ -900,7 +900,7 @@
       "lesson": "dead-circuit",
       "blocks": [
         {
-          "kind": "table",
+          "type": "table",
           "columns": [
             "Fault",
             "Looks like",
@@ -940,7 +940,7 @@
           ]
         },
         {
-          "kind": "text",
+          "type": "text",
           "text": "Fault-finding order: work out what each point should read, measure the steady voltages with no signal, split what's left in halves, and measure across joints and traces as well as from ground. A good joint or trace drops nothing at all."
         }
       ]
