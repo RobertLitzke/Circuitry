@@ -107,7 +107,7 @@ export const biasFigure = figure(['centre'], (ctx, t) => {
     }
     if (done) earned.replaceChildren(stars([{ text: 'The collector halfway, between 4 and 5 V', got: true }]));
   };
-  f.controls.append(slider('R2', 0, R2S.length - 1, 1, R2S.indexOf(4700), (k) => ohms(R2S[k]), (k) => { amp.r2.ohms = R2S[k]; paint(); }, 'resistance').node, earned);
+  f.controls.append(slider('R2', { steps: R2S, value: 4700, show: ohms, onInput: (r) => { amp.r2.ohms = r; paint(); }, color: 'resistance' }).node, earned);
   amp.r2.ohms = 4700;
   paint();
   return f.node;

@@ -8,7 +8,7 @@
 // heat are red. Boards are solder-mask green with copper traces.
 
 import type { FootnoteSet } from 'didactics/footnote';
-import { slider as kitSlider, type Slider } from 'didactics/figure';
+import { slider as kitSlider, type Slider, type SliderOptions } from 'didactics/figure';
 import { prose as kitProse } from 'didactics/lesson';
 
 export {
@@ -43,9 +43,17 @@ export function tint(hex: string, alpha: number): string {
 
 export type ColorKey = keyof typeof COL;
 
-/** A labelled slider whose thumb wears one of the palette's colours. */
-export function slider(label: string, min: number, max: number, step: number, value: number, show: (v: number) => string, onInput: (v: number) => void, color: ColorKey = 'ink'): Slider {
-  return kitSlider(label, min, max, step, value, show, onInput, COL[color]);
+/**
+ * A labelled slider whose thumb wears one of the palette's colours. The
+ * options form takes `steps` (a list of set values, such as the E-series
+ * resistors a lesson offers) or `scale: 'log'`; `show` and `onInput` get
+ * real values either way.
+ */
+export function slider(label: string, min: number, max: number, step: number, value: number, show: (v: number) => string, onInput: (v: number) => void, color?: ColorKey): Slider;
+export function slider(label: string, o: Omit<SliderOptions, 'color'> & { color?: ColorKey }): Slider;
+export function slider(label: string, a: number | (Omit<SliderOptions, 'color'> & { color?: ColorKey }), max?: number, step?: number, value?: number, show?: (v: number) => string, onInput?: (v: number) => void, color: ColorKey = 'ink'): Slider {
+  if (typeof a === 'object') return kitSlider(label, { ...a, color: COL[a.color ?? 'ink'] });
+  return kitSlider(label, a, max!, step!, value!, show!, onInput!, COL[color]);
 }
 
 /** A paragraph of lesson text: **bold**, *italic*, [[words|key]] in the colour COL[key], and [^id] footnotes from `notes`. */

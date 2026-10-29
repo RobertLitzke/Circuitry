@@ -292,8 +292,7 @@ export const ohmTargetFigure = figure(['hit'], (ctx, t) => {
       t.done();
     }
   };
-  const k0 = values.indexOf(1000);
-  f.controls.append(slider('Resistor', 0, values.length - 1, 1, k0, (k) => ohms(values[k]), (k) => { r.ohms = values[k]; paint(); }, 'resistance').node, earned);
+  f.controls.append(slider('Resistor', { steps: values, value: 1000, show: ohms, onInput: (v) => { r.ohms = v; paint(); }, color: 'resistance' }).node, earned);
   paint();
   return f.node;
 });

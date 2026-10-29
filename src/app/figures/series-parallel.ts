@@ -144,7 +144,7 @@ export const junctionFigure = figure(['target'], (ctx, t) => {
     }
   };
   rs.forEach((r, k) =>
-    f.controls.append(slider(`R${k + 1}`, 0, values.length - 1, 1, values.indexOf(r.ohms), (i) => ohms(values[i]), (i) => { r.ohms = values[i]; paint(); }, 'resistance').node),
+    f.controls.append(slider(`R${k + 1}`, { steps: values, value: r.ohms, show: ohms, onInput: (v) => { r.ohms = v; paint(); }, color: 'resistance' }).node),
   );
   f.controls.append(earned);
   paint();

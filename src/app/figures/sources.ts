@@ -57,8 +57,8 @@ export const dividerFigure = figure(['three'], (ctx, t) => {
     if (ok) t.done();
   };
   f.controls.append(
-    slider('R1', 0, values.length - 1, 1, values.indexOf(1000), (k) => ohms(values[k]), (k) => { r1.ohms = values[k]; paint(); }, 'resistance').node,
-    slider('R2', 0, values.length - 1, 1, values.indexOf(1000), (k) => ohms(values[k]), (k) => { r2.ohms = values[k]; paint(); }, 'resistance').node,
+    slider('R1', { steps: values, value: 1000, show: ohms, onInput: (r) => { r1.ohms = r; paint(); }, color: 'resistance' }).node,
+    slider('R2', { steps: values, value: 1000, show: ohms, onInput: (r) => { r2.ohms = r; paint(); }, color: 'resistance' }).node,
   );
   paint();
   return f.node;
@@ -154,8 +154,8 @@ export const sagFigure = figure(['stiff'], (ctx, t) => {
     }
   };
   f.controls.append(
-    slider('R1', 0, values.length - 1, 1, values.indexOf(6800), (k) => ohms(values[k]), (k) => { r1.ohms = values[k]; paint(); }, 'resistance').node,
-    slider('R2', 0, values.length - 1, 1, values.indexOf(3300), (k) => ohms(values[k]), (k) => { r2.ohms = values[k]; paint(); }, 'resistance').node,
+    slider('R1', { steps: values, value: 6800, show: ohms, onInput: (r) => { r1.ohms = r; paint(); }, color: 'resistance' }).node,
+    slider('R2', { steps: values, value: 3300, show: ohms, onInput: (r) => { r2.ohms = r; paint(); }, color: 'resistance' }).node,
     earned,
   );
   paint();
@@ -229,7 +229,7 @@ export const mysteryBoxFigure = figure(['inside'], (_ctx, t) => {
   const modelV = slider('Inside: volts', 0, 15, 0.1, 5, (x) => volts(x), () => paint(), 'voltage');
   const modelR = slider('Inside: ohms', 1, 300, 1, 50, (x) => ohms(x), () => paint(), 'resistance');
   const loads = e12(1, 1000);
-  const loadSlider = slider('Load', 0, loads.length - 1, 1, loads.indexOf(loadOhms), (k) => ohms(loads[k]), (k) => { loadOhms = loads[k]; hookup = 'load'; paint(); }, 'resistance');
+  const loadSlider = slider('Load', { steps: loads, value: loadOhms, show: ohms, onInput: (r) => { loadOhms = r; hookup = 'load'; paint(); }, color: 'resistance' });
   const boxRow = el('div.chips');
   const hookRow = el('div.chips');
 
