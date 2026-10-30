@@ -1,3 +1,5 @@
+// First, so edited course text (Settings) is in place before anything reads it.
+import './course';
 import './app/styles/app.css';
 import { Router } from 'didactics/router';
 import { appShell, type NavLink } from 'didactics/shell';

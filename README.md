@@ -93,6 +93,26 @@ blinker doesn't converge at its flip yet, so lesson 8 only describes it.
    `src/data/quiz.json`.
 4. `npm test` catches unknown figures, goals no figure meets, and bad answers.
 
+## Revising the text
+
+The course's longer words are JSON in `src/data` (lessons, reference page,
+quiz cards, glossary). To revise them in one file:
+
+```sh
+npx didactics-course export src/data --code src --title Circuitry --out course.json
+npx didactics-course import course.json
+```
+
+`--code src` adds every string in the code that reads as words (figure
+labels and commentary, headings, buttons, check feedback) under `"code"`,
+one table per source file, as written → as edited; import writes the edited
+ones back into the source.
+
+Settings in the app has the same, code words included, for **All** or one
+lesson picked from a menu (src/app/course-pieces.ts says what a lesson's
+piece holds): **Download**, and **Load edited text** to read an edited file
+in the real lessons on that device before it is committed (src/course.ts).
+
 ## Layout
 
 ```
