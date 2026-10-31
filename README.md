@@ -1,5 +1,7 @@
 # Circuitry
 
+> **Moved.** Circuitry now lives in `courses/electronics/` of [RobertLitzke/CloudsWhatAreTheyUpTo](https://github.com/RobertLitzke/CloudsWhatAreTheyUpTo), with its history, and is served at https://robertlitzke.github.io/CloudsWhatAreTheyUpTo/electronics/. This repository only deploys a page that forwards there (`moved/`); work happens in the new one.
+
 A workbook on circuits for someone who has soldered and wants to design:
 short illustrated lessons, in the manner of Bartosz Ciechanowski's
 explainers, on what voltage and current really are, how parts shape them,
