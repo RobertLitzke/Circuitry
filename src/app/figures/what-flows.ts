@@ -57,7 +57,7 @@ export const seriesBulbsFigure = figure(['reveal'], (ctx, t) => {
     }
     const same = Math.abs(b.ohms - a.ohms) < 1e-6;
     f.readout.textContent =
-      `${q.reply()} ${amps(s.i.a)} goes through A and ${amps(s.i.b)} through B: the same, and the same again back into the battery. ` +
+      `${q.reply()} ${amps(s.i.a)} goes through A and ${amps(s.i.b)} through B, and that exact same current returns to the battery. ` +
       (same ? 'Now change bulb B and watch bulb A.' : `Change B and A changes too: the one current round the loop is set by both bulbs together.`);
   };
   const q = guess({
@@ -65,9 +65,9 @@ export const seriesBulbsFigure = figure(['reveal'], (ctx, t) => {
     options: ['A, the first', 'B, the second', 'Both the same'],
     answer: 2,
     replies: [
-      'Most people guess A: it feels as if A gets the current first and uses some up. It doesn’t.',
-      'B would be brighter if current piled up at the end of the line. It doesn’t.',
-      'Right.',
+      'Most people guess A because it feels as if A gets the current first and uses some up, when in fact the same current flows through every part of a single loop.',
+      'B would only glow brighter if current piled up at the end of the line, but charge flows at the same rate through every part of a single loop.',
+      'Right, both bulbs carry the exact same current and glow equally.',
     ],
     unsure: 'Here is what happens.',
     onLock: () => {
@@ -223,7 +223,7 @@ export const meterFigure = figure(['volts', 'amps'], (ctx, t) => {
 
     if (blown) {
       face.show('FUSE', '', 'A');
-      f.readout.textContent = 'Pop: the meter’s fuse blew. In amps mode a meter is nearly a plain wire, so across a part it shorts that part out and takes all the current the battery can give. Fit a new fuse, then cut a wire instead.';
+      f.readout.textContent = 'Pop: the meter\'s fuse blew. In amps mode a meter has nearly zero resistance like a plain wire, so placing it across a part shorts that part out and draws all the current the battery can deliver. Fit a new fuse, then cut a wire to put the meter in series instead.';
       return;
     }
     if (mode === 'V') {
@@ -232,9 +232,9 @@ export const meterFigure = figure(['volts', 'amps'], (ctx, t) => {
       const across = red && black && new Set([red, black]);
       const onR = across && (across.has('r-in') || across.has('top')) && (across.has('r-out') || across.has('l-in')) && red !== black;
       f.readout.textContent = !red
-        ? 'Volts is always between two points. The black probe sits on the battery’s − end. Tap a wire to put the red probe there.'
+        ? 'Voltage is always measured between two points. The black probe sits on the battery\'s - end; tap a wire to put the red probe there.'
         : onR
-          ? `${volts(Math.abs(reading))} across the resistor: that is how much push it uses up. Volts are measured across a part, with the circuit left as it is.`
+          ? `${volts(Math.abs(reading))} across the resistor: that is how much electrical push drops across it. Voltage is measured across a part, leaving the circuit intact.`
           : `${volts(reading)} from the black probe to the red. Now measure across the resistor alone: put one probe on each side of it.`;
       if (onR && t.goal === 'volts') t.done();
       return;
@@ -243,7 +243,7 @@ export const meterFigure = figure(['volts', 'amps'], (ctx, t) => {
     face.show(cut ? (Math.abs(reading) * 1000).toFixed(1) : '----', 'mA', 'A');
     f.readout.textContent = !cut
       ? 'To count the current, the meter has to become part of the loop, so the current goes through it. Tap a plain wire to cut it and put the meter in the gap.'
-      : `${amps(Math.abs(reading))} flows through the meter. Cut any other wire: the same current, all the way round.`;
+      : `${amps(Math.abs(reading))} flows through the meter. Cut any other wire in the loop and you will read the exact same current.`;
     if (cut && t.goal === 'amps') t.done();
   };
   f.controls.append(modeRow, probeRow, fuse);
@@ -280,14 +280,14 @@ export const ohmTargetFigure = figure(['hit'], (ctx, t) => {
     const off = (i - 0.02) / 0.02;
     f.readout.textContent =
       Math.abs(off) < 0.05
-        ? `${amps(i)} through ${ohms(r.ohms)}: within 5% of 20 mA. The exact answer is 9 V ÷ 20 mA = 450 Ω, which nobody sells; ${ohms(r.ohms)} is the nearest you can buy.`
-        : `${amps(i)}: ${off > 0 ? 'too much' : 'too little'}. Resistors come in a set series of values, so you won’t hit 20 mA exactly. Get within 5%.`;
+        ? `${amps(i)} through ${ohms(r.ohms)}, which is within 5% of 20 mA. The exact calculation is 9 V / 20 mA = 450 Ω, and ${ohms(r.ohms)} is the closest standard value on the shelf.`
+        : `${amps(i)}: ${off > 0 ? 'too much' : 'too little'}. Resistors come in standard E-series values, so you won't hit 20 mA on the nose, but you can get within 5%.`;
     if (Math.abs(off) < 0.05 && !done) {
       done = true;
       earned.replaceChildren(stars([
         { text: 'Within 5% of 20 mA', got: true },
         { text: 'A value you can buy', got: true },
-        { text: `Under a quarter-watt resistor’s rating (it takes ${si(s.p.r, 'W')})`, got: s.p.r < 0.25 },
+        { text: `Under a quarter-watt resistor's rating (it takes ${si(s.p.r, 'W')})`, got: s.p.r < 0.25 },
       ]));
       t.done();
     }
@@ -363,10 +363,10 @@ export const ivCurveFigure = figure(['lamp'], (ctx, t) => {
     const rNow = i > 1e-6 ? v / i : which === 'resistor' ? resistor.ohms : lamp.ohms / 10;
     if (which === 'resistor') {
       f.readout.textContent = swept.resistor.size < 6
-        ? `${volts(v)} across, ${amps(i)} through. Slide the supply up and down to trace the resistor’s line.`
-        : `A straight line: twice the volts, twice the amps, and V ÷ I is ${ohms(rNow)} all the way. That is Ohm’s law. Now swap in the lamp.`;
+        ? `${volts(v)} across, ${amps(i)} through. Slide the supply up and down to trace the resistor's curve.`
+        : `A straight line: doubling the voltage doubles the current, and V / I stays at ${ohms(rNow)} all the way along. That constant ratio is Ohm's law; now swap in the lamp.`;
     } else {
-      f.readout.textContent = `${q.reply()} ${volts(v)} across, ${amps(i)} through: V ÷ I is ${ohms(rNow)} here. The filament gets hotter as the current rises, and hot tungsten resists more, so the line bends over.`;
+      f.readout.textContent = `${q.reply()} ${volts(v)} across, ${amps(i)} through, giving V / I = ${ohms(rNow)} at this point. The filament gets hotter as the current rises, and hot tungsten has higher resistance, so the curve bends over.`;
       if (swept.lamp.size >= 12) t.done();
     }
     lampChip.disabled = swept.resistor.size < 6 || which === 'lamp';
@@ -378,9 +378,9 @@ export const ivCurveFigure = figure(['lamp'], (ctx, t) => {
     options: ['The same straight line', 'A line that bends over', 'A line that bends up'],
     answer: 1,
     replies: [
-      'A straight line was a fair guess: that is what Ohm’s law says. But the lamp doesn’t keep it.',
-      'Right: it bends over.',
-      'It bends the other way: less current than a straight line would give, not more.',
+      'A straight line was a fair guess, since a fixed resistance follows Ohm\'s law, but the lamp\'s resistance changes as its filament heats up.',
+      'Right, the curve bends over as the filament heats up and its resistance rises.',
+      'It bends the other way, letting through less current at higher voltages than a straight line would predict because hot tungsten resists more.',
     ],
     onLock: () => {
       which = 'lamp';

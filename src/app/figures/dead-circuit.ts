@@ -67,12 +67,12 @@ export const twoViewsFigure = figure(['match'], (ctx, t) => {
     brd.node.style.display = view === 'board' ? '' : 'none';
     row.replaceChildren(...(['schematic', 'board'] as const).map((v) => el('button.chip', { type: 'button', className: v === view ? 'chip on' : 'chip', onclick: () => { view = v; paint(); } }, v === 'schematic' ? 'Schematic' : 'Board')));
     f.readout.textContent = found
-      ? 'That’s the base: the pad where R1, R2 and the transistor’s middle leg all meet. Every wire on the schematic is a copper trace on the board, and every junction is where traces meet at a pad.'
+      ? 'That\'s the base: the pad where R1, R2 and the transistor\'s middle leg all meet. Every wire on the schematic is a copper trace on the board, and every junction is where traces meet at a pad.'
       : view === 'schematic'
-        ? 'Lesson 9’s amplifier, with an LED to show the power is on. Find where the transistor’s base joins R1 and R2, then switch to the board.'
+        ? 'Lesson 9\'s amplifier, with an LED to show the power is on. Find where the transistor\'s base joins R1 and R2, then switch to the board.'
         : tapped
-          ? 'Not that one. On the board, find the trace that joins R1, R2 and the transistor’s middle leg, and tap it.'
-          : 'The same circuit as it is built. Tap the trace that carries the transistor’s base.';
+          ? 'Try another trace. On the board, find the trace that joins R1, R2 and the transistor\'s middle leg, and tap it.'
+          : 'The same circuit as it is built. Tap the trace that carries the transistor\'s base.';
   };
   f.controls.append(row);
   paint();
@@ -116,7 +116,7 @@ export const wrongRcFigure = figure(['find'], (ctx, t) => {
   return boardHunt(ctx, t, st.parts, st.places, st.grounds, {
     brief: `${BRIEF} D1 glows, but the signal comes out weak.`,
     culprit: 'rc',
-    found: 'Found it: R3 is 470 Ω, not 4.7 kΩ. The base and emitter are right, so the current is right, but the smaller resistor drops a tenth of the voltage: the collector sits near 8.6 V and the gain is a tenth of what it should be. Its third band is brown, not red; on the board you can read it.',
+    found: 'Found it: R3 is 470 Ω instead of 4.7 kΩ. The base and emitter voltages are right, so the bias current is right, but the smaller collector resistor drops only a tenth of the expected voltage: the collector sits near 8.6 V and the voltage gain is roughly a tenth of what it should be. Its third band is brown instead of red; on the board you can read it.',
     hints: ['Base and emitter first. Are they right?', 'If the current is right, which resistor sets the collector voltage? Look at its bands.'],
     par: 6,
   });
@@ -132,8 +132,8 @@ export const dryJointFigure = figure(['find'], (ctx, t) => {
   return boardHunt(ctx, t, parts, places, st.grounds, {
     brief: `${BRIEF} D1 glows, but the amplifier passes almost nothing.`,
     culprit: 're',
-    found: 'Found it: a dry joint where R4 meets the emitter. The solder never properly wet the lead, and the joint has thousands of ohms. You measured nearly a volt between the transistor’s emitter leg and R4’s pad, a joint that should drop nothing. Reflow it: heat the pad and lead together and feed in fresh solder.',
-    hints: ['The base and emitter read right, but the collector doesn’t. Where does the emitter’s current go next?', 'Measure from the transistor’s emitter leg to the pad of R4 it should be joined to.'],
+    found: 'Found it: a dry joint where R4 meets the emitter. The solder never properly wet the lead, leaving a contact resistance of thousands of ohms. You measured nearly a volt between the transistor\'s emitter leg and R4\'s pad, across a joint that should drop 0 V. Reflow it by heating the pad and lead together and feeding in fresh solder.',
+    hints: ['The base and emitter leg read right, but the collector doesn\'t. Where does the emitter\'s current go next?', 'Measure from the transistor\'s emitter leg to the pad of R4 it should be joined to.'],
     par: 7,
   });
 });

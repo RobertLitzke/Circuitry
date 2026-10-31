@@ -173,7 +173,7 @@ describe('lesson 3', () => {
     set(r1, index(680));
     set(r2, index(330));
     await expect(fig.done).resolves.toBeUndefined();
-    expect(fig.node.textContent).toContain('It holds');
+    expect(fig.node.textContent).toContain('The output holds');
   });
 
   it('models box 1 as 9 V behind 20 Ω, and box 3 refuses a line', async () => {
@@ -206,7 +206,7 @@ describe('lesson 4', () => {
     const fig = FIGURES['long-wire'](ctx(), 'pump');
     expect(fig.node.textContent).toContain('The pump stalls');
     click(chip(fig.node, '10 mm²'));
-    expect(fig.node.textContent).toContain('The pump gets');
+    expect(fig.node.textContent).toContain('The pump receives');
     click(chip(fig.node, '1.5 mm²'));
     click(chip(fig.node, '48 V system'));
     await expect(fig.done).resolves.toBeUndefined();
@@ -230,7 +230,7 @@ describe('lesson 4', () => {
     input.value = '4';
     input.dispatchEvent(new Event('input'));
     await expect(fig.done).resolves.toBeUndefined();
-    expect(fig.node.textContent).toContain('50% of the energy');
+    expect(fig.node.textContent).toContain('50% of the total energy');
   });
 });
 
@@ -310,7 +310,7 @@ describe('lesson 6', () => {
   it('holds the supply up with 100 µF but not 10 µF', async () => {
     const fig = FIGURES.decoupling(ctx(), 'hold');
     click(chip(fig.node, '10 µF'));
-    expect(fig.node.textContent).toContain('Try a bigger one');
+    expect(fig.node.textContent).toContain('Try a larger capacitor');
     click(chip(fig.node, '100 µF'));
     await expect(fig.done).resolves.toBeUndefined();
     expect(fig.node.querySelectorAll('.star.got').length).toBe(2);
@@ -343,7 +343,7 @@ describe('lesson 7', () => {
 
   it('lights the LED at 15 mA with 470 Ω', async () => {
     const fig = FIGURES['led-resistor'](ctx(), 'design');
-    expect(fig.node.textContent).toContain('would soon die');
+    expect(fig.node.textContent).toContain('would soon fail');
     const input = fig.node.querySelector('input')!;
     input.value = '12';
     input.dispatchEvent(new Event('input'));
@@ -364,7 +364,7 @@ describe('lesson 7', () => {
   it('smooths the rectifier with 1000 µF', async () => {
     const fig = FIGURES.rectifier(ctx(), 'smooth');
     click(chip(fig.node, '100 µF'));
-    expect(fig.node.textContent).toContain('Still a lot of ripple');
+    expect(fig.node.textContent).toContain('There is still a lot of ripple');
     click(chip(fig.node, '1000 µF'));
     await expect(fig.done).resolves.toBeUndefined();
   });
@@ -397,7 +397,7 @@ describe('lesson 8', () => {
     const fig = FIGURES['mosfet-switch'](ctx(), 'logic');
     click(chip(fig.node, 'runs weakly, and the MOSFET gets hot'));
     click(button(fig.node, 'Lock it in'));
-    expect(fig.node.textContent).toContain('cooking');
+    expect(fig.node.textContent).toContain('overheats');
     click(chip(fig.node, 'Logic-level MOSFET'));
     await expect(fig.done).resolves.toBeUndefined();
   });
@@ -405,7 +405,7 @@ describe('lesson 8', () => {
   it('kicks the collector to hundreds of volts, and the diode stops it', async () => {
     const fig = FIGURES.relay(ctx(), 'safe');
     click(button(fig.node, 'Switch the relay off'));
-    expect(fig.node.textContent).toMatch(/shoots to \d{3} V/);
+    expect(fig.node.textContent).toMatch(/drives the collector to \d{3} V/);
     click(chip(fig.node, 'Flyback diode'));
     click(button(fig.node, 'Switch the relay off'));
     expect(fig.node.textContent).toMatch(/rises to 12\.\d+ V/);
@@ -446,10 +446,10 @@ describe('lesson 9', () => {
     const fig = FIGURES.gain(ctx(), 'clip');
     click(chip(fig.node, 'About 0.47 V each way, upside down'));
     click([...fig.node.querySelectorAll('button')].find((b) => b.textContent === 'Lock it in')!);
-    expect(fig.node.textContent).toMatch(/a gain of 4\.\d/);
+    expect(fig.node.textContent).toMatch(/a voltage gain of 4\.\d/);
     set(fig.node.querySelector('input')!, 1);
     await expect(fig.done).resolves.toBeUndefined();
-    expect(fig.node.textContent).toContain('it clips');
+    expect(fig.node.textContent).toContain('so the peaks clip');
   });
 
   it('keeps the wiggle through a follower', async () => {
@@ -464,7 +464,7 @@ describe('lesson 9', () => {
     click(chip(fig.node, 'Rf 10 kΩ'));
     await expect(fig.done).resolves.toBeUndefined();
     click(chip(fig.node, 'Rf 100 kΩ'));
-    expect(fig.node.textContent).toContain('clips flat');
+    expect(fig.node.textContent).toContain('clips hard');
   });
 });
 
@@ -478,7 +478,7 @@ describe('lesson 10', () => {
     const hits = [...fig.node.querySelectorAll('.board polyline[stroke="transparent"]')];
     for (const h of hits) click(h);
     await expect(fig.done).resolves.toBeUndefined();
-    expect(fig.node.textContent).toContain('That’s the base');
+    expect(fig.node.textContent).toContain("That's the base");
   });
 
   for (const id of ['dead-led', 'wrong-rc', 'dry-joint'] as const) {

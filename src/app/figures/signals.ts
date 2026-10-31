@@ -50,7 +50,7 @@ export const sineFigure = figure(['match'], (ctx, t) => {
     if (note === 'guitar') {
       scr.range(-0.5, 0.5);
       scr.draw([{ volts: sample((s) => sourceVolts(gen, s), WINDOW), colour: COL.current }]);
-      f.readout.textContent = 'A guitar’s A string, 110 Hz, as its pickup makes it: a few tenths of a volt, and not a smooth sine. The wiggles on top are its harmonics, quieter sines at 2, 3, 4 and more times the note, and their mix is what makes a guitar sound like a guitar and not a flute.';
+      f.readout.textContent = 'A guitar\'s A string, 110 Hz, as its pickup makes it: a few tenths of a volt, with extra wiggles on top of the main wave. Those wiggles are its harmonics, quieter sines at 2, 3, 4 and more times the note, and their mix is what makes a guitar sound like a guitar rather than a tuning fork.';
       return;
     }
     scr.range(-4, 4);
@@ -61,7 +61,7 @@ export const sineFigure = figure(['match'], (ctx, t) => {
     const period = 1 / w.hz;
     const ok = Math.abs(w.amp - TARGET.amp) < 0.01 && Math.abs(w.hz - TARGET.hz) < 0.5;
     f.readout.textContent =
-      `It rises to ${volts(w.amp)}, falls to −${volts(w.amp)}, and comes back every ${(period * 1000).toFixed(period < 0.01 ? 2 : 1)} ms: ${w.hz} times a second, ${Number((WINDOW / period).toFixed(1))} cycle${WINDOW / period === 1 ? '' : 's'} across the screen. ` +
+      `It rises to ${volts(w.amp)}, falls to -${volts(w.amp)}, and comes back every ${(period * 1000).toFixed(period < 0.01 ? 2 : 1)} ms: ${w.hz} times a second, ${Number((WINDOW / period).toFixed(1))} cycle${WINDOW / period === 1 ? '' : 's'} across the screen. ` +
       (ok ? 'That matches the target.' : 'Set the generator to match the dashed trace.');
     if (ok && !matched) {
       matched = true;
@@ -167,7 +167,7 @@ export const offsetFigure = figure(['centre'], (ctx, t) => {
     answer: 0,
     replies: [
       'Right: everything below 1.5 V is cut off.',
-      'It would be, if the buffer shrank what it copies. It doesn’t: it copies exactly, until it can’t.',
+      'It would be, if the buffer shrank what it copies. Instead, the buffer copies the voltage 1-for-1 until it hits its limit.',
       'The top half of the wave is inside what the buffer can reach, so that much comes out.',
     ],
     onLock: () => {
@@ -221,10 +221,10 @@ export const stuckBiasFigure = figure(['find'], (ctx, t) => {
     schematic: { topVolts: 9, typicalAmps: 0.0005, grounds: [[40, 200]] },
     size: [400, 240],
     face: [180, 132],
-    brief: 'R1 and R2, both 100 kΩ, should hold the buffer’s input at 4.5 V, half the battery, so a signal can swing either way around it. No signal gets through, and the output sits near the top. The buffer runs from the 9 V battery; its power pins aren’t drawn.',
+    brief: 'R1 and R2, both 100 kΩ, should hold the buffer\'s input at 4.5 V, half the battery, so a signal can swing either way around it. No signal gets through, and the output sits near the top. The buffer runs from the 9 V battery; its power pins aren\'t drawn.',
     culprit: 'r2',
-    found: 'Found it: R2 has cracked open. With nothing pulling the middle down, R1 holds it at the full 9 V, and the buffer’s output goes as high as it can reach, 7.5 V, and stays there. Any signal on top is cut off completely. The whole battery voltage turned up across the break, as it always does.',
-    hints: ['Measure the buffer’s input first: what should it be?', 'The input is too high. Which resistor should be pulling it down?'],
+    found: 'Found it: R2 has cracked open. With nothing pulling the middle down, R1 holds it at the full 9 V, and the buffer\'s output goes as high as it can reach, 7.5 V, and stays there. Any signal on top is cut off completely. The whole battery voltage turned up across the break, as it always does.',
+    hints: ['Measure the buffer\'s input first: what should it be?', 'The input is too high. Which resistor should be pulling it down?'],
     par: 6,
   });
 });

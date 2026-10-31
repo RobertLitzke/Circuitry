@@ -75,7 +75,7 @@ export const rcChargeFigure = figure(['tau'], (ctx, t) => {
     const ok = Math.abs(tau - 1) < 0.1;
     if (ok) combos.add(`${r.ohms}:${c.farads}`);
     f.readout.textContent =
-      `R × C = ${si(r.ohms, 'Ω')} × ${farads(c.farads)} = ${seconds(tau)}. In that time the capacitor charges to 63% of the way, 5.7 V; in five times that it is all but full. ` +
+      `R x C = ${si(r.ohms, 'Ω')} x ${farads(c.farads)} = ${seconds(tau)}. In one time constant the capacitor charges 63% of the way (to 5.7 V), and in five time constants it is over 99% full. ` +
       (ok ? 'A time constant of a second.' : 'Choose R and C so that it is one second.');
     if (ok) {
       earned.replaceChildren(stars([
@@ -87,12 +87,12 @@ export const rcChargeFigure = figure(['tau'], (ctx, t) => {
     }
   };
   const q = guess({
-    question: 'Its voltage rises…',
+    question: 'Its voltage rises...',
     options: ['fast at first, then slower and slower', 'steadily, in a straight line', 'all at once, straight to 9 V'],
     answer: 0,
     replies: [
-      'Right.',
-      'It would, if the current stayed the same. It doesn’t.',
+      'Right. As the capacitor fills, less voltage remains across the resistor, so the charging current slows down.',
+      'It would rise in a straight line if the current stayed constant, but as the capacitor fills, less voltage is left across the resistor and the current drops.',
       'An empty capacitor has to fill, and the resistor limits how fast.',
     ],
     onLock: () => {
@@ -165,16 +165,16 @@ export const couplingFigure = figure(['reveal'], (ctx, t) => {
     f.readout.textContent =
       (fresh ? `${q.reply()} ` : '') +
       `Out comes a wiggle ${volts(size)} each way around ${volts(Math.abs(mid) < 0.05 ? 0 : mid)}: the steady 4.5 V stays behind on the capacitor. ` +
-      (c.farads < 1e-7 ? 'This capacitor is too small to pass much of a note this low. Smaller still, and almost nothing gets through.' : 'Try a smaller capacitor.');
+      (c.farads < 1e-7 ? 'This capacitor is too small to pass much of a note this low; make it smaller still and almost nothing gets through.' : 'Try a smaller capacitor.');
     fresh = false;
   };
   const q = guess({
     question: 'What comes out past the capacitor?',
-    options: ['Just the wiggle, around 0 V', 'The wiggle on 4.5 V, unchanged', 'Nothing: it’s a gap'],
+    options: ['Just the wiggle, around 0 V', 'The wiggle on 4.5 V, unchanged', 'Nothing: it\'s a gap'],
     answer: 0,
     replies: [
-      'Right.',
-      'The steady part can’t cross the gap: once the capacitor has charged to it, no more current flows.',
+      'Right. As the capacitor fills, less voltage remains across the resistor, so the charging current slows down.',
+      'The steady DC voltage cannot cross the gap: once the capacitor charges up to 4.5 V, steady current stops.',
       'No charge crosses the gap, but each wiggle pushes charge onto one plate and pushes as much off the other.',
     ],
     onLock: () => {
@@ -251,7 +251,7 @@ export const lowpassFigure = figure(['corner'], (ctx, t) => {
       `At ${hertz(hz)}, ${Math.round(gain * 100)}% of the wiggle gets through. ` +
       (corner
         ? 'This is the corner: from here up, every doubling of the frequency halves what gets through.'
-        : gain > 0.9 ? 'Low notes pass almost untouched. Turn it up.' : gain > 0.707 ? 'It is starting to fall.' : 'Past the corner. Find where it is down to 71%.');
+        : gain > 0.9 ? 'Low notes pass almost untouched. Turn it up.' : gain > 0.707 ? 'It is starting to fall.' : 'That is past the corner; sweep back to find where 71% of the signal gets through.');
     if (found) t.done();
   };
   f.controls.append(slider('Frequency', 0, 100, 1, 25, (k) => hertz(freqAt(k)), (k) => { sig.wave.hz = freqAt(k); paint(); }).node);
@@ -299,14 +299,14 @@ export const decouplingFigure = figure(['hold'], (ctx, t) => {
     cap.farads = picked || 1e-12;
     capDraw.node.style.display = picked ? '' : 'none';
     const [rail] = capture(parts, [(s) => s.v.rail], { window: WINDOW_DC, n: 240, settled: true, settle: picked ? 0.005 : 0.0002 });
-    scr.draw([{ volts: rail, colour: COL.voltage, label: 'chip’s supply' }]);
+    scr.draw([{ volts: rail, colour: COL.voltage, label: 'chip\'s supply' }]);
     const dip = Math.max(...rail) - Math.min(...rail);
     const s = solve(parts);
     sch.show(s);
     capDraw.show(s);
     f.readout.textContent =
-      `Every time the load switches on, its current through the leads drops their voltage, and the chip’s supply wobbles by ${volts(dip)}. ` +
-      (!picked ? 'Put a capacitor across the supply, right by the chip.' : dip <= 0.1 ? 'The capacitor gives the load its bursts of current, and refills from the battery in between. The chip barely notices.' : 'Better, but it still wobbles. Try a bigger one.');
+      `Every time the load switches on, its current pulls voltage down across the lead resistance, and the chip's supply dips by ${volts(dip)}. ` +
+      (!picked ? 'Put a capacitor across the supply, right by the chip.' : dip <= 0.1 ? 'The capacitor supplies the quick bursts of current locally and refills from the battery between pulses, so the chip\'s voltage barely dips.' : 'That helps, but the voltage still dips more than 0.1 V. Try a larger capacitor.');
     if (dip <= 0.1 && picked) {
       smallest = Math.min(smallest, picked);
       done = true;
@@ -344,7 +344,7 @@ export const kickbackFigure = figure(['spike'], (ctx, t) => {
     { part: w2, path: [[220, 120], [220, 136], [40, 136], [40, 120]] },
   ], { topVolts: 12, typicalAmps: 0.2, grounds: [[40, 136]] });
   const scr = scope({ x: 14, y: 160, w: 372, h: 105, vmin: 0, vmax: 1200, window: WINDOW_KB });
-  f.svg.append(sch.node, scr.node, small(52, 52, '← scope across the switch', { soft: true }));
+  f.svg.append(sch.node, scr.node, small(52, 52, '<- scope across the switch', { soft: true }));
 
   const run = () => {
     sw.closed = true;
@@ -365,16 +365,16 @@ export const kickbackFigure = figure(['spike'], (ctx, t) => {
     sch.show(sim.now);
     scr.draw([{ volts: across, colour: COL.power }]);
     const top = Math.max(...across);
-    f.readout.textContent = `${q.reply()} For a few millionths of a second the coil drives ${volts(Math.round(top / 10) * 10)} across the opening contacts, enough to jump the gap as a spark. Then the field is spent, and the switch just holds off the battery’s 12 V. Sparks like that pit a switch’s contacts, and the spike can kill a transistor; lesson 8 tames it.`;
+    f.readout.textContent = `${q.reply()} For a few microseconds the collapsing magnetic field drives ${volts(Math.round(top / 10) * 10)} across the opening contacts, enough to strike an arc across the gap. Once the field's energy is spent, the open switch simply sits at the battery's 12 V. Those arcs pit switch contacts, and the voltage spike will destroy a transistor switch; lesson 8 adds a diode to stop it.`;
   };
   const q = guess({
-    question: 'The coil carries 0.24 A. You open the switch. Across it you’d measure…',
+    question: 'The coil carries 0.24 A. You open the switch. Across the switch you\'d measure...',
     options: ['far more than 12 V, for an instant', '12 V', '0 V'],
     answer: 0,
     replies: [
-      'Right.',
-      'That is where it ends up. But not first.',
-      'With the switch open no current flows, and the whole supply turns up across the gap. That is only the end of the story.',
+      'Right. As the capacitor fills, less voltage remains across the resistor, so the charging current slows down.',
+      '12 V is where it settles afterward, but watch the spike at the instant the contacts open.',
+      'Once the field dies out, no current flows and the 12 V supply sits across the open switch, but a big inductive spike happens first.',
     ],
     onLock: () => {
       scr.hide(null);
@@ -385,7 +385,7 @@ export const kickbackFigure = figure(['spike'], (ctx, t) => {
   f.controls.append(q.node);
   scr.hide('Guess first');
   sch.show(solve(parts));
-  f.readout.textContent = 'A 12 V battery drives 0.24 A through a relay’s coil, building a magnetic field around it. The scope watches the voltage across the switch.';
+  f.readout.textContent = 'A 12 V battery drives 0.24 A through a relay\'s coil, building a magnetic field around it. The scope watches the voltage across the switch.';
   return f.node;
 });
 
@@ -429,10 +429,10 @@ export const shortedCapFigure = figure(['find'], (ctx, t) => {
     schematic: { topVolts: 9, typicalAmps: 0.0001, grounds: [[30, 200]] },
     size: [400, 240],
     face: [110, 140],
-    brief: 'Two buffers in a row, joined by C1. R1 and R2 (100 kΩ each) set the first at 4.5 V; R3 (100 kΩ) and R4 (27 kΩ) should set the second at 1.9 V. The second sits at the wrong voltage. Power pins aren’t drawn.',
+    brief: 'Two buffers in a row, joined by C1. R1 and R2 (100 kΩ each) bias the first stage at 4.5 V; R3 (100 kΩ) and R4 (27 kΩ) should bias the second at 1.9 V, but it sits at the wrong voltage. Power pins are not drawn.',
     culprit: 'c1',
-    found: 'Found it: C1 has shorted. A good capacitor would hold 2.6 V across it, the difference between the two stages’ steady voltages, and pass only the signal. Shorted, it reads 0 V, and the first buffer drags the second stage up to its own 4.5 V. Capacitors fail like this when they are run past their voltage rating.',
-    hints: ['Measure each stage’s steady voltage, then across C1.', 'A coupling capacitor should have the difference between two steady voltages across it.'],
+    found: 'Found it: C1 has failed short. A healthy coupling capacitor would hold 2.6 V across itself, the difference between the two stages\' bias voltages, and pass only the AC signal. Shorted, it measures 0 V across its leads and lets the first buffer drag the second stage\'s input straight to 4.5 V. Capacitors fail like this when pushed past their voltage rating.',
+    hints: ['Measure each stage\'s steady voltage to ground, then measure across C1.', 'A coupling capacitor should have the difference between two steady voltages across it.'],
     par: 6,
   });
 });

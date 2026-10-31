@@ -99,8 +99,8 @@ export const biasFigure = figure(['centre'], (ctx, t) => {
     );
     const mid = vc > 4 && vc < 5;
     f.readout.textContent =
-      `R2 = ${ohms(amp.r2.ohms)} holds the base at ${volts(s.v.b)}; the emitter sits a diode’s drop below, so ${volts(s.v.e)} across Re sets ${amps(s.i.re)} through it. Nearly all of that comes through Rc, dropping it to ${volts(vc)} at the collector. ` +
-      (vc < 1 ? 'Saturated: hard on, with no room to swing down.' : vc > 8.5 ? 'Hardly on: no room to swing up.' : mid ? 'Halfway: room to swing both ways.' : 'Set the collector halfway between 0 and 9 V.');
+      `R2 = ${ohms(amp.r2.ohms)} holds the base at ${volts(s.v.b)}; the emitter sits a diode's drop below, so ${volts(s.v.e)} across Re sets ${amps(s.i.re)} through it. Nearly all of that current comes through Rc, pulling the collector down to ${volts(vc)}. ` +
+      (vc < 1 ? 'Saturated: the transistor is turned hard on, leaving no room for the collector to swing down.' : vc > 8.5 ? 'Cut off or nearly off: the collector sits near 9 V, leaving no room to swing up.' : mid ? 'Biased near the middle: the collector has room to swing both up and down.' : 'Set the collector halfway between 0 and 9 V.');
     if (mid && !done) {
       done = true;
       t.done();
@@ -132,7 +132,7 @@ export const gainFigure = figure(['clip'], (ctx, t) => {
     if (!guessed) {
       scr.hide('Guess first');
       sch.show(solve(amp.parts));
-      f.readout.textContent = `The stage from before, biased halfway, with Rc = 4.7 kΩ and Re = 1 kΩ. A wiggle of 0.1 V each way comes in through a capacitor to the base.`;
+      f.readout.textContent = `The stage from before, biased near 4.7 V, with Rc = 4.7 kΩ and Re = 1 kΩ. A 0.1 V peak signal comes in through a coupling capacitor to the base.`;
       return;
     }
     scr.hide(null);
@@ -145,8 +145,8 @@ export const gainFigure = figure(['clip'], (ctx, t) => {
     if (flat && swing(vin) > 0.15) clipped = true;
     f.readout.textContent =
       (fresh ? `${q.reply()} ` : '') +
-      `${volts(swing(vin))} in, ${volts(swing(vout))} out: a gain of ${gain.toFixed(1)}, upside down. Rc ÷ Re is ${(amp.rc.ohms / amp.re.ohms).toFixed(1)}. ` +
-      (flat ? 'The output has run into the supply or into the transistor switching fully on: it clips.' : clipped ? '' : 'Turn the input up until it clips.');
+      `${volts(swing(vin))} in, ${volts(swing(vout))} out: a voltage gain of ${gain.toFixed(1)}, inverted. Rc / Re is ${(amp.rc.ohms / amp.re.ohms).toFixed(1)}. ` +
+      (flat ? 'The collector waveform has hit the 9 V supply at the top or transistor saturation near the emitter voltage at the bottom, so the peaks clip.' : clipped ? '' : 'Turn the input up until it clips.');
     fresh = false;
     if (clipped) t.done();
   };
@@ -155,9 +155,9 @@ export const gainFigure = figure(['clip'], (ctx, t) => {
     options: ['About 0.47 V each way, upside down', '0.1 V, the same as went in', 'About 4.7 V each way'],
     answer: 0,
     replies: [
-      'Right.',
-      'The base follows the wiggle, and so does the emitter, so Re’s current wiggles. That current runs through Rc too, which is 4.7 times bigger.',
-      'That would be a gain of 47. The two resistors set it: Rc ÷ Re.',
+      'Correct: the collector swings about 4.7 times as far as the base, and in the opposite direction.',
+      'The emitter follows the base wiggle, which makes the current through Re wiggle by the same proportion. That current flows through Rc too, which is 4.7 times larger than Re.',
+      'A 4.7 V peak output from a 0.1 V input would be a gain of 47. The ratio Rc / Re sets the gain here at about 4.7.',
     ],
     onLock: () => {
       guessed = fresh = true;
@@ -221,8 +221,8 @@ export const followerFigure = figure(['both'], (ctx, t) => {
     sch.show(solve(parts, { t: 0.00025 }));
     seen.add(buffered);
     f.readout.textContent = buffered
-      ? `Through an emitter follower the load gets ${volts(swing(vout))} each way: almost all of it, a diode’s drop lower. The follower’s base takes β times less current than its emitter gives, so the pickup hardly notices the load.`
-      : `Straight into the load, the pickup’s 10 kΩ and the load’s 1 kΩ make a divider: only ${volts(swing(vout))} of the 1 V wiggle reaches it. Lesson 3, again.`;
+      ? `Through an emitter follower the load gets ${volts(swing(vout))} each way, almost the full pickup signal, shifted down by one DC diode drop. The follower's base draws about β times less current than its emitter supplies, so the pickup barely notices the 1 kΩ load.`
+      : `Connected straight into the load, the pickup's 10 kΩ internal resistance and the 1 kΩ load form a voltage divider, so only ${volts(swing(vout))} of the 1 V signal reaches the load.`;
     if (seen.size === 2) t.done();
   };
   f.controls.append(chipRow([false, true], (b) => (b ? 'Through a follower' : 'Straight in'), () => buffered, (b) => { buffered = b; paint(); }));
@@ -267,8 +267,8 @@ export const opampGainFigure = figure(['ten'], (ctx, t) => {
     const ideal = 1 + rf.ohms / rg.ohms;
     const clips = gain < ideal * 0.95;
     f.readout.textContent =
-      `Rf ${ohms(rf.ohms)} and Rg 1 kΩ: 1 + Rf ÷ Rg = ${ideal.toFixed(1)}. Measured, ${gain.toFixed(1)}. ` +
-      (clips ? 'The output has hit what the op-amp can reach, and clips flat: that is the Tube Screamer’s trick, done roughly.' : 'The op-amp adjusts its output until the divider of Rf and Rg hands back exactly the input’s wiggle to its − input. So the gain is the divider’s ratio, whatever the op-amp itself is like.');
+      `With Rf = ${ohms(rf.ohms)} and Rg = 1 kΩ, the ideal formula 1 + Rf / Rg gives ${ideal.toFixed(1)}, and the measured gain is ${gain.toFixed(1)}. ` +
+      (clips ? 'With Rf set this high, the amplified signal exceeds the op-amp\'s output voltage range and clips hard against the rails.' : 'The op-amp slews its output until the divider formed by Rf and Rg feeds a copy of the + input\'s wiggle back to the - input. That forces the overall voltage gain to follow 1 + Rf / Rg regardless of the op-amp\'s exact open-loop gain.');
     if (Math.abs(gain - 11) < 1 && !found) {
       found = true;
       t.done();
@@ -295,7 +295,7 @@ export const bridgedEmitterFigure = figure(['find'], (ctx, t) => {
     face: [170, 186],
     brief: 'This stage should sit with its base at 1.6 V and its collector near 4.5 V. R1 is 47 kΩ, R2 10 kΩ, Rc 4.7 kΩ and Re 1 kΩ. The signal comes out tiny and badly distorted.',
     culprit: 're',
-    found: 'Found it: Re is bridged by a blob of solder, so the emitter is held at 0 V and the base can only rise a diode’s drop. With nothing in the emitter to hold the current back, the transistor turns hard on: the collector sits near 0 V with no room to swing. The meter shows it as 0 V across a resistor that should have about 1 V across it.',
+    found: 'Found it: Re is bridged by a blob of solder, holding the emitter at 0 V so the base cannot rise above a single diode drop. With no voltage drop across Re to limit the current, the base divider drives the transistor hard into saturation and pulls the collector down near 0.1 V with no room to swing. The meter confirms the short by reading 0 V across a resistor that should drop about 0.9 V.',
     hints: ['Compare the base, emitter and collector with what the brief says.', 'Re should have about 1 V across it.'],
     par: 6,
   });

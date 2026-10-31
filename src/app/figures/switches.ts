@@ -65,7 +65,7 @@ export const bjtSwitchFigure = figure(['hard'], (ctx, t) => {
     const hard = vce < 0.25;
     f.readout.textContent =
       `${ohms(rb.ohms)} lets ${amps(ib)} into the base, and the transistor lets ${amps(ic)} through the lamp, ${Math.round(ic / Math.max(ib, 1e-12))} times as much. It drops ${volts(vce)} and turns ${watts(pq)} into heat. ` +
-      (hard ? 'Hard on: the lamp gets nearly all of the 9 V, and the transistor barely warms.' : ic < 0.002 ? 'Off, or nearly.' : 'Half on: the lamp is dim, and the transistor is taking the rest as heat. As a switch, that is the worst place to be.');
+      (hard ? 'Hard on: the lamp gets nearly all of the 9 V, and the transistor barely warms.' : ic < 0.002 ? 'Cut off, or nearly so.' : 'Half on: the lamp is dim, and the transistor is turning the rest of the voltage into heat. For a switch, that middle region is the worst place to operate.');
     if (hard) {
       leanest = Math.min(leanest, ib);
       done = true;
@@ -119,7 +119,7 @@ export const mosfetSwitchFigure = figure(['logic'], (ctx, t) => {
     const pf = s.v.d * id;
     if (!guessed) {
       sch.cover({ colour: true, dots: true });
-      f.readout.textContent = 'A MOSFET’s gate is insulated: it takes no current at all, only a voltage. A microcontroller puts 3.3 V on the gate of a standard MOSFET, to switch a 12 V pump that draws 2 A.';
+      f.readout.textContent = 'A MOSFET\'s gate is insulated, so it draws no steady current and responds to voltage alone. Here a microcontroller puts 3.3 V on the gate of a standard MOSFET to switch a 12 V, 2 A pump.';
       return;
     }
     sch.cover({});
@@ -127,18 +127,18 @@ export const mosfetSwitchFigure = figure(['logic'], (ctx, t) => {
     f.readout.textContent =
       (fresh ? `${q.reply()} ` : '') +
       `${FETS[kind].name}, ${volts(gate.volts)} on its gate: ${amps(id)} flows, the pump gets ${volts(vp)}, and the MOSFET turns ${watts(pf)} into heat. ` +
-      (full ? (pf < 0.5 ? 'Fully on, and cool.' : 'Fully on.') : id < 0.05 ? 'Off.' : 'Only partly on, and the MOSFET is cooking.');
+      (full ? (pf < 0.5 ? 'Fully on, and cool.' : 'Fully on.') : id < 0.05 ? 'Off.' : 'Only partly on, so the MOSFET drops several volts and overheats.');
     fresh = false;
     if (full && gate.volts === 3.3) t.done();
   };
   const q = guess({
-    question: 'The pump…',
-    options: ['runs weakly, and the MOSFET gets hot', 'runs fully', 'doesn’t run at all'],
+    question: 'The pump...',
+    options: ['runs weakly, and the MOSFET gets hot', 'runs fully', 'doesn\'t run at all'],
     answer: 0,
     replies: [
       'Right.',
-      'A standard MOSFET needs about 10 V on its gate to be fully on. 3.3 V is barely past its threshold.',
-      '3.3 V is a little past this one’s threshold, so it lets some current through. Not enough.',
+      'A standard MOSFET needs about 10 V on its gate to turn fully on; 3.3 V is barely past its threshold voltage.',
+      'At 3.3 V the gate is just above this MOSFET\'s threshold, so it lets some current through, but far too little to run the pump properly.',
     ],
     onLock: () => {
       guessed = fresh = true;
@@ -208,8 +208,8 @@ export const relayFigure = figure(['safe'], (ctx, t) => {
     const top = Math.max(...trace);
     seen.add(withDiode);
     f.readout.textContent = withDiode
-      ? `With the diode, the coil’s current has somewhere to go: round through the diode and back into the coil, dying away in a few milliseconds. The collector only rises to ${volts(top)}, a diode’s drop above the supply. The transistor is safe, and the relay lets go a little more slowly.`
-      : `The transistor turns off, the coil keeps pushing, and the collector shoots to ${volts(Math.round(top))}, against a rating of 40 V. A real transistor breaks down, and after a few hundred of those it fails for good, often shorted.`;
+      ? `With the diode in place, the coil's current has a path around the loop through the diode and back into the coil, decaying over a few milliseconds. The collector only rises to ${volts(top)}, one diode drop above the supply. The transistor is safe, and the relay armature releases a little more slowly.`
+      : `When the transistor turns off, the coil keeps pushing current and drives the collector to ${volts(Math.round(top))}, well past a typical 40 V transistor rating. A real transistor breaks down under that spike, and after repeated hits it fails permanently, usually as a collector-to-emitter short.`;
     if (seen.has(true) && seen.has(false)) t.done();
   };
   const paintDiode = () => (diodeDraw.node.style.display = withDiode ? '' : 'none');
@@ -220,7 +220,7 @@ export const relayFigure = figure(['safe'], (ctx, t) => {
   scr.hide('Switch it off to see');
   const unhide = () => scr.hide(null);
   offBtn.addEventListener('click', unhide);
-  f.readout.textContent = 'A transistor drives a relay’s coil from 12 V; 0.1 A builds its magnetic field. The scope watches the transistor’s collector as the control turns it off.';
+  f.readout.textContent = 'A transistor drives a relay\'s coil from 12 V while 0.1 A builds its magnetic field. The scope watches the transistor\'s collector as the control switches it off.';
   return f.node;
 });
 
@@ -313,7 +313,7 @@ export const blinkerFigure = figure(['second'], (ctx, t) => {
   const paint = () => {
     if (!guessed) {
       scr.hide('Guess first');
-      f.readout.textContent = 'Two transistor switches, each with an LED, and each one’s collector joined to the other’s base through a capacitor. When Q1 switches on, its collector drops about 7 V, from 7.4 V to nearly 0. C1’s other side is Q2’s base, at 0.7 V.';
+      f.readout.textContent = 'Two transistor switches each drive an LED, with each collector coupled to the other\'s base through a capacitor. When Q1 switches on, its collector drops about 7 V, from 7.4 V to nearly 0 V. C1\'s other plate is connected to Q2\'s base, sitting at 0.7 V.';
       return;
     }
     scr.hide(null);
@@ -328,7 +328,7 @@ export const blinkerFigure = figure(['second'], (ctx, t) => {
     }
     f.readout.textContent =
       (fresh ? `${q.reply()} ` : '') +
-      `A capacitor can’t change its voltage at once, so when a collector drops 7 V, the base on the far side drops 7 V too, to −6.5 V, and that transistor is held hard off until its 47 kΩ charges the capacitor back up to 0.6 V. Then it flips, and the other side has its turn. ` +
+      `A capacitor's voltage cannot jump instantaneously, so when one collector drops by 7 V, the base on the far side of the capacitor drops by 7 V as well, down to -6.5 V. That holds the second transistor off until its 47 kΩ resistor charges the capacitor back up to 0.6 V, when the circuit flips to the other side. ` +
       `LED 1 is lit ${seconds(on1)}, LED 2 ${seconds(on2)}: a blink every ${seconds(cycle)}.` +
       (once ? '' : ' Make it once a second.');
     fresh = false;
@@ -342,13 +342,13 @@ export const blinkerFigure = figure(['second'], (ctx, t) => {
     }
   };
   const q = guess({
-    question: 'When Q1 switches on, Q2’s base…',
+    question: 'When Q1 switches on, Q2\'s base...',
     options: ['drops 7 V with it, to well below ground', 'drops to 0 V and stops there', 'stays at 0.7 V'],
     answer: 0,
     replies: [
       'Right.',
-      'Ground isn’t a floor: a capacitor carries the whole 7 V step across, and the base goes below ground.',
-      'The base would like to stay at 0.7 V, but the capacitor carries the 7 V step straight across to it.',
+      'Because the voltage across a capacitor cannot change instantaneously, the full 7 V step couples through C1 and pulls the base well below 0 V.',
+      'The base was sitting at 0.7 V, and because the voltage across C1 cannot change in an instant, the 7 V drop at the collector pulls the base down by 7 V with it.',
     ],
     onLock: () => {
       guessed = fresh = true;
@@ -361,7 +361,7 @@ export const blinkerFigure = figure(['second'], (ctx, t) => {
     paint();
   };
   const knobs = el('div', { hidden: true },
-    el('p.fig-hint', {}, 'C1 sets how long LED 1 stays lit, C2 LED 2.'),
+    el('p.fig-hint', {}, 'C1 sets how long LED 1 stays lit, and C2 sets how long LED 2 stays lit.'),
     chipRow(BLINK_CS, (v) => `C1 ${si(v, 'F')}`, () => b.c1.farads, pickC(b.c1)),
     chipRow(BLINK_CS, (v) => `C2 ${si(v, 'F')}`, () => b.c2.farads, pickC(b.c2)),
   );
@@ -425,7 +425,7 @@ export const shortedTransistorFigure = figure(['find'], (ctx, t) => {
     face: [20, 20],
     brief: 'The control switch is open, so the transistor should be off and the lamp dark. The lamp is lit.',
     culprit: 'q',
-    found: 'Found it: the transistor has failed shorted. Its base is at 0 V, so it should be off, yet it drops nothing from collector to emitter. Transistors that drive coils without a flyback diode often die exactly like this.',
+    found: 'Found it: the transistor has failed shorted from collector to emitter. Its base is at 0 V, so it should be off, yet it drops almost no voltage while carrying the full lamp current. Transistors that switch relay coils without a flyback diode often fail in just this way.',
     hints: ['Is the base getting any voltage to turn it on?', 'With no base voltage, what should the collector read?'],
     par: 5,
   });

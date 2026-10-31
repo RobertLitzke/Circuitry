@@ -3,18 +3,18 @@
   "n": 10,
   "track": "core",
   "title": "The dead circuit",
-  "teaches": "One circuit as a schematic and as a board, and finding what is wrong with nothing but a meter",
+  "teaches": "Reading one circuit as a schematic and a board, and finding faults with a multimeter",
   "parts": [
     {
       "title": "Two drawings of one circuit",
       "blocks": [
         {
           "type": "text",
-          "text": "Every circuit so far has been a **schematic**: a drawing of what connects to what, laid out to be read, with straight wires and tidy corners. A real circuit is built on something, and looks nothing like that. On a **circuit board** the wires are strips of copper, the **traces**, on a sheet of fibreglass; each part's legs go through holes and are soldered to copper **pads**; a junction on the schematic is wherever traces meet.[^pcb]"
+          "text": "Every circuit so far has been a **schematic**: a drawing of what connects to what, laid out to be read, with straight wires and tidy corners. A real circuit is built on something, and looks nothing like that. On a **circuit board** the wires are strips of copper called **traces** on a sheet of fibreglass; each part's legs go through holes and are soldered to copper **pads**; a junction on the schematic is wherever traces meet.[^pcb]"
         },
         {
           "type": "text",
-          "text": "The part names tie the two together. The schematic labels its resistors R1, R2 and so on, its diodes D1, its transistors Q1, and the board prints the same names beside each part in white, the **silkscreen**. A **breadboard**, a plastic block whose holes are joined in rows of five underneath, is the same idea without solder: the rows are the traces. Whatever it is built on, the job is the same: find the point on the board that is the point you mean on the schematic."
+          "text": "The part names tie the two together. The schematic labels its resistors R1, R2 and so on, its diodes D1, its transistors Q1, and the board prints the same names beside each part in white ink called the **silkscreen**.[^refdes] A **breadboard** is a plastic block whose holes are joined in rows of five by metal clips underneath, carrying the same idea without solder so that the rows act as traces.[^breadboard] Whatever it is built on, the job is the same: find the point on the board that corresponds to the point you mean on the schematic."
         },
         {
           "type": "interactive_diagram",
@@ -26,22 +26,22 @@
       ]
     },
     {
-      "title": "A method, not a guess",
+      "title": "Systematic fault-finding",
       "blocks": [
         {
           "type": "text",
-          "text": "Every hunt in these lessons has worked the same way, and now it gets written down. Before touching the circuit, work out what each point should read: here the base about 1.6 V, the emitter 0.9 V, the collector 4.7 V. Then measure the **steady voltages** first, with no signal, as lesson 5 said. Most faults show up there."
+          "text": "Every hunt in these lessons has worked the same way, and now it gets written down. Before touching the circuit, work out what each point should read: here the base should sit at about 1.6 V, the emitter at 0.9 V, and the collector at 4.7 V. Then measure the **steady voltages** first, with no signal, as lesson 5 said. Most faults show up in those DC readings."
         },
         {
           "type": "text",
-          "text": "Don't measure at random. Split the circuit in half: if the middle reads right, the fault is past it; if not, it is before it. Each measurement halves what is left, so even a big circuit takes only a handful. And measure *across* things as well as from ground: a trace or a joint should drop nothing at all, so a volt across one is the fault, found."
+          "text": "Instead of probing at random, split the circuit in half: if the middle reads right, the fault lies past it, and if it reads wrong, the fault lies before it.[^half-split] Each measurement halves what is left, so even a big circuit takes only a few checks. Measure *across* things as well as from ground: a trace or a solder joint should drop 0 V, so finding a volt across one locates the fault directly."
         },
         {
           "type": "key_ideas",
-          "title": "Hold on to",
+          "title": "Fault-finding rules",
           "points": [
             "Write down what each point should read before you measure anything.",
-            "Steady voltages first, signal second.",
+            "Measure steady DC voltages first, and test with a signal second.",
             "Split the circuit in halves, and measure across joints and traces: they should drop nothing."
           ]
         }
@@ -52,7 +52,7 @@
       "blocks": [
         {
           "type": "text",
-          "text": "Three boards follow, built to the same schematic, each with one fault. The meter's probes go on the copper this time, and the probe count is kept."
+          "text": "The next three boards are built to the same schematic, each with a single fault. The meter's probes go on the copper this time, and the simulation counts how many times you probe."
         },
         {
           "type": "interactive_diagram",
@@ -64,7 +64,7 @@
       ]
     },
     {
-      "title": "Weak",
+      "title": "Weak output",
       "blocks": [
         {
           "type": "text",
@@ -79,16 +79,16 @@
         },
         {
           "type": "text",
-          "text": "Resistors look alike but for their bands, and 470 Ω and 4.7 kΩ differ only in the third. Lesson 3's colour code is worth checking against a meter before a part goes in: once it is soldered, the rest of the circuit is in parallel with it, and the meter's ohms reading lies."
+          "text": "Resistors look alike except for their painted bands, and 470 Ω and 4.7 kΩ differ only in the third band.[^color-code] Lesson 3's colour code is worth checking against a meter before a part goes in: once it is soldered, the rest of the circuit sits in parallel with it, and an in-circuit ohms reading will be skewed by those other paths."
         }
       ]
     },
     {
-      "title": "Almost nothing",
+      "title": "A broken connection",
       "blocks": [
         {
           "type": "text",
-          "text": "The last fault is the commonest of all on a hand-built board, and it isn't in any part."
+          "text": "The last fault is the commonest of all on a hand-built board, and it sits right at a solder joint rather than inside any component."
         },
         {
           "type": "interactive_diagram",
@@ -99,15 +99,15 @@
         },
         {
           "type": "text",
-          "text": "This board's collector read the same 8.6 V as the last one's, and a meter on the collector alone couldn't tell the two apart. The emitter could: right on the board with the wrong resistor, right on this one too, but with almost nothing on the far side of the joint. Measure on both sides of every join you suspect."
+          "text": "This board's collector read the same 8.6 V as the last one's, and a meter on the collector alone couldn't tell the two apart. The emitter could: the transistor's emitter leg read the right voltage, just like on the board with the wrong resistor, but the pad on the far side of the joint read almost 0 V.[^cold-joint] Measure on both sides of every joint you suspect."
         },
         {
           "type": "key_ideas",
           "title": "On a real bench",
           "points": [
-            "A good joint is smooth and shiny, a little volcano round the lead. A dry one is dull, grainy or balled up, and may work until the board warms or flexes.",
+            "A good leaded solder joint is smooth and concave, forming a neat cone around the lead; lead-free solder naturally cools a little duller, but a bad (or 'dry') joint looks grainy, rough, or balled up, and may work until the board warms or flexes.",
             "A solder bridge is a blob across two pads that should be apart: look between neighbouring pads with a light behind the board.",
-            "Check polarity before soldering: diodes, LEDs, electrolytic capacitors and transistors all go in one way round."
+            "Check polarity and pinout before soldering: diodes, LEDs, electrolytic capacitors, and transistors all have specific orientations, and swapping two transistor legs will keep the circuit from working."
           ]
         }
       ]
@@ -143,7 +143,7 @@
                 "why": "A reading means nothing until you know what it should be."
               },
               {
-                "question": "A circuit has twenty points to test. Splitting it in half each time finds the fault in about…",
+                "question": "A circuit has twenty points to test in a chain. Splitting it in half each time finds the fault in about...",
                 "options": [
                   "5 measurements",
                   "20 measurements",
@@ -153,7 +153,7 @@
                 "why": "Each measurement halves what is left: 20, 10, 5, 3, 2, 1."
               },
               {
-                "question": "You measure 0.9 V across a solder joint. That means…",
+                "question": "You measure 0.9 V across a single solder joint. That means...",
                 "options": [
                   "The joint is bad",
                   "The joint is fine",
@@ -163,7 +163,7 @@
                 "why": "A good joint is a piece of metal and drops nothing at all."
               },
               {
-                "question": "A resistor's bands read yellow, violet, brown. It is…",
+                "question": "A four-band resistor's first three bands read yellow, violet, brown. It is...",
                 "options": [
                   "470 Ω",
                   "4.7 kΩ",
@@ -180,7 +180,7 @@
                   "Meters only read loose parts"
                 ],
                 "answer": 0,
-                "why": "Other paths between its two ends make it read low."
+                "why": "Other conductive paths between its two ends lie in parallel with the resistor, making the meter read lower than the resistor's true value (or occasionally odd values if semiconductor junctions or charged capacitors are still in the loop)."
               }
             ]
           }
@@ -201,7 +201,34 @@
     "pcb": {
       "kind": "digression",
       "title": "The first circuit board",
-      "text": "Paul Eisler, an Austrian engineer who had fled to London, made the first printed circuit board in 1936, for a radio, by printing the wiring onto copper foil in acid-resistant ink and etching the rest away, as a printer would. Nobody wanted it until the war, when the US Army used his method for proximity fuses that had to survive being fired from a gun."
+      "text": "Paul Eisler, an Austrian engineer who had fled to London, made the first printed circuit board in 1936 for a radio by printing the wiring onto copper foil in acid-resistant ink and etching the rest away, just as a printer would. Industry ignored the idea until the Second World War, when the US Army used his method to mass-produce proximity fuses rugged enough to be fired from anti-aircraft guns."
+    },
+    "refdes": {
+      "kind": "technical",
+      "title": "Reference designators",
+      "text": "The labels R1, C2, D1, and Q1 are called reference designators, standardized in engineering specifications such as IEEE 200 and ASME Y14.44. Most letters are obvious; transistors are usually said to have got Q because T was already taken by transformers and V by vacuum tubes.",
+      "glossary": "Reference designator"
+    },
+    "breadboard": {
+      "kind": "digression",
+      "title": "Wooden breadboards",
+      "text": "In the 1920s, early radio builders literally nailed brass thumbtacks or terminal strips into wooden kitchen breadboards and soldered wires between them. Ronald Portugal of E&L Instruments patented the modern solderless plastic breadboard with internal spring clips in 1971."
+    },
+    "half-split": {
+      "kind": "digression",
+      "title": "Origin of half-splitting",
+      "text": "As vacuum-tube radar and fire-control systems grew to thousands of parts during the Second World War, the US military studied how technicians hunted for faults. By the 1950s, military maintenance manuals formally taught the 'half-split' technique, applying the mathematics of binary search to physical signal chains."
+    },
+    "color-code": {
+      "kind": "digression",
+      "title": "The resistor colour code",
+      "text": "The Radio Manufacturers Association introduced the colour-band system in the 1920s because numbers printed on tiny cylindrical carbon resistors rubbed off or baked away under the heat of vacuum tubes. The colours for 2 to 7 (red, orange, yellow, green, blue, violet) follow the order of the rainbow."
+    },
+    "cold-joint": {
+      "kind": "technical",
+      "title": "Dry and cold solder joints",
+      "text": "Solder only bonds when hot liquid flux dissolves the thin oxide layer on the copper pad and component lead, allowing the tin alloy to form an intermetallic bond with the bare copper. If the iron is too cool, the flux burns off early, or the wire moves as the metal freezes, an insulating oxide film remains between the solder and the lead.",
+      "glossary": "Dry joint"
     }
   }
 }

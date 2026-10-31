@@ -51,24 +51,24 @@ export const heatFigure = figure(['rating'], (ctx, t) => {
     const p = s.p.r;
     glow.set(p / 0.25);
     if (!guessed) {
-      f.readout.textContent = `${volts(sup.volts)} across 100 Ω: ${amps(s.i.r)} through it, turning ${watts(p)} into heat. What happens to the heat if you double the voltage?`;
+      f.readout.textContent = `${volts(sup.volts)} across 100 Ω drives ${amps(s.i.r)} through it, turning ${watts(p)} into heat. Predict how the heat changes if you double the voltage.`;
       return;
     }
     const over = p > 0.25;
     if (over) peaked = true;
-    f.readout.textContent = `${q.reply()} ${volts(sup.volts)} pushes ${amps(s.i.r)}, so ${watts(p)}: ` + (over ? `over its quarter-watt rating. It would get too hot to touch, then brown and fail.` : `${Math.round((p / 0.25) * 100)}% of its rating. Find where it goes over.`);
+    f.readout.textContent = `${q.reply()} ${volts(sup.volts)} pushes ${amps(s.i.r)}, producing ${watts(p)}: ` + (over ? `above its quarter-watt rating. A real resistor would become too hot to touch, char its coating, and fail.` : `${Math.round((p / 0.25) * 100)}% of its quarter-watt rating. Increase the voltage until it exceeds 100%.`);
     if (peaked && t.goal === 'rating') t.done();
   };
   const sup1 = slider('Supply', 0, 12, 0.5, 2.5, (x) => volts(x), (x) => { sup.volts = x; paint(); }, 'voltage');
   sup1.input.disabled = true;
   const q = guess({
-    question: 'Double the voltage. The heat…',
+    question: 'Double the voltage. The heat...',
     options: ['doubles', 'goes up four times', 'stays the same'],
     answer: 1,
     replies: [
-      'A natural guess, but both the push and the current double, and the heat is the two multiplied.',
-      'Right: twice the volts drives twice the current, and power is volts times amps.',
-      'The resistor is the same, but the current through it isn’t.',
+      'Doubling the voltage also doubles the current through the resistor, and power is voltage multiplied by current.',
+      'Correct: doubling the voltage drives twice the current, and power is volts times amps (2 x 2 = 4).',
+      'The resistance stays at 100 Ω, but the current increases with voltage, so the resistor dissipates more heat.',
     ],
     onLock: () => {
       guessed = true;
@@ -120,7 +120,7 @@ export const batteryTimeFigure = figure(['hours'], (_ctx, t) => {
     row.replaceChildren(...LOADS.map((l, k) => el('button.chip', { type: 'button', className: k === load ? 'chip on' : 'chip', disabled: !revealed, onclick: () => { load = k; paint(); } }, l.name)));
     f.readout.textContent = !revealed
       ? 'The battery is labelled 12 V and 7 Ah. How long will it run the 20 W pump?'
-      : `${q.reply()} 12 V × 7 Ah is 84 watt-hours of energy. At ${w} W it lasts 84 ÷ ${w} = ${hours.toFixed(1)} hours. Watts are how fast energy goes; watt-hours are how much there is.`;
+      : `${q.reply()} 12 V x 7 Ah is 84 watt-hours of stored energy. A ${w} W load runs for 84 / ${w} = ${hours.toFixed(1)} hours. Watts measure the rate of energy use, while watt-hours measure the total energy stored.`;
   };
   const hoursBar = (h: number) => {
     const out: SVGElement[] = [];
@@ -139,9 +139,9 @@ export const batteryTimeFigure = figure(['hours'], (_ctx, t) => {
     options: ['About 4 hours', 'About 7 hours', 'About 20 hours'],
     answer: 0,
     replies: [
-      'Right.',
-      '7 Ah would run a load drawing 1 A for 7 hours. The pump draws 1.7 A at 12 V.',
-      'That mixes up the watts with the time. The battery holds a fixed amount of energy; a 20 W load spends it 20 joules a second.',
+      'Correct.',
+      'A 7 Ah battery runs a 1 A load for 7 hours, whereas this 20 W pump draws about 1.67 A at 12 V.',
+      'That confuses power in watts with running time. The battery holds 84 Wh of energy, and a 20 W pump uses 20 Wh each hour.',
     ],
     onLock: () => {
       revealed = true;
@@ -194,7 +194,7 @@ export const longWireFigure = figure(['pump'], (ctx, t) => {
   const sch: Schematic = schematic(ctx, places, { topVolts: 48, typicalAmps: 2, grounds: [[40, 200]] });
   const face = meterFace(150, 95, 86);
   const batTag = small(56, 124, '', { bold: true });
-  f.svg.append(sch.node, face.node, batTag, small(200, 30, '← 20 m of twin cable →', { anchor: 'middle', soft: true }));
+  f.svg.append(sch.node, face.node, batTag, small(200, 30, '<- 20 m of twin cable ->', { anchor: 'middle', soft: true }));
   const earned = el('div');
   let done = false;
 
@@ -218,8 +218,8 @@ export const longWireFigure = figure(['pump'], (ctx, t) => {
     gaugeRow.replaceChildren(...GAUGES.map((g) => el('button.chip', { type: 'button', className: g === gauge ? 'chip on' : 'chip', onclick: () => { gauge = g; paint(); } }, `${g} mm²`)));
     voltRow.replaceChildren(...[12, 24, 48].map((v) => el('button.chip', { type: 'button', className: v === system ? 'chip on' : 'chip', onclick: () => { system = v; paint(); } }, `${v} V system`)));
     f.readout.textContent = runs
-      ? `The pump gets ${volts(vPump)}, ${Math.round(drop * 100)}% less than the battery, and draws ${amps(i)}. The cable turns ${watts(lost)} into heat on the way.`
-      : `The pump stalls: it gets only ${volts(vPump)}. The cable is a resistor you didn't mean to buy, and ${amps(i)} through it drops the rest.`;
+      ? `The pump receives ${volts(vPump)}, which is ${Math.round(drop * 100)}% below the battery voltage, and draws ${amps(i)}. The cable turns ${watts(lost)} into heat along the way.`
+      : `The pump stalls because it receives only ${volts(vPump)}. The thin cable acts as unwanted series resistance, and ${amps(i)} flowing through it drops the remaining voltage.`;
     const ok = runs && drop <= 0.03;
     if (ok && !done) {
       done = true;
@@ -290,9 +290,9 @@ export const fuseFigure = figure(['protect'], (ctx, t) => {
     f.readout.textContent =
       `${what}, ${amps(surge)} would flow. ` +
       (blows
-        ? trouble === 'normal' ? `The ${rating} A fuse blows in normal use: too small.` : `The ${rating} A fuse blows, and the cable is safe.`
-        : cableHot ? `The ${rating} A fuse holds, and the 20 A cable gets hot enough to melt its insulation. The fuse must be smaller than the cable can carry.` : `The ${rating} A fuse holds.`) +
-      ' Try all three.';
+        ? trouble === 'normal' ? `The ${rating} A fuse blows during normal operation because its rating is below the motor's running current.` : `The ${rating} A fuse blows quickly and protects the 20 A cable from overheating.`
+        : cableHot ? `The ${rating} A fuse fails to blow in time, allowing the 20 A cable to overheat and melt its insulation. Always pick a fuse rated at or below the cable's ampacity.` : `The ${rating} A fuse holds steady under normal load.`) +
+      ' Test all three operating conditions.';
     if (verdicts.normal && verdicts.jammed && verdicts.short) t.done();
   };
   f.controls.append(fuseRow, troubleRow);
@@ -353,9 +353,9 @@ export const matchingFigure = figure(['peak'], (ctx, t) => {
     cursor.setAttribute('cy', py(pLoad).toFixed(1));
     if (Math.abs(load.ohms - 4) < 0.26) atPeak = true;
     f.readout.textContent =
-      `${watts(pLoad)} into the load, ${watts(pAll - pLoad)} wasted inside the source: ${Math.round((pLoad / pAll) * 100)}% of the energy does the work. ` +
+      `${watts(pLoad)} reaches the load and ${watts(pAll - pLoad)} turns into heat inside the source, so ${Math.round((pLoad / pAll) * 100)}% of the total energy does useful work. ` +
       (Math.abs(load.ohms - 4) < 0.26
-        ? 'The most power the load can get, with its resistance matched to the source’s. And half of everything is wasted. For a battery or a power system that is a terrible trade.'
+        ? 'Matching the 4 Ω load to the 4 Ω internal resistance extracts the maximum possible power, at the cost of burning half the total energy inside the source. For a battery bank or power grid, losing 50% as internal heat is intolerable.'
         : 'Find the load that gets the most power.');
     if (atPeak) t.done();
   };
@@ -390,8 +390,8 @@ export const badJointFigure = figure(['find'], (ctx, t) => {
     face: [120, 90],
     brief: 'A 12 V lamp at the end of a cable, glowing dull orange.',
     culprit: 'joint',
-    found: 'Found it: the crimp at the start of the cable has gone bad. A loose or corroded joint has resistance, so under load it drops volts that the lamp should have had, and turns them into heat right at the joint. That is how connectors melt.',
-    hints: ['A plain wire or a good joint drops almost nothing. Measure across short stretches of the cable, one at a time.', 'The bad stretch is near the battery.'],
+    found: 'You found the fault: the crimp connector near the battery has developed high resistance. When current flows, a loose or corroded joint drops voltage that should reach the lamp and turns that lost power into concentrated heat right inside the connector, which can melt the housing.',
+    hints: ['A sound wire or tight crimp drops almost no voltage. Probe across short sections of the circuit one at a time while the lamp is on.', 'The bad stretch is near the battery.'],
     par: 6,
   });
 });

@@ -130,19 +130,19 @@ export const diodeIvFigure = figure(['curves'], (ctx, t) => {
     f.readout.textContent =
       (fresh ? `${q.reply()} ` : '') +
       `${name}, at ${celsius} °C: ${volts(vd)} across it, ${amps(i)} through it. ` +
-      (i < 1e-4 ? 'Almost nothing flows: it hasn’t reached its knee.' : i > IMAX ? 'Far past its knee: on its own across a supply, it would burn out.' : 'Past the knee, a little more voltage is a lot more current.');
+      (i < 1e-4 ? 'Almost nothing flows because the diode has not reached its knee yet.' : i > IMAX ? 'Far past its knee: connected straight across a supply without a resistor, it would burn out.' : 'Past the knee, a small rise in voltage causes a large rise in current.');
     fresh = false;
     const lit = [...tried];
     if (lit.includes('silicon') && lit.includes('germanium') && lit.some((m) => m.startsWith('led-'))) t.done();
   };
   const q = guess({
-    question: 'As the voltage goes from 0 to 1 V, the current…',
-    options: ['stays near zero, then shoots up', 'rises steadily, like a resistor’s', 'flows from the start, then stops'],
+    question: 'As the voltage goes from 0 to 1 V, the current...',
+    options: ['stays near zero, then shoots up', 'rises steadily, like a resistor\'s', 'flows from the start, then stops'],
     answer: 0,
     replies: [
-      'Right.',
-      'A resistor’s line is straight. This is about as far from straight as a curve gets.',
-      'It is the other way round.',
+      'Right: current stays tiny until the knee, then shoots up.',
+      'A resistor gives a straight line, whereas a diode\'s curve stays flat and then bends sharply upward.',
+      'It works the other way round: almost nothing flows at first, and then the current shoots up past the knee.',
     ],
     onLock: () => {
       guessed = fresh = true;
@@ -195,11 +195,11 @@ export const ledResistorFigure = figure(['design'], (ctx, t) => {
     const ok = i >= 0.01 && i <= 0.02;
     f.readout.textContent =
       `${ohms(r.ohms)}: ${amps(i)} through the LED, which drops ${volts(vf)}; the resistor drops ${volts(i * r.ohms)} and turns ${watts(pr)} into heat. ` +
-      (i > 0.03 ? 'Far too much: an ordinary LED is good for about 20 mA, and this one would soon die.' : i > 0.02 ? 'A bit much for an ordinary LED.' : i < 0.01 ? (i < 0.002 ? 'Barely glowing.' : 'Dimmer than it could be.') : 'A good current for an ordinary LED.');
+      (i > 0.03 ? 'Far too much current: an ordinary indicator LED is rated for about 20 mA, and this one would soon fail.' : i > 0.02 ? 'A bit high for an ordinary 20 mA indicator LED.' : i < 0.01 ? (i < 0.002 ? 'The current is so low that the LED is barely glowing.' : 'The LED lights, though it is dimmer than it would be at 10 to 20 mA.') : 'A good operating current for an ordinary indicator LED.');
     if (ok) {
       const now = [
         { text: 'Between 10 and 20 mA', got: true },
-        { text: 'The resistor inside its ¼ W rating, with room to spare', got: pr < 0.125 },
+        { text: 'The resistor stays well within its 1/4 W rating', got: pr < 0.125 },
         { text: 'Close to 15 mA, the middle of the range', got: Math.abs(i - 0.015) < 0.0015 },
       ];
       if (!best || now.filter((x) => x.got).length > best.filter((x) => x.got).length) best = now;
@@ -252,10 +252,10 @@ export const reverseFigure = figure(['protect'], (ctx, t) => {
     f.readout.textContent = backwards
       ? kind === 'none'
         ? `With the battery in backwards, the pedal gets ${volts(vp)}. Its chips and electrolytic capacitors are built for one way round only, and this kills them.`
-        : `The diode won’t conduct this way, so the pedal gets ${volts(vp)}: nothing at all, and nothing is harmed. Put the battery in the right way round.`
+        : `The diode blocks reverse current, so the pedal gets ${volts(vp)} and nothing is harmed. Put the battery in the right way round.`
       : kind === 'none'
         ? `The pedal gets the full ${volts(vp)}. Now put the battery in backwards.`
-        : `The pedal gets ${volts(vp)}: the diode costs ${volts(9 - vp)} of the battery’s 9 V. ${kind === 'silicon' ? 'A Schottky diode costs less.' : 'A Schottky’s knee is lower, so it costs less than silicon.'}`;
+        : `The pedal gets ${volts(vp)}: the diode takes ${volts(9 - vp)} of the battery's 9 V. ${kind === 'silicon' ? 'A Schottky diode costs less.' : 'A Schottky’s knee is lower, so it costs less than silicon.'}`;
     if (seen.has('silicon:true') || seen.has('schottky:true')) t.done();
   };
   f.controls.append(
@@ -300,8 +300,8 @@ export const rectifierFigure = figure(['smooth'], (ctx, t) => {
     const tail = vout.slice(80);
     const ripple = Math.max(...tail) - Math.min(...tail);
     f.readout.textContent = !picked
-      ? `The diode lets through only the half of each wave that pushes forward, less its 0.7 V: bumps of DC, ${volts(Math.max(...vout))} at the top and nothing between. Add a reservoir capacitor.`
-      : `The capacitor fills at each peak and feeds the load between them, so the output only sags by ${volts(ripple)} before the next peak tops it up. ` + (ripple < 0.5 ? 'Smooth enough to run a circuit from.' : 'Still a lot of ripple. A bigger capacitor holds up longer.');
+      ? `The diode passes only the forward half of each wave, minus its 0.7 V drop, leaving bumps of DC that peak at ${volts(Math.max(...vout))} with nothing between them. Add a reservoir capacitor.`
+      : `The capacitor fills at each peak and feeds the load between them, so the output only sags by ${volts(ripple)} before the next peak tops it up. ` + (ripple < 0.5 ? 'The ripple is under 0.5 V, smooth enough to run a circuit.' : 'There is still a lot of ripple; a larger capacitor will hold the voltage up longer between peaks.');
     if (picked && ripple < 0.5 && !done) {
       done = true;
       t.done();
@@ -360,9 +360,9 @@ export const clipperFigure = figure(['clip'], (ctx, t) => {
     options: ['The wave, cut flat at under a volt each way', 'The same wave, smaller', 'Only the top half'],
     answer: 0,
     replies: [
-      'Right.',
-      'A resistor divider would do that. Diodes hold their voltage instead.',
-      'That would be one diode. The second one, the other way round, catches the bottom half too.',
+      'Right: current stays tiny until the knee, then shoots up.',
+      'A resistor divider scales the whole wave down, whereas diodes clamp the peaks once the signal reaches their knee.',
+      'A single diode clips only one half of the wave; the second diode, facing the opposite way, clips the other half too.',
     ],
     onLock: () => {
       guessed = fresh = true;
@@ -410,8 +410,8 @@ export const backwardsLedFigure = figure(['find'], (ctx, t) => {
     face: [180, 150],
     brief: 'Two green LEDs, each with a 470 Ω resistor, should both light. LED 2 is dark.',
     culprit: 'led2',
-    found: 'Found it: LED 2 is in backwards. A diode the wrong way round doesn’t conduct, so no current flows in its branch, R2 drops nothing, and the full 9 V turns up across the LED, as it would across a break, and more than most LEDs are meant to take backwards. On the board, its flat edge, the cathode, faces the wrong way.',
-    hints: ['Compare the two branches, part by part.', 'A lit LED drops about 2 V. What does LED 2 drop?'],
+    found: 'Found it: LED 2 is in backwards. A reverse-biased diode blocks current, so no current flows in its branch, R2 drops 0 V, and the full 9 V appears across the LED, exceeding the 5 V reverse rating of a typical LED. On the board, the flat edge marking its cathode faces the wrong way.',
+    hints: ['Compare the voltages along the two branches, part by part.', 'A lit LED drops about 2 V. What does LED 2 drop?'],
     par: 6,
   });
 });

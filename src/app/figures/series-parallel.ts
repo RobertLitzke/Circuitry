@@ -50,12 +50,12 @@ export const parallelBulbsFigure = figure(['reveal'], (ctx, t) => {
     const s = solve(parts);
     sch.show(s);
     if (!revealed) {
-      f.readout.textContent = 'Bulb A is lit. Closing the switch puts bulb B beside it, so each bulb has its own path from + to −.';
+      f.readout.textContent = 'Bulb A is lit. Closing the switch puts bulb B beside it, so each bulb has its own path from + to -.';
       return;
     }
     const battery = Math.abs(s.i.bat);
     f.readout.textContent = sw.closed
-      ? `${q.reply()} Each bulb has the whole battery across it and takes ${amps(s.i.A)}. The battery now gives ${amps(battery)}, twice as much: a parallel bulb asks more of the battery, not less of the first bulb.`
+      ? `${q.reply()} Each bulb has the whole battery across it and takes ${amps(s.i.A)}. The battery now gives ${amps(battery)}, twice as much, because adding a parallel branch draws extra current from the battery while leaving the first bulb's current unchanged.`
       : `With the switch open, A takes ${amps(s.i.A)} and so does the battery. Close it again and watch the battery's wire.`;
   };
   const q = guess({
@@ -63,9 +63,9 @@ export const parallelBulbsFigure = figure(['reveal'], (ctx, t) => {
     options: ['It dims: the two share', 'It stays the same', 'It gets brighter'],
     answer: 1,
     replies: [
-      'Most people guess that. But nothing is shared out: each bulb has its own path across the battery.',
-      'Right, near enough. A real battery sags a hair under the extra load, which lesson 3 is about.',
-      'It doesn’t get any more push than before, so it can’t get brighter.',
+      'Most people guess that, expecting the two bulbs to split a fixed current. Because each bulb has its own direct path across the battery, each gets the full battery voltage and draws its full current.',
+      'That is right for an ideal battery. A real battery\'s voltage sags slightly under the extra load, which lesson 3 covers.',
+      'Bulb A already had the full battery voltage across it, so adding bulb B cannot give A any extra push.',
     ],
     onLock: () => {
       revealed = true;
@@ -131,7 +131,7 @@ export const junctionFigure = figure(['target'], (ctx, t) => {
     const off = (total - 0.03) / 0.03;
     f.readout.textContent =
       `Into the junction: ${amps(total)}. Out of it: ${each.map((i) => amps(i)).join(' + ')}. ` +
-      (Math.abs(off) < 0.05 ? 'Within 5% of 30 mA.' : `Set the resistors so the battery gives 30 mA in all.`);
+      (Math.abs(off) < 0.05 ? 'Current is within 5% of 30 mA.' : `Set the resistors so the battery gives 30 mA in all.`);
     if (Math.abs(off) < 0.05 && !done) {
       done = true;
       const branchMax = Math.max(...each);
@@ -186,7 +186,7 @@ export const rankingFigure = figure(['rank'], (ctx, t) => {
   const paint = () => {
     const s = solve(parts);
     sch.show(s);
-    if (stage === 0) f.readout.textContent = 'Three identical bulbs. All of the current goes through A; then it splits between B and C. Rank them, brightest first.';
+    if (stage === 0) f.readout.textContent = 'All three bulbs are identical. All of the battery\'s current goes through A, and then splits equally between B and C. Rank them, brightest first.';
     else if (stage === 1)
       f.readout.textContent = `${first.reply()} A takes ${amps(s.i.A)}, which splits into ${amps(s.i.B)} through B and ${amps(s.i.C)} through C. Now the switch will take bulb C out.`;
     else
@@ -196,7 +196,7 @@ export const rankingFigure = figure(['rank'], (ctx, t) => {
     question: 'Rank the bulbs, brightest first.',
     options: ['A, then B and C equal', 'All three equal', 'B and C, then A'],
     answer: 0,
-    replies: ['Right.', 'They’d be equal in a single loop, but here A carries the current of B and C together.', 'B and C share what comes through A, so each gets half of it.'],
+    replies: ['That is right: A carries the full current while B and C split it.', 'They would be equally bright in a single series loop, but here A carries the combined current of B and C.', 'B and C share what comes through A, so each gets half of it.'],
     onLock: () => {
       stage = 1;
       sch.cover({});
@@ -208,7 +208,7 @@ export const rankingFigure = figure(['rank'], (ctx, t) => {
     question: 'Take bulb C out. What happens to A?',
     options: ['A gets brighter', 'A dims', 'A stays the same'],
     answer: 1,
-    replies: ['It feels as though less sharing should mean more for A. But the current is set by the whole circuit, and it just got harder to push through.', 'Right: and B brightens.', 'Everything in a circuit is joined up: change one branch and the rest changes too.'],
+    replies: ['It feels as though removing a bulb should leave more current for A, but taking away a parallel path raises the circuit\'s total resistance, so less current flows from the battery.', 'That is right: A dims, and B brightens because it no longer shares the current with C.', 'Everything in a circuit is joined up: change one branch and the rest changes too.'],
     onLock: () => {
       stage = 2;
       sw.closed = false;
@@ -293,10 +293,10 @@ export const cellsFigure = figure(['all'], (ctx, t) => {
     const c2 = -s.i.c2;
     f.readout.textContent =
       mode === 'series'
-        ? `Stacked + to −, the cells’ voltages add: ${volts(v)} across the lamp, and the same ${amps(s.i.lamp)} goes through both cells.`
+        ? `Stacked + to -, the cells' voltages add: ${volts(v)} appears across the lamp, and the same ${amps(s.i.lamp)} flows through both cells.`
         : mode === 'parallel'
-          ? `Side by side, the voltage is one cell’s: ${volts(v)}. But each cell gives only ${amps(c1)}, half the lamp’s ${amps(s.i.lamp)}, so together they last twice as long.`
-          : `The fresh cell gives ${amps(c1)}, and the flat one ${c2 < 0 ? `takes ${amps(-c2)} back in` : `gives only ${amps(c2)}`}: current flows from the strong cell into the weak one, warming both. Never put mismatched cells side by side.`;
+          ? `Side by side, the voltage stays at one cell's voltage of ${volts(v)}. Each cell supplies only ${amps(c1)}, half of the lamp's ${amps(s.i.lamp)}, so together they last twice as long.`
+          : `The fresh cell supplies ${amps(c1)}, and the flat one ${c2 < 0 ? `takes ${amps(-c2)} back in` : `gives only ${amps(c2)}`}: current flows from the strong cell into the weak one, warming both. Never wire mismatched cells in parallel.`;
     if (tried.size === 3) t.done();
   };
   f.controls.append(row);

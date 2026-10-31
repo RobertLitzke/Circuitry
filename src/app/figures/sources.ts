@@ -53,7 +53,7 @@ export const dividerFigure = figure(['three'], (ctx, t) => {
     const v = s.v.out;
     face.show(v.toFixed(2), 'V', 'V');
     const ok = Math.abs(v - 3) < 0.09;
-    f.readout.textContent = `R1 drops ${volts(9 - v)} and R2 drops ${volts(v)}: they split the 9 V in the ratio of their resistances. ` + (ok ? 'Within 3% of 3 V.' : 'Get the output to 3 V, within 3%.');
+    f.readout.textContent = `R1 drops ${volts(9 - v)} and R2 drops ${volts(v)}: they split the 9 V in the ratio of their resistances. ` + (ok ? 'The output is within 3% of 3 V.' : 'Get the output to 3 V, within 3%.');
     if (ok) t.done();
   };
   f.controls.append(
@@ -140,9 +140,9 @@ export const sagFigure = figure(['stiff'], (ctx, t) => {
     const draw = Math.abs(loaded.i.bat);
     const ok = vOpen > 2.85 && vOpen < 3.15 && vLoad >= 2.8;
     f.readout.textContent =
-      `Unloaded: ${volts(vOpen)}. With the 4.7 kΩ load on: ${volts(vLoad)}, ${vOpen - vLoad > 0.05 ? `a sag of ${volts(vOpen - vLoad)}` : 'hardly any sag'}. ` +
+      `Unloaded: ${volts(vOpen)}. With the 4.7 kΩ load on: ${volts(vLoad)} (${vOpen - vLoad > 0.05 ? `a sag of ${volts(vOpen - vLoad)}` : 'hardly any sag'}). ` +
       `The divider draws ${amps(draw)} from the battery. ` +
-      (ok ? 'It holds.' : 'Make about 3 V that stays at 2.8 V or more with the load on. Tap the switch to try the load.');
+      (ok ? 'The output holds above 2.8 V under load.' : 'Make about 3 V that stays at 2.8 V or more with the load on. Tap the switch to try the load.');
     if (ok && !done) {
       done = true;
       earned.replaceChildren(stars([
@@ -271,7 +271,7 @@ export const mysteryBoxFigure = figure(['inside'], (_ctx, t) => {
     if (!truth) {
       f.readout.textContent = points[box].length < 4
         ? `${here} Measure this one open, shorted and at a few loads.`
-        : `${here} No straight line goes through these points. Box 3 is a small solar panel: it holds its voltage until the current nears its limit, then collapses. It is closer to a current source than to a voltage behind a resistor.`;
+        : `${here} No straight line goes through these points. Box 3 is a small solar panel: it holds its voltage until the current nears its limit, then collapses. It behaves much more like a current source than a voltage behind a resistor.`;
       if (points[box].length >= 4 && solvedBoxes.size >= 1) t.done();
       return;
     }
@@ -307,12 +307,12 @@ export const wrongValueFigure = figure(['find'], (ctx, t) => {
     schematic: { topVolts: 9, typicalAmps: 0.003, grounds: [[50, 205]] },
     size: [400, 240],
     face: [290, 70],
-    brief: 'Three 1 kΩ resistors in series should each drop 3 V. Something is off.',
+    brief: 'Three 1 kΩ resistors in series should each drop 3 V, so one of these parts has the wrong value.',
     culprit: 'r3',
     found: 'Found it: R3 drops half what the others do, so it has about half their resistance. It is a 470 Ω, yellow-violet-brown, fitted where a 1 kΩ, brown-black-red, should be.',
     hints: [
-      'Measure across each resistor in turn. In series they share one current, so each one’s drop is in proportion to its resistance.',
-      'Only one part is wrong. The odd one out is it.',
+      'Measure across each resistor in turn. In series they share one current, so each one\'s drop is in proportion to its resistance.',
+      'Only one resistor is wrong, so look for the voltage drop that differs from the other two.',
     ],
     par: 6,
   });
