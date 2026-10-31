@@ -1,18 +1,12 @@
-// A lesson (Didactics' lesson view), with a board at the top. A lesson that
-// is planned but not written yet (no parts) goes home, which Didactics does
-// by itself.
+// What Circuitry adds to Didactics' lesson player (defineCourse's `lesson`):
+// a board at the top of each lesson. A lesson that is planned but not written
+// yet (no parts) goes home, which Didactics does by itself.
 
-import { lessonView as kitLessonView } from 'didactics/lesson';
-import { LESSONS } from '../../core/lessons';
-import { FIGURES } from '../figures';
-import { prose } from '../figures/kit';
+import type { LessonViewOptions } from 'didactics/lesson';
+import type { Lesson } from '../../core/lessons';
+import type { SaveData } from '../../core/save';
 import { makeBoard } from '../scene/board';
-import { store } from '../store';
 
-export const lessonView = kitLessonView({
-  lessons: LESSONS,
-  figures: FIGURES,
-  store,
-  prose,
+export const lessonOptions: Partial<LessonViewOptions<Lesson, SaveData>> = {
   hero: (l) => makeBoard({ seed: 30 + l.n, h: 220 }),
-});
+};

@@ -7,7 +7,7 @@ import { FIGURES } from '../src/app/figures';
 import { FIGURE_IDS, isWritten, LESSONS, TRACKS, type Question } from '../src/core/lessons';
 import { REFERENCE } from '../src/core/reference';
 import { SYMBOLS } from '../src/app/circuit/symbols';
-import { DECK } from '../src/app/views/quiz';
+import { DECK } from '../src/app/deck';
 import quiz from '../src/data/quiz.json';
 import type { Concept } from 'didactics/quiz';
 

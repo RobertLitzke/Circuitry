@@ -2,7 +2,11 @@
 import { describe, expect, it } from 'vitest';
 import type { ViewContext } from 'didactics/router';
 import { homeView } from '../src/app/views/home';
-import { lessonView } from '../src/app/views/lesson';
+import { lessonView as kitLessonView } from 'didactics/lesson';
+import { FIGURES } from '../src/app/figures';
+import { prose } from '../src/app/figures/kit';
+import { store } from '../src/app/store';
+import { lessonOptions } from '../src/app/views/lesson';
 import { referenceView } from '../src/app/views/reference';
 import { isWritten, LESSONS, TRACKS } from '../src/core/lessons';
 
@@ -10,6 +14,9 @@ const nav = (params: Record<string, string> = {}): ViewContext & { went: string[
   const went: string[] = [];
   return { params, navigate: (p) => went.push(p), replace: (p) => went.push(p), went };
 };
+
+// The lesson player as main.ts has defineCourse make it.
+const lessonView = kitLessonView({ ...lessonOptions, lessons: LESSONS, figures: FIGURES, store, prose });
 
 describe('views', () => {
   it('home lists every lesson by track, with only written ones to start', () => {
